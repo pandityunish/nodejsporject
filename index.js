@@ -9,7 +9,7 @@ const messageRouter = require("./routers/messageRouter");
 app.use(express.json());
 app.use(authRouter);
 app.use(messageRouter);
-var clients = {};
+let clients =new Map();
 
 let db= process.env.MONGO_URL||"mongodb+srv://freerishteywala:freerishteywala@cluster0.qqqubx5.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(db).then(()=>{
@@ -30,16 +30,24 @@ var io=socket(server,{
 });
 io.on("connection", (socket) => {
     // console.log("connetetd");
-    // console.log(socket.id, "has joined");
+    console.log(socket.id, "has joined");
+    global.chatSocket=socket;
+    console.log(clients);
     socket.on("signin", (id) => {
       console.log(id);
-      clients[id] = socket;
+    //   clients[id] = socket;
+    clients.set(id,socket.id);
       console.log(clients);
     });
     socket.on("message", (msg) => {
-    //   console.log(msg);
+      console.log(msg);
+    console.log(clients);
       let targetId = msg.targetId;
-      if (clients[targetId]) clients[targetId].emit("message", msg);
+      const sendUserSocket=clients.get(targetId);
+      if (sendUserSocket)
+      console.log(sendUserSocket);
+    //    clients[targetId].emit("message", msg);
+       socket.to(sendUserSocket).emit("message",msg)
     });
   });
   

@@ -1,11 +1,12 @@
 const express=require("express");
-const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount } = require("../controller/authController");
+const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid } = require("../controller/authController");
 
 const authRouter=express.Router();
 
 authRouter.post("/auth/createuser",createuser);
 authRouter.post("/auth/getalluser",getallusers);
 authRouter.get("/auth/getuser/:email",getuserdata);
+authRouter.get("/auth/getuserbyid/:_id",getuserdatabyid);
 authRouter.get("/auth/finduser/:email",finduser);
 authRouter.post("/auth/createsavedpref",createsavepref);
 authRouter.get("/auth/getsavedpref/:email",getusersavedpref);

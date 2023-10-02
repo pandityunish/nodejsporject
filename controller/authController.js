@@ -32,6 +32,16 @@ module.exports.getuserdata=async(req,res)=>{
       res.status(500).json({mes:e.message})
   }
 }
+module.exports.getuserdatabyid=async(req,res)=>{
+  try {
+    const {_id}=req.params;
+    let user=await User.findOne({_id});
+   
+    res.json(user);
+  } catch (e) {
+      res.status(500).json({mes:e.message})
+  }
+}
 module.exports.getallusers=async(req,res)=>{
     try {
         const {email,gender,page,ages,

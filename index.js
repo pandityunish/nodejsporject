@@ -5,10 +5,13 @@ const PORT=process.env.PORT|| 3000;
 const app =express();
 const socket=require("socket.io");
 const messageRouter = require("./routers/messageRouter");
+const adminRouter = require("./routers/adminRouter");
 
 app.use(express.json());
 app.use(authRouter);
 app.use(messageRouter);
+app.use(adminRouter);
+
 let clients =new Map();
 
 let db= process.env.MONGO_URL||"mongodb+srv://freerishteywala:freerishteywala@cluster0.qqqubx5.mongodb.net/?retryWrites=true&w=majority";

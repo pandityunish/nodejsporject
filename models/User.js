@@ -6,7 +6,7 @@ const userMessage = require("./user_message");
 const userSchema=mongoose.Schema({
     aboutme:{
       type:String,
-      required:true,
+     default:""
     },
     diet:{
         type:String,
@@ -42,7 +42,7 @@ const userSchema=mongoose.Schema({
       },
       patnerprefs:{
         type:String,
-        required:true,
+        default:""
       },
       smoke:{
         type:String,

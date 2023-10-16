@@ -152,29 +152,13 @@ if(location.length){
 
 }
 filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-filteredUsers.aggregate([
-  {
-    $match: {
-      lat: { $exists: true },
-      lng: { $exists: true },
-    },
-  },
-  {
-    $geoNear: {
-      near: {
-        type: 'Point',
-        coordinates: [lat, lng],
-      },
-      distanceField: 'distance',
-      spherical: true,
-    },
-  },
-  {
-    $sort: {
-      distance: 1, // Ascending order by distance
-    },
-  },
-]);
+filteredUsers = filteredUsers.map(user => ({
+  ...user,
+  distance: calculateDistance(lat, lng, user.lat, user.lng),
+}));
+
+filteredUsers.sort((a, b) => a.distance - b.distance);
+
           console.log(filteredUsers);
           // Paginate the results
           const startIndex = (page - 1) * itemsPerPage;
@@ -187,6 +171,24 @@ filteredUsers.aggregate([
     } catch (e) {
         res.status(500).json({mes:e.message})
     }
+}
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Earth radius in kilometers
+  const dLat = toRadians(lat2 - lat1);
+  const dLon = toRadians(lon2 - lon1);
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c;
+}
+
+// Helper function to convert degrees to radians
+function toRadians(degrees) {
+  return degrees * (Math.PI / 180);
 }
 module.exports.finduser=async(req,res)=>{
   try {

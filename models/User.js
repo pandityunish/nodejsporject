@@ -185,5 +185,6 @@ const userSchema=mongoose.Schema({
   timestamps:true
  }
 );
+userSchema.index({ lat: '2d', lng: '2d' });
 const User=mongoose.model("Users",userSchema);
 module.exports=User;

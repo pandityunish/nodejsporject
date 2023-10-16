@@ -56,10 +56,28 @@ module.exports.getallusers=async(req,res)=>{
           educationList,
           professionList,
           incomeList,
+          lat,
+          lng,
           location}=req.body;
         const itemsPerPage = 100;
-        let users=await User.find({});   
-        console.log(gender, religionList,
+        let users=await User.find({
+          lat: {
+            $exists: true,
+          },
+          lng: {
+            $exists: true,
+          },
+        }).sort({
+          $geoNear: {
+            near: {
+              type: 'Point',
+              coordinates: [lat, lng],
+            },
+            distanceField: 'distance',
+          },
+        });   
+        console.log(gender,
+           religionList,
           kundaliDoshList,
           maritalStatusList,
           dietList,

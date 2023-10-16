@@ -61,20 +61,7 @@ module.exports.getallusers=async(req,res)=>{
           location}=req.body;
         const itemsPerPage = 100;
         let users=await User.find({
-          lat: {
-            $exists: true,
-          },
-          lng: {
-            $exists: true,
-          },
-        }).sort({
-          $geoNear: {
-            near: {
-              type: 'Point',
-              coordinates: [lat, lng],
-            },
-            distanceField: 'distance',
-          },
+         
         });   
         console.log(gender,
            religionList,
@@ -165,7 +152,29 @@ if(location.length){
 
 }
 filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
+filteredUsers.aggregate([
+  {
+    $match: {
+      lat: { $exists: true },
+      lng: { $exists: true },
+    },
+  },
+  {
+    $geoNear: {
+      near: {
+        type: 'Point',
+        coordinates: [lat, lng],
+      },
+      distanceField: 'distance',
+      spherical: true,
+    },
+  },
+  {
+    $sort: {
+      distance: 1, // Ascending order by distance
+    },
+  },
+]);
           console.log(filteredUsers);
           // Paginate the results
           const startIndex = (page - 1) * itemsPerPage;

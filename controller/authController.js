@@ -62,7 +62,7 @@ module.exports.getallusers=async(req,res)=>{
         const itemsPerPage = 100;
         let users=await User.find({
          
-        });   
+        }).lean();   
         console.log(gender,
            religionList,
           kundaliDoshList,

@@ -63,6 +63,7 @@ module.exports.getallusers=async(req,res)=>{
         let users=await User.find({
          
         }).lean();   
+        users = users.map(user => user.toObject());
         console.log(gender,
            religionList,
           kundaliDoshList,

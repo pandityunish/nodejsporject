@@ -152,12 +152,12 @@ if(location.length){
 
 }
 filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-filteredUsers = filteredUsers.map(user => ({
-  ...user,
-  distance: calculateDistance(lat, lng, user.lat, user.lng),
-}));
+// filteredUsers = filteredUsers.map(user => ({
+//   ...user,
+//   distance: calculateDistance(lat, lng, user.lat, user.lng),
+// }));
 
-filteredUsers.sort((a, b) => a.distance - b.distance);
+// filteredUsers.sort((a, b) => a.distance - b.distance);
 
           console.log(filteredUsers);
           // Paginate the results

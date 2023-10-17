@@ -172,24 +172,24 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         res.status(500).json({mes:e.message})
     }
 }
-function calculateDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Earth radius in kilometers
-  const dLat = toRadians(lat2 - lat1);
-  const dLon = toRadians(lon2 - lon1);
+// function calculateDistance(lat1, lon1, lat2, lon2) {
+//   const R = 6371; // Earth radius in kilometers
+//   const dLat = toRadians(lat2 - lat1);
+//   const dLon = toRadians(lon2 - lon1);
 
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+//   const a =
+//     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+//     Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
 
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+//   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-  return R * c;
-}
+//   return R * c;
+// }
 
-// Helper function to convert degrees to radians
-function toRadians(degrees) {
-  return degrees * (Math.PI / 180);
-}
+// // Helper function to convert degrees to radians
+// function toRadians(degrees) {
+//   return degrees * (Math.PI / 180);
+// }
 module.exports.finduser=async(req,res)=>{
   try {
     const {email}=req.params;

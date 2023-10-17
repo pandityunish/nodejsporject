@@ -152,13 +152,13 @@ if(location.length){
   filteredUsers = filteredUsers.filter(user => location.includes(user.location) && user.status === 'approved');
 
 }
-filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 filteredUsers = filteredUsers.map(user => ({
   ...user,
   distance: calculateDistance(lat, lng, user.lat, user.lng),
 }));
 
 filteredUsers.sort((a, b) => a.distance - b.distance);
+
 
           console.log(filteredUsers);
           // Paginate the results

@@ -37,7 +37,7 @@ module.exports.updateuserstatus=async(req,res)=>{
 module.exports.searchuserbyemail=async(req,res)=>{
     try {
       const {searchemail,email}=req.body;
-      let users=await User.find({searchemail});
+      let users=await User.find({email:searchemail});
       let filteredUsers = users.filter(user => user.email !== email);
       res.json(filteredUsers);
     } catch (e) {

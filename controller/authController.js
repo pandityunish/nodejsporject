@@ -528,10 +528,14 @@ module.exports.deleteaccount=async(req,res)=>{
 }
 module.exports.updatelocation=async(req,res)=>{
   try {
-    const {email,lat,lng}=req.body;
+    const {email,lat,lng,country,state,city,location}=req.body;
     let user=await User.updateOne({email:email},{$set:{
       lat:lat,
-      lng:lng
+      lng:lng,
+      city:city,
+      state:state,
+      country:country,
+      location:location
     }});
     res.json(user);
   } catch (e) {

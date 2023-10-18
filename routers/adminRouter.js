@@ -1,5 +1,5 @@
 const express=require("express");
-const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers } = require("../controller/adminController");
+const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid } = require("../controller/adminController");
 
 const adminRouter=express.Router();
 adminRouter.post("/admin/findadminuser",findadminuser);
@@ -15,6 +15,7 @@ adminRouter.post("/admin/searchuserbyemail",searchuserbyemail);
 adminRouter.post("/admin/searchuserbyname",searchuserbyname);
 adminRouter.post("/admin/searchuserbysurname",searchuserbysurname);
 adminRouter.post("/admin/searchusers",searchusers);
+adminRouter.post("/admin/searchusersbyid",searchuserbyid);
 
 
 

@@ -47,7 +47,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
   module.exports.searchuserbyid=async(req,res)=>{
     try {
       const {puid,email}=req.body;
-      let users=await User.find({_id:puid});
+      let users=await User.find({puid:puid});
       let filteredUsers = users.filter(user => user.email !== email);
       res.json(filteredUsers);
     } catch (e) {

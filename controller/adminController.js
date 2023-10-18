@@ -54,6 +54,16 @@ module.exports.searchuserbyemail=async(req,res)=>{
       res.status(500).json({mes:e.message})
     }
   }
+  module.exports.searchuserbyphoneunmber=async(req,res)=>{
+    try {
+      const {phonenumber,email}=req.body;
+      let users=await User.find({phone:phonenumber});
+      let filteredUsers = users.filter(user => user.email !== email);
+      res.json(filteredUsers);
+    } catch (e) {
+      res.status(500).json({mes:e.message})
+    }
+  }
   module.exports.searchuserbyname=async(req,res)=>{
     try {
       const {name,email}=req.body;

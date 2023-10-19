@@ -4,7 +4,7 @@ const User = require("../models/User");
 
 module.exports.createuser=async(req,res)=>{
 try {
-    const {aboutme,age,puid,diet,lat,lng,disability,drink,imageurls,education,height,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location,city,state,country,token,dob}=req.body;
+    const {aboutme,age,puid,diet,lat,lng,disability,drink,imageurls,placeofbirth,timeofbirth,education,height,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location,city,state,country,token,dob}=req.body;
          let existingUser=await User.findOne({email});
         
         if(existingUser){
@@ -14,6 +14,7 @@ try {
         let user=User({aboutme,age,diet,disability,
           puid,
           status:"",
+          placeofbirth,timeofbirth,
           drink,education,lat,lng,height,imageurls,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location,city,state,country,token,dob});
         
         user=await user.save();

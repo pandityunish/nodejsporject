@@ -82,6 +82,12 @@ const userSchema=mongoose.Schema({
         type:String,
         required:true,
       },
+      timeofbirth:{
+      type:String,
+      },
+      placeofbirth:{
+        type:String,
+      },
       kundalidosh:{
         type:String,
       },

@@ -6,12 +6,13 @@ const app =express();
 const socket=require("socket.io");
 const messageRouter = require("./routers/messageRouter");
 const adminRouter = require("./routers/adminRouter");
+const queryRouter = require("./routers/queryRouter");
 
 app.use(express.json());
 app.use(authRouter);
 app.use(messageRouter);
 app.use(adminRouter);
-
+app.use(queryRouter);
 let clients =new Map();
 
 let db= process.env.MONGO_URL||"mongodb+srv://freerishteywala:freerishteywala@cluster0.qqqubx5.mongodb.net/?retryWrites=true&w=majority";

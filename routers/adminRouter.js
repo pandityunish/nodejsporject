@@ -18,7 +18,7 @@ adminRouter.post("/admin/searchusers",searchusers);
 adminRouter.post("/admin/searchusersbyid",searchuserbyid);
 adminRouter.post("/admin/searchusersbyphone",searchuserbyphoneunmber);
 adminRouter.post("/admin/addnotification",addtonotification);
-adminRouter.post("/admin/getallnotification",getallnotification);
+adminRouter.get("/admin/getallnotification",getallnotification);
 
 
 

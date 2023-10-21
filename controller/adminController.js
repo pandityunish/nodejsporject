@@ -1,3 +1,4 @@
+const AdminNotification = require("../models/AdminNotification");
 const User = require("../models/User");
 const AdminModel = require("../models/adminmodel");
 
@@ -282,4 +283,27 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     } catch (e) {
         res.status(500).json({mes:e.message})
     }
+}
+
+module.exports.addtonotification=async(req,res)=>{
+  try {
+    const {userid,useremail,title,userimage}=req.body;
+    let notifications=AdminNotification({
+      userid,useremail,userimage,title
+    });
+    notifications=notifications.save();
+    res.json(notifications);
+  } catch (e) {
+    res.status(500).json({mes:e.message})
+  }
+}
+module.exports.getallnotification=async(req,res)=>{
+  try {
+    let notifications=AdminNotification.find({});
+    notifications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    res.json(notifications);
+  } catch (e) {
+    res.status(500).json({mes:e.message})
+  }
 }

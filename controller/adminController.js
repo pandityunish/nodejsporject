@@ -299,8 +299,7 @@ module.exports.addtonotification=async(req,res)=>{
 }
 module.exports.getallnotification=async(req,res)=>{
   try {
-    let notifications=AdminNotification.find({});
-    notifications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    let notifications=await AdminNotification.find({}).sort({_id:1});
 
     res.json(notifications);
   } catch (e) {

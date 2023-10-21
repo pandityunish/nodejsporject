@@ -7,7 +7,8 @@ const adminnotiSchema=mongoose.Schema({
     },
     userimage:{
         type:String,
-        required:true,
+        default:""
+        // required:true,
     },
     useremail:{
         type:String,

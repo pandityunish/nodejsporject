@@ -1,3 +1,4 @@
+const DeleteUser = require("../models/DeleteModel");
 const notification = require("../models/Notification");
 const SavedPrefer = require("../models/Save_Pref");
 const User = require("../models/User");
@@ -519,10 +520,15 @@ module.exports.pushactivities=async(req,res)=>{
 
 module.exports.deleteaccount=async(req,res)=>{
   try {
-    const{email}=req.body;
+    const {aboutme,age,puid,diet,lat,lng,disability,drink,imageurls,placeofbirth,timeofbirth,education,height,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location,city,state,country,token,dob,reasontodeleteuser}=req.body;
     let user=await User.deleteOne({email:email});
-    let sharedpref=await SavedPrefer.deleteOne({email:email})
-    res.json(user,sharedpref);
+    let deleteaccount=DeleteUser({
+      aboutme,age,puid,diet,lat,lng,disability,drink,imageurls,placeofbirth,timeofbirth,education,height,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location,city,state,country,token,dob,reasontodeleteuser
+    })
+    deleteaccount=await deleteaccount.save();
+
+    // let sharedpref=await SavedPrefer.deleteOne({email:email})
+    res.json(deleteaccount);
   } catch (e) {
     res.status(500).json({mes:e.message})
   }

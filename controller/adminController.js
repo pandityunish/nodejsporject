@@ -183,18 +183,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
           location}=req.body;
         const itemsPerPage = 100;
         let users=await User.find({});   
-        console.log(gender, religionList,
-          kundaliDoshList,
-          maritalStatusList,
-          dietList,
-          drinkList,
-          smokeList,
-          disabilityList,
-          heightList,
-          educationList,
-          professionList,
-          incomeList,
-          location)
+      
           if (!email) {
             return res.status(400).json({ error: 'Email is required in the request body.' });
           }
@@ -309,7 +298,7 @@ module.exports.getallnotification=async(req,res)=>{
 }
 module.exports.searchuserbydistance=async(req,res)=>{
   try {
-    const{longitude,latitude,maxDistanceKm}=req.body;
+    const{longitude,latitude,maxDistanceKm,email}=req.body;
     // const earthRadiusKm = 6371; // Approximate radius of the Earth in kilometers
   // const maxDistanceRadians = maxDistanceKm / earthRadiusKm;
   // const point = GeoJSON.Point([longitude, latitude]);
@@ -324,6 +313,7 @@ module.exports.searchuserbydistance=async(req,res)=>{
   {  lng: { $gte: lon - (maxDistanceKm / 111.32), $lte: lon + (maxDistanceKm / 111.32) },},
     {lat: { $gte: lat - (maxDistanceKm / (111.32 * Math.cos(lat * (Math.PI / 180)))), $lte: lat + (maxDistanceKm / (111.32 * Math.cos(lat * (Math.PI / 180)))) }}
   ]});
+  let filteredUsers = users.filter(user => user.email !== email);
 //     const users = await User.find({
 //       $and: [
 //         {
@@ -340,7 +330,7 @@ module.exports.searchuserbydistance=async(req,res)=>{
 //         },
 //       ],
 //     });
-res.json(users);
+res.json(filteredUsers);
   } catch (e) {
     res.status(500).json({mes:e.message})
   }

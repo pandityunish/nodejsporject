@@ -189,9 +189,11 @@ module.exports.searchuserbyemail=async(req,res)=>{
         if(maxDistanceKm!==0){
           const lon = parseFloat(longitude);
           const lat = parseFloat(latitude);
+          const lonDelta = (maxDistanceKm / 40075) * 360;
+    const latDelta = (maxDistanceKm / 40075) * 360;
           let users=await User.find({$and:[
-            {  lng: { $gte: lon - (maxDistanceKm / 111.32), $lte: lon + (maxDistanceKm / 111.32) },},
-              {lat: { $gte: lat - (maxDistanceKm / (111.32 * Math.cos(lat * (Math.PI / 180)))), $lte: lat + (maxDistanceKm / (111.32 * Math.cos(lat * (Math.PI / 180)))) }}
+             {  lng: { $gte: lon - (lonDelta / 2), $lte: lon + (lonDelta / 2) },},
+            {lat: { $gte: lat - (latDelta / 2), $lte: lat + (latDelta / 2) }}
             ]});   
       
           if (!email) {

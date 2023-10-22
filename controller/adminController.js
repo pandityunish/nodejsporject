@@ -316,15 +316,14 @@ module.exports.searchuserbydistance=async(req,res)=>{
   const lon = parseFloat(longitude);
   const lat = parseFloat(latitude);
 
-  // Create a geospatial query using $geoWithin
-  const filter = {
-    longitude: { $gte: lon - (maxDistanceKm / 111.32), $lte: lon + (maxDistanceKm / 111.32) },
-    latitude: { $gte: lat - (maxDistanceKm / (111.32 * Math.cos(lat * (Math.PI / 180)))), $lte: lat + (maxDistanceKm / (111.32 * Math.cos(lat * (Math.PI / 180)))) }
-  };
+
   
 
 
-  const users = await User.find({filter});
+  const users = await User.find({$and:[
+  {  lng: { $gte: lon - (maxDistanceKm / 111.32), $lte: lon + (maxDistanceKm / 111.32) },},
+    {lat: { $gte: lat - (maxDistanceKm / (111.32 * Math.cos(lat * (Math.PI / 180)))), $lte: lat + (maxDistanceKm / (111.32 * Math.cos(lat * (Math.PI / 180)))) }}
+  ]});
 //     const users = await User.find({
 //       $and: [
 //         {

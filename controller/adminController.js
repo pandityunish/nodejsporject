@@ -1,6 +1,7 @@
 const AdminNotification = require("../models/AdminNotification");
 const User = require("../models/User");
 const AdminModel = require("../models/adminmodel");
+const GeoJSON = require('geojson');
 
 module.exports.findadminuser=async(req,res)=>{
     try {
@@ -302,6 +303,45 @@ module.exports.getallnotification=async(req,res)=>{
     let notifications=await AdminNotification.find({}).sort({_id:1});
 
     res.json(notifications);
+  } catch (e) {
+    res.status(500).json({mes:e.message})
+  }
+}
+module.exports.searchuserbydistance=async(req,res)=>{
+  try {
+    const{longitude,latitude,maxDistanceKm}=req.body;
+    // const earthRadiusKm = 6371; // Approximate radius of the Earth in kilometers
+  // const maxDistanceRadians = maxDistanceKm / earthRadiusKm;
+  // const point = GeoJSON.Point([longitude, latitude]);
+  const lon = parseFloat(longitude);
+  const lat = parseFloat(latitude);
+
+  // Create a geospatial query using $geoWithin
+  const filter = {
+    longitude: { $gte: lon - (maxDistanceKm / 111.32), $lte: lon + (maxDistanceKm / 111.32) },
+    latitude: { $gte: lat - (maxDistanceKm / (111.32 * Math.cos(lat * (Math.PI / 180)))), $lte: lat + (maxDistanceKm / (111.32 * Math.cos(lat * (Math.PI / 180)))) }
+  };
+  
+
+
+  const users = await User.find({filter});
+//     const users = await User.find({
+//       $and: [
+//         {
+//           lng: {
+//             $gte: longitude - maxDistanceRadians, // Adjust the distance as needed
+//             $lte: longitude + maxDistanceRadians,
+//           },
+//         },
+//         {
+//           lat: {
+//             $gte: latitude - maxDistanceRadians, // Adjust the distance as needed
+//             $lte: latitude + maxDistanceRadians,
+//           },
+//         },
+//       ],
+//     });
+res.json(users);
   } catch (e) {
     res.status(500).json({mes:e.message})
   }

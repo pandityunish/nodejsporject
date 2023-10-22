@@ -546,3 +546,30 @@ module.exports.updatelocation=async(req,res)=>{
     res.status(500).json({mes:e.message})
   }
 }
+
+module.exports.cleartoken=async(req,res)=>{
+  try {
+    const {email}=req.body;
+    let user=await User.updateOne({email},{
+      $set:{
+        token:""
+      }
+    });
+    res.json(user);
+  } catch (e) {
+    
+  }
+}
+module.exports.addtoken=async(req,res)=>{
+  try {
+    const {email,token}=req.body;
+    let user=await User.updateOne({email},{
+      $set:{
+        token:token
+      }
+    });
+    res.json(user);
+  } catch (e) {
+    
+  }
+}

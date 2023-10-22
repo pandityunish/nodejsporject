@@ -186,7 +186,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
           maxDistanceKm,
           location}=req.body;
         const itemsPerPage = 100;
-        if(maxDistanceKm){
+        if(maxDistanceKm!==0){
           const lon = parseFloat(longitude);
           const lat = parseFloat(latitude);
           let users=await User.find({$and:[

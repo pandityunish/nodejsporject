@@ -186,7 +186,9 @@ module.exports.searchuserbyemail=async(req,res)=>{
           maxDistanceKm,
           location}=req.body;
         const itemsPerPage = 100;
-        if(maxDistanceKm!==0){
+        
+        if(maxDistanceKm){
+          console.log(maxDistanceKm);
           const lon = parseFloat(longitude);
           const lat = parseFloat(latitude);
           const lonDelta = (maxDistanceKm / 40075) * 360;
@@ -195,18 +197,19 @@ module.exports.searchuserbyemail=async(req,res)=>{
              {  lng: { $gte: lon - (lonDelta / 2), $lte: lon + (lonDelta / 2) },},
             {lat: { $gte: lat - (latDelta / 2), $lte: lat + (latDelta / 2) }}
             ]});   
+
       
-          if (!email) {
-            return res.status(400).json({ error: 'Email is required in the request body.' });
-          }
+//           if (!email) {
+//             return res.status(400).json({ error: 'Email is required in the request body.' });
+//           }
         
-          if (!gender) {
-            return res.status(400).json({ error: 'Gender or religion is required in the request body.' });
-          }
+//           if (!gender) {
+//             return res.status(400).json({ error: 'Gender or religion is required in the request body.' });
+//           }
         
-          // Filter users based on gender and religion while excluding the user's own data
+//           // Filter users based on gender and religion while excluding the user's own data
           let filteredUsers = users.filter(user => user.email !== email);
-        // console.log(filteredUsers);
+//         // console.log(filteredUsers);
           if (gender) {
             filteredUsers = filteredUsers.filter(user => user.gender === gender);
           }
@@ -275,12 +278,12 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
           console.log(filteredUsers);
           // Paginate the results
-          const startIndex = (page - 1) * itemsPerPage;
-          const endIndex = startIndex + itemsPerPage;
-          const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+          // const startIndex = (page - 1) * itemsPerPage;
+          // const endIndex = startIndex + itemsPerPage;
+          // const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
         
           res.json(
-           paginatedUsers,
+            filteredUsers,
           );
         }else{
           let users=await User.find({});   

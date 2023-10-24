@@ -70,8 +70,30 @@ module.exports.searchuserbyemail=async(req,res)=>{
     try {
       const {name,email}=req.body;
       console.log(name);
-      let users=await User.find({name:name});
-      let filteredUsers = users.filter(user => user.email !== email );
+      const users = await User.aggregate([
+        {
+          $match: { name:{$regex: new RegExp(name, 'i'),} }, // Match documents with the specified name
+        },
+        {
+          $group: {
+            _id: '$name',
+            users: { $push: '$$ROOT' },
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $project: {
+            _id: 0, // Exclude _id field
+            count: 0, // Exclude count field
+          },}
+        // {
+        //   $match: { count: { $gt: 1 } },
+        // },
+      ]);
+      let filteredUsers = users
+      .filter(user => user.email !== email)
+      .map(user => user.users)
+      .flat();
       console.log(filteredUsers);
       res.json(filteredUsers);
     } catch (e) {

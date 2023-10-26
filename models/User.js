@@ -128,6 +128,10 @@ const userSchema=mongoose.Schema({
       dob:{
         type:Number,
       },
+      isLogOut:{
+        type:String,
+        default:"false"
+      },
       status:{
         type:String,
         default:""

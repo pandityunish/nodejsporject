@@ -8,6 +8,7 @@ const userSchema=mongoose.Schema({
       type:String,
      default:""
     },
+
     diet:{
         type:String,
         required:true,
@@ -72,6 +73,12 @@ const userSchema=mongoose.Schema({
         type:Number,
       },
       lng:{
+        type:Number,
+      },
+      adminlat:{
+        type:Number,
+      },
+      adminlng:{
         type:Number,
       },
       gender:{

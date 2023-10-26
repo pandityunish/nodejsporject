@@ -537,8 +537,8 @@ module.exports.updatelocation=async(req,res)=>{
   try {
     const {email,lat,lng}=req.body;
     let user=await User.updateOne({email:email},{$set:{
-      lat:lat,
-      lng:lng,
+      adminlat:lat,
+      adminlng:lng,
       
     }});
     res.json(user);

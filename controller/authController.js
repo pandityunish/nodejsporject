@@ -576,10 +576,10 @@ module.exports.addtoken=async(req,res)=>{
 }
 module.exports.updatelogin=async(req,res)=>{
   try {
-    const {email}=req.body;
+    const {email,mes}=req.body;
     let user=await User.updateOne({email},{
       $set:{
-        isLogOut:"true"
+        isLogOut:mes
       }
     });
     res.json(user);

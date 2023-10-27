@@ -572,4 +572,19 @@ module.exports.addtoken=async(req,res)=>{
   } catch (e) {
     
   }
+  
+}
+module.exports.updatelogin=async(req,res)=>{
+  try {
+    const {email}=req.body;
+    let user=await User.updateOne({email},{
+      $set:{
+        isLogOut:"true"
+      }
+    });
+    res.json(user);
+  } catch (e) {
+    
+  }
+  
 }

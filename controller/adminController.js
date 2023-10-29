@@ -293,7 +293,7 @@ if(incomeList.length){
 
 }
 if(location.length){
-  filteredUsers = filteredUsers.filter(user => location.includes(user.location) );
+  filteredUsers = filteredUsers.filter(user => location.includes(user.country) );
 
 }
 // filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));

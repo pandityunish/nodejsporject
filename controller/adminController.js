@@ -206,6 +206,8 @@ module.exports.searchuserbyemail=async(req,res)=>{
           longitude,
           latitude,
           maxDistanceKm,
+          citylocation,
+          statelocation,
           location}=req.body;
         const itemsPerPage = 100;
         
@@ -296,6 +298,14 @@ if(location.length){
   filteredUsers = filteredUsers.filter(user => location.includes(user.country) );
 
 }
+if(statelocation.length){
+  filteredUsers = filteredUsers.filter(user => location.includes(user.state) );
+
+}
+if(citylocation.length){
+  filteredUsers = filteredUsers.filter(user => location.includes(user.city) );
+
+}
 // filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
           console.log(filteredUsers);
@@ -383,6 +393,14 @@ if(incomeList.length){
 }
 if(location.length){
   filteredUsers = filteredUsers.filter(user => location.includes(user.country) );
+
+}
+if(statelocation.length){
+  filteredUsers = filteredUsers.filter(user => location.includes(user.state) );
+
+}
+if(citylocation.length){
+  filteredUsers = filteredUsers.filter(user => location.includes(user.city) );
 
 }
 filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));

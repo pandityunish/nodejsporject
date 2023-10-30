@@ -8,6 +8,12 @@ const adminModel=mongoose.Schema({
     email:{
         type:String,
         required:true,
+    },
+    lat:{
+        type:Number,
+    },
+    lng:{
+        type:Number,
     }
 });
 const AdminModel=mongoose.model("Admin",adminModel);

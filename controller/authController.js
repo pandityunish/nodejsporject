@@ -450,10 +450,11 @@ module.exports.canclereq=async(req,res)=>{
   try {
     const {uid,email,sendemail,senduid}=req.body;
     let user=await User.updateOne({email:email},{$pull:{
-      sendreq:senduid
+      pendingreq:senduid
     }});
     let senduser=await User.updateOne({email:sendemail},{$pull:{
-      pendingreq:uid
+      sendreq :uid
+      
     }});
     
     res.json({user,senduser});

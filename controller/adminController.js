@@ -338,7 +338,7 @@ if(location.length){
           }
           if(kundaliDoshList.length){
             console.log("ok")
-            filteredUsers = filteredUsers.filter(user => kundaliDoshList.includes(user.kundalidosh) );
+            filteredUsers = filteredUsers.filter(user => kundaliDoshList.includes(user.kundalidosh) && user.religion=="Hindu" );
 
          }
          if(maritalStatusList.length){

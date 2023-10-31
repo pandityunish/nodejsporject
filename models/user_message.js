@@ -7,7 +7,7 @@ const userMessage=mongoose.Schema({
     },
     userimage:{
         type:String,
-        required:true,
+        default:"",
     },
 
     lastmessage:{

@@ -77,8 +77,9 @@ module.exports.createusermessage=async(req,res)=>{
 }
 module.exports.updatelastmessage=async(req,res)=>{
     try {
-        const {lastmessage,lasttime,email,sendemail,senduserid,userid,userimage,username,sendusername,senduserimage}=req.body;
-      
+        // const {lastmessage,lasttime,email,sendemail,senduserid,userid,userimage,username,sendusername,senduserimage}=req.body;
+      const {email,chatemail,lastmessage,lasttime,senduseremail,sendchatemail}=req.body;
+
         // let filteruser= users.chats.findOne(chat =>chat.email===sendemail);
      
         // let senduser=await User.updateOne({email:sendemail},{
@@ -89,30 +90,40 @@ module.exports.updatelastmessage=async(req,res)=>{
         //        }
         // });
         // res.json({user,senduser});
-        let user=await User.updateOne({email:email},{
-            $set:{
-              chats:{
-                username:username,
-                userimage:userimage,
-                email:sendemail,
-                userid:userid,
-                lastmessage:lastmessage,
-                lasttime:lasttime
-              }
-            }
-        });
-        let senduser=await User.updateOne({email:sendemail},{
-            $set:{
-              chats:{
-                username:sendusername,
-                userimage:senduserimage,
-                email:email,
-                userid:senduserid,
-                lastmessage:lastmessage,
-                lasttime:lasttime
-              }
-            }
-        });
+        let user=await User.findOne({email});
+        const chat=user.chats.find(item => item.email == chatemail);
+        chat.lastmessage=lastmessage;
+        chat.lasttime=lasttime;
+        user.save();
+        let senderuser=await User.findOne({senduseremail});
+        const senderchat=senderuser.chats.find(item => item.email == sendchatemail);
+        senderchat.lastmessage=lastmessage;
+        senderchat.lasttime=lasttime;
+        senderuser.save();
+        // let user=await User.updateOne({email:email},{
+        //     $set:{
+        //       chats:{
+        //         username:username,
+        //         userimage:userimage,
+        //         email:sendemail,
+        //         userid:userid,
+        //         lastmessage:lastmessage,
+        //         lasttime:lasttime
+        //       }
+        //     }
+        // });
+        // let senduser=await User.updateOne({email:sendemail},{
+        //     $set:{
+        //       chats:{
+        //         username:sendusername,
+        //         userimage:senduserimage,
+        //         email:email,
+        //         userid:senduserid,
+        //         lastmessage:lastmessage,
+        //         lasttime:lasttime
+        //       }
+        //     }
+        // });
          res.json({user});
     } catch (e) {
         res.status(500).json({mes:e.message})

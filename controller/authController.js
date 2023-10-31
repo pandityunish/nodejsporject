@@ -135,7 +135,10 @@ if(disabilityList.length){
 
 }
 if(heightList.length){
-  filteredUsers = filteredUsers.filter(user => heightList.includes(user.height) && user.status === 'approved');
+  const intList = heightList.map(str => parseInt(str));
+            console.log(intList);  
+            console.log(intList[0]);
+  filteredUsers = filteredUsers.filter(user => user.height >= intList[0] && user.height <= intList[1] && user.status === 'approved');
 
 }
 if(educationList.length){

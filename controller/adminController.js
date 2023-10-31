@@ -279,7 +279,10 @@ if(disabilityList.length){
 
 }
 if(heightList.length){
-  filteredUsers = filteredUsers.filter(user => heightList.includes(user.height) );
+  const intList = heightList.map(str => parseInt(str));
+            console.log(intList);  
+            console.log(intList[0]);
+  filteredUsers = filteredUsers.filter(user => user.height >= intList[0] && user.height <= intList[1]);
 
 }
 if(educationList.length){
@@ -376,7 +379,10 @@ if(disabilityList.length){
 
 }
 if(heightList.length){
-  filteredUsers = filteredUsers.filter(user => heightList.includes(user.height) );
+  const intList = heightList.map(str => parseInt(str));
+            console.log(intList);  
+            console.log(intList[0]);
+  filteredUsers = filteredUsers.filter(user => user.height >= intList[0] && user.height <= intList[1]);
 
 }
 if(educationList.length){

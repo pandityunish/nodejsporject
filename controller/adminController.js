@@ -379,10 +379,14 @@ if(disabilityList.length){
 
 }
 if(heightList.length){
-  const intList = heightList.map(str => parseInt(str));
-            console.log(intList);  
-            console.log(intList[0]);
-  filteredUsers = filteredUsers.filter(user => user.height >= intList[0] && user.height <= intList[1]);
+  if (heightList.length) {
+    const [minHeight, maxHeight] = heightList.map(str => parseInt(str.split(" ")[0]));
+  
+    filteredUsers = filteredUsers.filter(user => {
+      const userHeight = parseInt(user.height.split(" ")[0]);
+      return userHeight >= minHeight && userHeight <= maxHeight;
+    });
+  }
 
 }
 if(educationList.length){

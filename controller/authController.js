@@ -107,7 +107,7 @@ module.exports.getallusers=async(req,res)=>{
           }
           if(kundaliDoshList.length){
             console.log("ok")
-            filteredUsers = filteredUsers.filter(user => kundaliDoshList.includes(user.kundalidosh) && user.status === 'approved');
+            filteredUsers = filteredUsers.filter(user => kundaliDoshList.includes(user.kundalidosh) && user.status === 'approved' && user.religion==="Hindu");
 
          }
          if(maritalStatusList.length){

@@ -47,7 +47,7 @@ module.exports.createusermessage=async(req,res)=>{
 
      console.log(senduseremail);
         let user=await User.updateOne({email:email},{
-            $addToSet:{
+            $push:{
               chats:{
                 username:username,
                 userimage:userimage,
@@ -59,7 +59,7 @@ module.exports.createusermessage=async(req,res)=>{
             }
         });
         let senduser=await User.updateOne({email:senduseremail},{
-            $addToSet:{
+            $push:{
               chats:{
                 username:sendusername,
                 userimage:senduserimage,

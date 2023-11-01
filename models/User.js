@@ -202,5 +202,6 @@ const userSchema=mongoose.Schema({
   timestamps:true
  }
 );
+userSchema. createIndex({ lat: '2dsphere', lng: '2dsphere' });
 const User=mongoose.model("Users",userSchema);
 module.exports=User;

@@ -212,20 +212,14 @@ module.exports.searchuserbyemail=async(req,res)=>{
         const itemsPerPage = 100;
         
         if(maxDistanceKm){
-          const maxDistanceKm1 = parseFloat(maxDistanceKm);
-const lon = parseFloat(longitude);
-const lat = parseFloat(latitude);
-          const maxDistanceRadians = maxDistanceKm1 / 6371;
-          const users = await User.find({
-            lat: {
-              $gte: lat - (maxDistanceRadians / 2),
-              $lte: lat + (maxDistanceRadians / 2),
-            },
-            lng: {
-              $gte: lon - (maxDistanceRadians / 2),
-              $lte: lon + (maxDistanceRadians / 2),
-            },
-          });
+          const maxDistanceKm1 = maxDistanceKm*1000;
+          let users=User.find({
+            location: {
+              $geoWithin: {
+                $centerSphere: [[longitude, latitude], maxDistanceKm1 / 6371]
+              }
+            }
+          })
 
       
 //           if (!email) {

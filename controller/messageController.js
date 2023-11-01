@@ -111,7 +111,7 @@ module.exports.updatelastmessage = async (req, res) => {
       const senderchat = senderuser.chats.find(item => item.email == sendchatemail);
   
       if (!senderchat) {
-        return res.status(404).json({ message: 'Sender chat not found' });
+        return res.status(404).json({ message: 'Sender chat not found43' });
       }
   
       // Update the sender chat's properties

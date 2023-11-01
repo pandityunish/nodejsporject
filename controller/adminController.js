@@ -212,12 +212,12 @@ module.exports.searchuserbyemail=async(req,res)=>{
         const itemsPerPage = 100;
         
         if(maxDistanceKm){
-          const maxDistanceKm = parseFloat(maxDistanceKm);
+          const maxDistance = parseFloat(maxDistanceKm);
 const lon = parseFloat(longitude);
 const lat = parseFloat(latitude);
 
 // Convert maxDistanceKm to radians
-const maxDistanceRadians = maxDistanceKm / 6371; // 6371 is the radius of the Earth in kilometers
+const maxDistanceRadians = maxDistance / 6371; // 6371 is the radius of the Earth in kilometers
 
 // Calculate latitude and longitude deltas using Haversine formula
 const latDelta = (maxDistanceRadians * (180 / Math.PI));

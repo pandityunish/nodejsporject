@@ -10,7 +10,7 @@ try {
         
         if(existingUser){
         return  res.status(400).json({mes:"Email is not available"})
-        }
+        }else{
             
         let user=User({aboutme,age,diet,disability,
           puid,
@@ -19,7 +19,7 @@ try {
           drink,education,lat,lng,height,imageurls,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location,city,state,country,token,dob});
         
         user=await user.save();
-        res.json(user);
+        res.json(user);}
 } catch (e) {
     res.status(500).json({mes:e.message})
 }

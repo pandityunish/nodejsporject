@@ -447,15 +447,24 @@ module.exports.addtonotification=async(req,res)=>{
     res.status(500).json({mes:e.message})
   }
 }
-module.exports.getallnotification=async(req,res)=>{
+module.exports.getallnotification = async (req, res) => {
   try {
-    let notifications=await AdminNotification.find({}).sort({_id:1});
+    const page = parseInt(req.query.page) || 1;
+    const perPage = parseInt(req.query.perPage) || 10;
+
+    const skipCount = (page - 1) * perPage;
+
+    const notifications = await AdminNotification.find({})
+      .sort({ _id: 1 })
+      .skip(skipCount)
+      .limit(perPage);
 
     res.json(notifications);
   } catch (e) {
-    res.status(500).json({mes:e.message})
+    res.status(500).json({ message: e.message });
   }
-}
+};
+
 module.exports.searchuserbydistance=async(req,res)=>{
   try {
     const{longitude,latitude,maxDistanceKm,email}=req.body;

@@ -70,6 +70,16 @@ const savedSchema=mongoose.Schema({
             type:String
         }
     ],
+    statelocation:[
+        {
+            type:String
+        }
+    ],
+    citylocation:[
+        {
+            type:String
+        }
+    ],
 });
 const SavedPrefer=mongoose.model("saved_pref",savedSchema);
 module.exports=SavedPrefer;

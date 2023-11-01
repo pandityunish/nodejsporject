@@ -60,6 +60,8 @@ module.exports.getallusers=async(req,res)=>{
           incomeList,
           lat,
           lng,
+          citylocation,
+          statelocation,
           location}=req.body;
         const itemsPerPage = 100;
         let users=await User.find({
@@ -78,6 +80,7 @@ module.exports.getallusers=async(req,res)=>{
           educationList,
           professionList,
           incomeList,
+          
           location)
           if (!email) {
             return res.status(400).json({ error: 'Email is required in the request body.' });
@@ -161,6 +164,14 @@ if(location.length){
   filteredUsers = filteredUsers.filter(user => location.includes(user.country) && user.status === 'approved');
 
 }
+if(statelocation.length){
+  filteredUsers = filteredUsers.filter(user => statelocation.includes(user.state) );
+
+}
+if(citylocation.length){
+  filteredUsers = filteredUsers.filter(user => citylocation.includes(user.city) );
+
+}
 filteredUsers = filteredUsers.map(user => ({
   ...user,
   distance: calculateDistance(lat, lng, user.lat, user.lng),
@@ -230,6 +241,8 @@ module.exports.createsavepref=async(req,res)=>{
   educationList,
   professionList,
   incomeList,
+  statelocation,
+  citylocation,
   location}=req.body;
   let user=await SavedPrefer.findOne({email});
   if(!user){
@@ -247,6 +260,8 @@ module.exports.createsavepref=async(req,res)=>{
       educationList,
       professionList,
       incomeList,
+      citylocation,
+      statelocation,
       location});
       saved_pref=await saved_pref.save();
       res.json(saved_pref);
@@ -258,7 +273,8 @@ module.exports.createsavepref=async(req,res)=>{
           religionList: religionList, 
           kundaliDoshList: kundaliDoshList, 
   
-       
+          statelocation:statelocation,
+          citylocation:citylocation,
           maritalStatusList: maritalStatusList, 
           dietList: dietList,       
           drinkList: drinkList, 

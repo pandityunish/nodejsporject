@@ -212,15 +212,25 @@ module.exports.searchuserbyemail=async(req,res)=>{
         const itemsPerPage = 100;
         
         if(maxDistanceKm){
-          console.log(maxDistanceKm);
-          const lon = parseFloat(longitude);
-          const lat = parseFloat(latitude);
-          const lonDelta = (maxDistanceKm / 40075) * 360;
-    const latDelta = (maxDistanceKm / 40075) * 360;
-          let users=await User.find({$and:[
-             {  lng: { $gte: lon - (lonDelta / 2), $lte: lon + (lonDelta / 2) },},
-            {lat: { $gte: lat - (latDelta / 2), $lte: lat + (latDelta / 2) }}
-            ]});   
+          const maxDistanceKm = parseFloat(maxDistanceKm);
+const lon = parseFloat(longitude);
+const lat = parseFloat(latitude);
+
+// Convert maxDistanceKm to radians
+const maxDistanceRadians = maxDistanceKm / 6371; // 6371 is the radius of the Earth in kilometers
+
+// Calculate latitude and longitude deltas using Haversine formula
+const latDelta = (maxDistanceRadians * (180 / Math.PI));
+const lonDelta = (maxDistanceRadians * (180 / Math.PI)) / Math.cos(lat * (Math.PI / 180));
+
+// Use these latDelta and lonDelta values in your query
+let users = await User.find({
+  $and: [
+    { lng: { $gte: lon - (lonDelta / 2), $lte: lon + (lonDelta / 2) } },
+    { lat: { $gte: lat - (latDelta / 2), $lte: lat + (latDelta / 2) } }
+  ]
+});
+ 
 
       
 //           if (!email) {

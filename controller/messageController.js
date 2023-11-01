@@ -124,7 +124,7 @@ module.exports.updatelastmessage=async(req,res)=>{
         //       }
         //     }
         // });
-         res.json({user});
+         res.json({user,senderuser});
     } catch (e) {
         res.status(500).json({mes:e.message})
     }

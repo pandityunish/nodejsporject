@@ -75,49 +75,57 @@ module.exports.createusermessage=async(req,res)=>{
         res.status(500).json({mes:e.message})
     }
 }
-module.exports.updatelastmessage=async(req,res)=>{
+module.exports.updatelastmessage = async (req, res) => {
     try {
-      const {email,chatemail,lastmessage1,lasttime,senduseremail,sendchatemail}=req.body;
-
-        let user=await User.findOne({email});
-        const chat=user.chats.find(item => item.email == chatemail);
-        chat.lastmessage=lastmessage1;
-        chat.lasttime=lasttime;
-        user.save();
-        let senderuser=await User.findOne({senduseremail});
-        const senderchat=senderuser.chats.find(item => item.email == sendchatemail);
-        senderchat.lastmessage=lastmessage1;
-        senderchat.lasttime=lasttime;
-        senderuser.save();
-        // let user=await User.updateOne({email:email},{
-        //     $set:{
-        //       chats:{
-        //         username:username,
-        //         userimage:userimage,
-        //         email:sendemail,
-        //         userid:userid,
-        //         lastmessage:lastmessage,
-        //         lasttime:lasttime
-        //       }
-        //     }
-        // });
-        // let senduser=await User.updateOne({email:sendemail},{
-        //     $set:{
-        //       chats:{
-        //         username:sendusername,
-        //         userimage:senduserimage,
-        //         email:email,
-        //         userid:senduserid,
-        //         lastmessage:lastmessage,
-        //         lasttime:lasttime
-        //       }
-        //     }
-        // });
-         res.json({user,senderuser});
+      const { email, chatemail, lastmessage1, lasttime, senduseremail, sendchatemail } = req.body;
+  
+      // Find the user and populate the 'chats' field
+      let user = await User.findOne({ email }).populate('chats');
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+  
+      // Find the chat within the user's chats array
+      const chat = user.chats.find(item => item.email == chatemail);
+  
+      if (!chat) {
+        return res.status(404).json({ message: 'Chat not found' });
+      }
+  
+      // Update the chat's properties
+      chat.lastmessage = lastmessage1;
+      chat.lasttime = lasttime;
+  
+      // Save the user document to persist the changes
+      await user.save();
+  
+      // Find the sender user and populate the 'chats' field
+      let senderuser = await User.findOne({ email: senduseremail }).populate('chats');
+  
+      if (!senderuser) {
+        return res.status(404).json({ message: 'Sender user not found' });
+      }
+  
+      // Find the chat within the sender user's chats array
+      const senderchat = senderuser.chats.find(item => item.email == sendchatemail);
+  
+      if (!senderchat) {
+        return res.status(404).json({ message: 'Sender chat not found' });
+      }
+  
+      // Update the sender chat's properties
+      senderchat.lastmessage = lastmessage1;
+      senderchat.lasttime = lasttime;
+  
+      // Save the sender user document to persist the changes
+      await senderuser.save();
+  
+      res.json({ user, senderuser });
     } catch (e) {
-        res.status(500).json({mes:e.message})
+      res.status(500).json({ message: e.message });
     }
-}
+  };
 
 module.exports.findthenumberofunseen=async(req,res)=>{
 try {

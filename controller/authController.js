@@ -158,7 +158,7 @@ if(incomeList.length){
 
 }
 if(location.length){
-  filteredUsers = filteredUsers.filter(user => location.includes(user.location) && user.status === 'approved');
+  filteredUsers = filteredUsers.filter(user => location.includes(user.country) && user.status === 'approved');
 
 }
 filteredUsers = filteredUsers.map(user => ({

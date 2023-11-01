@@ -278,7 +278,6 @@ if(disabilityList.length){
   filteredUsers = filteredUsers.filter(user => disabilityList.includes(user.disability) );
 
 }
-if(heightList.length){
   if (heightList.length) {
     const [minHeight, maxHeight] = heightList.map(str => parseInt(str.split(" ")[0]));
   
@@ -288,7 +287,7 @@ if(heightList.length){
     });
   }
 
-}
+
 if(educationList.length){
   filteredUsers = filteredUsers.filter(user => educationList.includes(user.education) );
 
@@ -382,7 +381,7 @@ if(disabilityList.length){
   filteredUsers = filteredUsers.filter(user => disabilityList.includes(user.disability) );
 
 }
-if(heightList.length){
+
   if (heightList.length) {
     const [minHeight, maxHeight] = heightList.map(str => parseInt(str.split(" ")[0]));
   
@@ -392,7 +391,7 @@ if(heightList.length){
     });
   }
 
-}
+
 if(educationList.length){
   filteredUsers = filteredUsers.filter(user => educationList.includes(user.education) );
 

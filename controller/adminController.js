@@ -279,10 +279,10 @@ if(disabilityList.length){
 
 }
   if (heightList.length) {
-    const [minHeight, maxHeight] = heightList.map(str => parseInt(str.split(" ")[0]));
-  
+    const [minHeight, maxHeight] = heightList.map(str => parseFloat(str.split(" ")[0]));
+  console.log(minHeight);
     filteredUsers = filteredUsers.filter(user => {
-      const userHeight = parseInt(user.height.split(" ")[0]);
+      const userHeight = parseFloat(user.height.split(" ")[0]);
       return userHeight >= minHeight && userHeight <= maxHeight;
     });
   }
@@ -383,10 +383,10 @@ if(disabilityList.length){
 }
 
   if (heightList.length) {
-    const [minHeight, maxHeight] = heightList.map(str => parseInt(str.split(" ")[0]));
-  
+    const [minHeight, maxHeight] = heightList.map(str => parseFloat(str.split(" ")[0]));
+  console.log(minHeight)
     filteredUsers = filteredUsers.filter(user => {
-      const userHeight = parseInt(user.height.split(" ")[0]);
+      const userHeight = parseFloat(user.height.split(" ")[0]);
       return userHeight >= minHeight && userHeight <= maxHeight;
     });
   }
@@ -418,14 +418,14 @@ if(citylocation.length){
 }
 filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-          console.log(filteredUsers);
+          // console.log(filteredUsers);
           // Paginate the results
-          const startIndex = (page - 1) * itemsPerPage;
-          const endIndex = startIndex + itemsPerPage;
-          const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+          // const startIndex = (page - 1) * itemsPerPage;
+          // const endIndex = startIndex + itemsPerPage;
+          // const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
         
           res.json(
-           paginatedUsers,
+            filteredUsers,
           );
         }
        

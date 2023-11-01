@@ -77,27 +77,16 @@ module.exports.createusermessage=async(req,res)=>{
 }
 module.exports.updatelastmessage=async(req,res)=>{
     try {
-        // const {lastmessage,lasttime,email,sendemail,senduserid,userid,userimage,username,sendusername,senduserimage}=req.body;
-      const {email,chatemail,lastmessage,lasttime,senduseremail,sendchatemail}=req.body;
+      const {email,chatemail,lastmessage1,lasttime,senduseremail,sendchatemail}=req.body;
 
-        // let filteruser= users.chats.findOne(chat =>chat.email===sendemail);
-     
-        // let senduser=await User.updateOne({email:sendemail},{
-        //     $set:{
-        //         "chats[0].$.lastmessage":lastmessage,
-        //         "chats[0].$.lasttime":lasttime
-    
-        //        }
-        // });
-        // res.json({user,senduser});
         let user=await User.findOne({email});
         const chat=user.chats.find(item => item.email == chatemail);
-        chat.lastmessage=lastmessage;
+        chat.lastmessage=lastmessage1;
         chat.lasttime=lasttime;
         user.save();
         let senderuser=await User.findOne({senduseremail});
         const senderchat=senderuser.chats.find(item => item.email == sendchatemail);
-        senderchat.lastmessage=lastmessage;
+        senderchat.lastmessage=lastmessage1;
         senderchat.lasttime=lasttime;
         senderuser.save();
         // let user=await User.updateOne({email:email},{

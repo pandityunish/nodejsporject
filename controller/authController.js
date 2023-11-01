@@ -535,7 +535,8 @@ module.exports.deleteaccount=async(req,res)=>{
     })
     deleteaccount=await deleteaccount.save();
 
-    let sharedpref=await SavedPrefer.deleteOne({email:email})
+    let sharedpref=await SavedPrefer.deleteOne({email:email});
+    sharedpref.save();
     res.json({deleteaccount,sharedpref});
   } catch (e) {
     res.status(500).json({mes:e.message})

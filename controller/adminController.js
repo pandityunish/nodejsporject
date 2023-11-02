@@ -212,15 +212,20 @@ module.exports.searchuserbyemail=async(req,res)=>{
         const itemsPerPage = 100;
         
         if(maxDistanceKm){
-          const maxDistanceKm1 = maxDistanceKm*1000;
-          let users=User.find({
-            location: {
-              $geoWithin: {
-                $centerSphere: [[longitude, latitude], maxDistanceKm1 / 6371]
-              }
-            }
-          })
-
+          const userLatitude = parseFloat(latitude);
+          const userLongitude = parseFloat(longitude);
+          const maxDistance = parseInt(maxDistanceKm*1000); 
+let users=await User.find({
+  location: {
+    $nearSphere: {
+      $geometry: {
+        type: 'Point',
+        coordinates: [userLongitude, userLatitude], // Reverse the order for GeoJSON
+      },
+      $maxDistance: maxDistance,
+    },
+  },
+})
       
 //           if (!email) {
 //             return res.status(400).json({ error: 'Email is required in the request body.' });

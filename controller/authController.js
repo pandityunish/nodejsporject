@@ -16,7 +16,11 @@ try {
           puid,
           status:"",
           placeofbirth,timeofbirth,
-          drink,education,lat,lng,height,imageurls,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location,city,state,country,token,dob});
+          location: {
+            type: 'Point',
+            coordinates: [lat, lng],
+          },
+          drink,education,lat,lng,height,imageurls,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location1:location,city,state,country,token,dob});
         
         user=await user.save();
         res.json(user);}

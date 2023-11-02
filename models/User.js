@@ -106,7 +106,7 @@ const userSchema=mongoose.Schema({
         type:String,
         required:true,
       },
-      location:{
+      location1:{
         type:String,
       },
       city:{
@@ -194,6 +194,17 @@ const userSchema=mongoose.Schema({
         userMessage
      
    ],
+   location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true,
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
+  },
       activities:[
         activity
       ]
@@ -202,7 +213,7 @@ const userSchema=mongoose.Schema({
   timestamps:true
  }
 );
+userSchema.index({ location: '2dsphere' });
 const User=mongoose.model("Users",userSchema);
-// User.collection.createIndex({ lat: '2d', lng: '2d' }, { name: 'lat_2d_lng_2d' });
 
 module.exports=User;

@@ -217,14 +217,10 @@ module.exports.searchuserbyemail=async(req,res)=>{
           const maxDistance = parseInt(maxDistanceKm*1000); 
           let users = await User.find([
             {
-              $geoNear: {
-                near: {
-                  type: 'Point',
-                  coordinates: [userLongitude, userLatitude], // Reverse the order for GeoJSON
-                },
-                distanceField: "dist.calculated",
-                maxDistance: maxDistance * 1609, // Convert to meters
-                spherical: true
+              location: {
+                $geoWithin: {
+                  $centerSphere: [[userLongitude, userLatitude], maxDistance / 6371]
+                }
               }
             }
           ]);

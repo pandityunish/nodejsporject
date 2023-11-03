@@ -215,19 +215,19 @@ module.exports.searchuserbyemail=async(req,res)=>{
           const userLatitude = parseFloat(latitude);
           const userLongitude = parseFloat(longitude);
           const maxDistance = parseInt(maxDistanceKm*1000); 
-let users=await User.find({
-  
-  location: {
-    $nearSphere: {
-      $geometry: {
-        type: 'Point',
-        coordinates: [userLongitude, userLatitude], // Reverse the order for GeoJSON
-      },
-      $maxDistance: maxDistance,
-    },
-  },
-  
-})
+          let users = await User.aggregate([
+            {
+              $geoNear: {
+                near: {
+                  type: 'Point',
+                  coordinates: [userLongitude, userLatitude], // Reverse the order for GeoJSON
+                },
+                distanceField: "dist.calculated",
+                maxDistance: maxDistance * 1609, // Convert to meters
+                spherical: true
+              }
+            }
+          ]);
       
 //           if (!email) {
 //             return res.status(400).json({ error: 'Email is required in the request body.' });
@@ -320,7 +320,7 @@ if(citylocation.length){
 }
 // filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-          console.log(filteredUsers);
+//           console.log(filteredUsers);
           // Paginate the results
           // const startIndex = (page - 1) * itemsPerPage;
           // const endIndex = startIndex + itemsPerPage;

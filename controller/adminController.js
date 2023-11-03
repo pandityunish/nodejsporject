@@ -215,7 +215,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
           const userLatitude = parseFloat(latitude);
           const userLongitude = parseFloat(longitude);
           const maxDistance = parseInt(maxDistanceKm*1000); 
-          let users = await User.aggregate([
+          let users = await User.find([
             {
               $geoNear: {
                 near: {

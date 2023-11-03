@@ -216,15 +216,25 @@ module.exports.searchuserbyemail=async(req,res)=>{
           const userLongitude = parseFloat(longitude);
           const maxDistanceKm1 = parseFloat(maxDistanceKm) || 1; // Default to 1 km
         
-          const users = await User.find({
-            location: {
-              $near: {
-                type: 'Point',
-                coordinates: [ latitude,longitude]
+          
+          const users = await User.aggregate([
+            {
+              $geoNear: {
+                near: {
+                  type: 'Point',
+                  coordinates: [ userLatitude,userLongitude],
+                },
+                distanceField: 'dist.calculated',
+                maxDistance: maxDistanceKm * 1000, // Convert to meters
+                spherical: true,
               },
-              $maxDistance: maxDistanceKm
-            }
-          });
+            },
+            {
+              $match: {
+                'dist.calculated': { $lte: maxDistanceKm1 * 1000 }, // Filter users within maxDistance
+              },
+            },
+          ]);
         
             res.json(users);
           

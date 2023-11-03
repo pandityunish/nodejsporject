@@ -222,7 +222,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
                 $geoNear: {
                   near: {
                     type: 'Point',
-                    coordinates: [userLongitude, userLatitude],
+                    coordinates: [ userLatitude,userLongitude],
                   },
                   distanceField: 'dist.calculated',
                   maxDistance: maxDistanceKm1 * 1000, // Convert to meters

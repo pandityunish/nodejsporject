@@ -255,7 +255,7 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 }
 module.exports.createuser=async(req,res)=>{
 try {
-    const {aboutme,age,puid,diet,lat,lng,disability,drink,imageurls,placeofbirth,timeofbirth,education,height,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location1,city,state,country,token,dob}=req.body;
+    const {aboutme,age,puid,diet,lat,lng,disability,drink,imageurls,placeofbirth,timeofbirth,education,height,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location1,city,state,country,token,dob,adminlat,adminlng}=req.body;
          let existingUser=await User.findOne({email});
         
         if(existingUser){
@@ -270,6 +270,7 @@ try {
             type: 'Point',
             coordinates: [lng, lat],
           },
+          adminlat,adminlng,
           drink,education,lat,lng,height,imageurls,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location1,city,state,country,token,dob});
         
         user=await user.save();

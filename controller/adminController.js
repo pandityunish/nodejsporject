@@ -214,18 +214,24 @@ module.exports.searchuserbyemail=async(req,res)=>{
         // if(maxDistanceKm){
           const userLatitude = parseFloat(latitude);
           const userLongitude = parseFloat(longitude);
-          const maxDistance = parseInt(maxDistanceKm*1000); 
-          let users = await User.find(
-            {
-              location: {
-                $near: {
-                  type: 'Point',
-                  coordinates: [longitude, latitude]
+          const maxDistanceKm1 = parseFloat(maxDistanceKm) || 1; // Default to 1 km
+        
+          
+            const users = await User.aggregate([
+              {
+                $geoNear: {
+                  near: {
+                    type: 'Point',
+                    coordinates: [userLongitude, userLatitude],
+                  },
+                  distanceField: 'dist.calculated',
+                  maxDistance: maxDistanceKm1 * 1000, // Convert to meters
+                  spherical: true,
                 },
-                $maxDistance: maxDistanceKm
-              }
-            }
-          );
+              },
+            ]);
+        
+            res.json(users);
           
       
 //           if (!email) {
@@ -237,7 +243,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
 //           }
         
 //           // Filter users based on gender and religion while excluding the user's own data
-          let filteredUsers = users.filter(user => user.email !== email);
+          // let filteredUsers = users.filter(user => user.email !== email);
 //         // console.log(filteredUsers);
 //           if (gender) {
 //             filteredUsers = filteredUsers.filter(user => user.gender === gender);
@@ -325,9 +331,9 @@ module.exports.searchuserbyemail=async(req,res)=>{
           // const endIndex = startIndex + itemsPerPage;
           // const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
         
-          res.json(
-            filteredUsers,
-          );
+          // res.json(
+          //   filteredUsers,
+          // );
         // }else{
 //           let users=await User.find({});   
       
@@ -434,6 +440,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
 //           );
 //         }
        
+          
     } catch (e) {
         res.status(500).json({mes:e.message})
     }

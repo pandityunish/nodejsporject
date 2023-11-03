@@ -222,18 +222,13 @@ module.exports.searchuserbyemail=async(req,res)=>{
               $geoNear: {
                 near: {
                   type: 'Point',
-                  coordinates: [ userLatitude,userLongitude],
+                  coordinates: [ userLongitude,userLatitude],
                 },
                 distanceField: 'dist.calculated',
                 maxDistance: maxDistanceKm * 1000, // Convert to meters
-                spherical: true,
               },
             },
-            {
-              $match: {
-                'dist.calculated': { $lte: maxDistanceKm1 * 1000 }, // Filter users within maxDistance
-              },
-            },
+           
           ]);
         
             res.json(users);

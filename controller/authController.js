@@ -268,7 +268,7 @@ try {
           placeofbirth,timeofbirth,
           location: {
             type: 'Point',
-            coordinates: [lat, lng],
+            coordinates: [lng, lat],
           },
           drink,education,lat,lng,height,imageurls,income,patnerprefs,smoke,displayname,email,religion,name,surname,phone,gender,kundalidosh,martialstatus,profession,location1,city,state,country,token,dob});
         

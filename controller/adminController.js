@@ -215,7 +215,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
           const userLatitude = parseFloat(latitude);
           const userLongitude = parseFloat(longitude);
           const maxDistance = parseInt(maxDistanceKm*1000); 
-          let users = await User.find([
+          let users = await User.find(
             {
               location: {
                 $geoWithin: {
@@ -223,7 +223,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
                 }
               }
             }
-          ]);
+          );
       
 //           if (!email) {
 //             return res.status(400).json({ error: 'Email is required in the request body.' });

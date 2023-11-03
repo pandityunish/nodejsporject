@@ -218,12 +218,15 @@ module.exports.searchuserbyemail=async(req,res)=>{
           let users = await User.find(
             {
               location: {
-                $geoWithin: {
-                  $centerSphere: [[userLongitude, userLatitude], maxDistance / 6371]
-                }
+                $near: {
+                  type: 'Point',
+                  coordinates: [longitude, latitude]
+                },
+                $maxDistance: maxDistanceKm
               }
             }
           );
+          
       
 //           if (!email) {
 //             return res.status(400).json({ error: 'Email is required in the request body.' });
@@ -234,7 +237,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
 //           }
         
 //           // Filter users based on gender and religion while excluding the user's own data
-          let filteredUsers = users.filter(user => user.email !== email && user.status === 'approved');
+          let filteredUsers = users.filter(user => user.email !== email);
 //         // console.log(filteredUsers);
           if (gender) {
             filteredUsers = filteredUsers.filter(user => user.gender === gender);

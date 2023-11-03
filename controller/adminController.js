@@ -341,7 +341,7 @@ if(citylocation.length){
           }
         
           // Filter users based on gender and religion while excluding the user's own data
-          let filteredUsers = users.filter(user => user.email !== email && user.status === 'approved');
+          let filteredUsers = users.filter(user => user.email !== email);
         // console.log(filteredUsers);
           if (gender) {
             filteredUsers = filteredUsers.filter(user => user.gender === gender);

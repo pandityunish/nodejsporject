@@ -7,6 +7,9 @@ module.exports.findadminuser=async(req,res)=>{
     try {
         const{email}=req.body;
         let user=await AdminModel.findOne({email});
+        if(!user){
+          return res.status(400).json({mes:"User Not found"});
+        }
         res.json(user);
     } catch (e) {
         res.status(500).json({mes:e.message})

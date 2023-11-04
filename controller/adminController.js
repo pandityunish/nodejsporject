@@ -16,8 +16,7 @@ module.exports.getunapproveduser=async(req,res)=>{
     try {
        const {email}=req.body;
         let users=await User.find({});
-        let filteredUsers = users.filter(user => user.email !== email);
-        filteredUsers=filteredUsers.filter(user=>user.status === ''||user.status === 'block'|| user.status === 'report');
+     let   filteredUsers=filteredUsers.filter(user=>user.status === ''||user.status === 'block'|| user.status === 'report');
         res.json(filteredUsers);
     } catch (e) {
         res.status(500).json({mes:e.message});

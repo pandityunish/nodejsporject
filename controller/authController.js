@@ -738,15 +738,16 @@ module.exports.removeshortuser=async(req,res)=>{
 module.exports.canclereq=async(req,res)=>{
   try {
     const {uid,email,sendemail,senduid}=req.body;
-    let user=await User.updateOne({email:email},{$pull:{
-      pendingreq:senduid
-    }},{$pull:{
+    let user=await User.updateOne({email:email},
+    {$pull:{
       sendreq:senduid
     }});
-    let senduser=await User.updateOne({email:sendemail},{$pull:{
-      sendreq :uid
+    let senduser=await User.updateOne({email:sendemail},
+    //   {$pull:{
+    //   sendreq :uid
       
-    }},{$pull:{
+    // }},
+    {$pull:{
       pendingreq :uid
       
     }});

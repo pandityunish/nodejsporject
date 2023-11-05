@@ -144,7 +144,7 @@ buttonsNamespace.on("connection", (socket) => {
     let targetId = msg.targetId;
     const sendUserSocket = users.get(targetId);
     if (sendUserSocket) {
-      socket.to(sendUserSocket).emit("connect", msg);
+      socket.to(sendUserSocket).emit("connectbutton", msg);
     }
   });
 });

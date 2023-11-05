@@ -151,7 +151,7 @@ module.exports.findallnumberofunseen=async(req,res)=>{
   
       });
     let  filteredmessage = messages.filter(message =>  message.status === 'unseen');
-     res.json(filteredmessage.length);
+     res.json(filteredmessage);
   } catch (e) {
       res.status(500).json({mes:e.message})
   }

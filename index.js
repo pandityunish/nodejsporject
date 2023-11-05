@@ -142,7 +142,7 @@ buttonsNamespace.on("connection", (socket) => {
   });
   socket.on("connectbutton", (msg) => {
     let targetId = msg.targetId;
-    const sendUserSocket = clients.get(targetId);
+    const sendUserSocket = users.get(targetId);
     if (sendUserSocket) {
       socket.to(sendUserSocket).emit("connect", msg);
     }

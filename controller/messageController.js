@@ -143,6 +143,19 @@ try {
     res.status(500).json({mes:e.message})
 }
 }
+module.exports.findallnumberofunseen=async(req,res)=>{
+  try {
+      const {userid}= req.body;
+      const messages=await Message.find({
+         uid:userid
+  
+      }).sort({updateAt:1});
+    let  filteredmessage = messages.filter(message =>  message.status === 'unseen');
+     res.json(filteredmessage.length);
+  } catch (e) {
+      res.status(500).json({mes:e.message})
+  }
+  }
 module.exports.updatestatusofmessage=async(req,res)=>{
     try {
         const {from,to,userid}= req.body;

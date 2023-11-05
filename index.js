@@ -14,6 +14,7 @@ app.use(messageRouter);
 app.use(adminRouter);
 app.use(queryRouter);
 let clients =new Map();
+let users =new Map();
 
 let db= process.env.MONGO_URL||"mongodb+srv://freerishteywala:freerishteywala@cluster0.qqqubx5.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(db).then(()=>{
@@ -30,6 +31,14 @@ var io=socket(server,{
         credentials:true,
 
     },
+
+});
+var io2=socket(server,{
+  cors:{
+      origin:"*",
+      credentials:true,
+
+  },
 
 });
 io.on("connection", (socket) => {
@@ -50,9 +59,24 @@ io.on("connection", (socket) => {
       const sendUserSocket=clients.get(targetId);
       if (sendUserSocket)
       console.log(sendUserSocket);
-    //    clients[targetId].emit("message", msg);
        socket.to(sendUserSocket).emit("message",msg)
     });
   });
-  
-
+  io2.on("buttons", (socket) => {
+    // console.log("connetetd");
+    console.log(socket.id, "has joined");
+    global.buttonSocket=socket;
+    console.log(users);
+    socket.on("usersignin", (id) => {
+      console.log(id);
+    //   clients[id] = socket;
+    users.set(id,socket.id);
+      console.log(users);
+    });
+    socket.on("connectbutton", (msg) => {
+      let targetId = msg.targetId;
+      const sendUserSocket=clients.get(targetId);
+      if (sendUserSocket)
+       socket.to(sendUserSocket).emit("connect",msg)
+    });
+  });

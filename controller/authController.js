@@ -740,9 +740,14 @@ module.exports.canclereq=async(req,res)=>{
     const {uid,email,sendemail,senduid}=req.body;
     let user=await User.updateOne({email:email},{$pull:{
       pendingreq:senduid
+    }},{$pull:{
+      sendreq:senduid
     }});
     let senduser=await User.updateOne({email:sendemail},{$pull:{
       sendreq :uid
+      
+    }},{$pull:{
+      pendingreq :uid
       
     }});
     

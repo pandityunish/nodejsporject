@@ -331,7 +331,7 @@ module.exports.getallusers=async(req,res)=>{
   }
   const blockList = currentUser.blockList || [];
         let users=await User.find({
-          _id: { $nin: blockList }
+          // _id: { $nin: blockList }
         });   
         users = users.map(user => user.toObject());
         console.log(gender,

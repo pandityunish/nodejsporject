@@ -147,8 +147,9 @@ module.exports.findallnumberofunseen=async(req,res)=>{
   try {
       const {userid}= req.body;
       const messages=await Message.find({
-         uid:userid
-  
+        users:{
+          $all:[userid] 
+       },
       });
     let  filteredmessage = messages.filter(message =>  message.status === 'unseen');
      res.json(messages);

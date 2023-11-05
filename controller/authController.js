@@ -324,14 +324,14 @@ module.exports.getallusers=async(req,res)=>{
           statelocation,
           location}=req.body;
         const itemsPerPage = 100;
-        const currentUser = await User.findOne({ email: userEmail });
+        const currentUser = await User.findOne({ email: email });
 
   if (!currentUser) {
     return res.status(404).json({ message: 'User not found' });
   }
   const blockList = currentUser.blockList || [];
         let users=await User.find({
-          // _id: { $nin: blockList }
+          _id: { $nin: blockList }
         });   
         users = users.map(user => user.toObject());
         console.log(gender,

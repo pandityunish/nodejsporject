@@ -672,6 +672,32 @@ module.exports.addtosortlist=async(req,res)=>{
     res.status(500).json({mes:e.message})
   }
 }
+module.exports.addtounapproveblock=async(req,res)=>{
+  try {
+    const {email,senduid}=req.body;
+    let user=await User.updateOne({email:email},{$addToSet:{
+      unapprovedSendlists:senduid
+    }});
+  
+    
+    res.json({user});
+  } catch (e) {
+    res.status(500).json({mes:e.message})
+  }
+}
+module.exports.removefromunapproveblock=async(req,res)=>{
+  try {
+    const {email,senduid}=req.body;
+    let user=await User.updateOne({email:email},{$pull:{
+      unapprovedSendlists:senduid
+    }});
+  
+    
+    res.json({user});
+  } catch (e) {
+    res.status(500).json({mes:e.message})
+  }
+}
 module.exports.addtoblocklists=async(req,res)=>{
   try {
     const {email,senduid,sendemail,uid}=req.body;

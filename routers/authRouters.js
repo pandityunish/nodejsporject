@@ -1,5 +1,5 @@
 const express=require("express");
-const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid, updatelocation, cleartoken, addtoken, updatelogin, searchusersbyuser } = require("../controller/authController");
+const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid, updatelocation, cleartoken, addtoken, updatelogin, searchusersbyuser, addtounapproveblock, removefromunapproveblock } = require("../controller/authController");
 const { searchuserbydistance } = require("../controller/adminController");
 
 const authRouter=express.Router();
@@ -14,6 +14,8 @@ authRouter.get("/auth/getsavedpref/:email",getusersavedpref);
 authRouter.post("/auth/getuserbyid",searchuserbyid);
 authRouter.post("/auth/sendconnect",connectnow);
 authRouter.post("/auth/rejectreq",rejectrequest);
+authRouter.post("/auth/addtounapproveblock",addtounapproveblock);
+authRouter.post("/auth/removeunapproveblock",removefromunapproveblock);
 authRouter.post("/auth/acceptreq",acceptrequest);
 authRouter.post("/auth/addtosortlist",addtosortlist);
 authRouter.post("/auth/addtoblocklist",addtoblocklists)

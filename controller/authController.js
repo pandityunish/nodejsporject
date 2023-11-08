@@ -28,7 +28,12 @@ module.exports.searchusersbyuser=async(req,res)=>{
     if(maxDistanceKm){
       const userLatitude = parseFloat(latitude);
       const userLongitude = parseFloat(longitude);
-    
+      const currentUser = await User.findOne({ email: email });
+
+      if (!currentUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      const blockList = currentUser.someoneblocklists || [];
       
       const users = await User.aggregate([
         {
@@ -41,7 +46,9 @@ module.exports.searchusersbyuser=async(req,res)=>{
             maxDistance: maxDistanceKm * 1000, // Convert to meters
           },
         },
-       
+        {
+          _id: { $nin: blockList }
+        }
       ]);
     
         // res.json(users);

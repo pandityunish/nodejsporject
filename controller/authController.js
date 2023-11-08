@@ -667,7 +667,7 @@ module.exports.addtoblocklists=async(req,res)=>{
     someoneblocklists:uid
   }})
     
-    res.json({user});
+    res.json({user,senduser});
   } catch (e) {
     res.status(500).json({mes:e.message})
   }

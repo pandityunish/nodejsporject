@@ -244,7 +244,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
 //           }
         
 //           // Filter users based on gender and religion while excluding the user's own data
-          let filteredUsers = users.filter(user => user.email !== email);
+          let filteredUsers = users;
         // console.log(filteredUsers);
           if (gender) {
             filteredUsers = filteredUsers.filter(user => user.gender === gender);
@@ -347,7 +347,7 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           }
         
           // Filter users based on gender and religion while excluding the user's own data
-          let filteredUsers = users.filter(user => user.email !== email);
+          let filteredUsers = users;
         // console.log(filteredUsers);
           if (gender) {
             filteredUsers = filteredUsers.filter(user => user.gender === gender);

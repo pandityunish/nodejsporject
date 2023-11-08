@@ -159,6 +159,16 @@ const userSchema=mongoose.Schema({
             type: String,
         }
       ],
+      someoneblocklists:[
+        {
+            type: String,
+        }
+      ],
+      unapprovedSendlists:[
+        {
+            type: String,
+        }
+      ],
       reportlist:[
         {
             type: String,

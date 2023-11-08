@@ -56,7 +56,7 @@ module.exports.searchusersbyuser=async(req,res)=>{
 //           }
     
 //           // Filter users based on gender and religion while excluding the user's own data
-      let filteredUsers = users.filter(user => user.email !== email);
+      let filteredUsers = users.filter(user => user.email !== email && user.status==="approved");
     // console.log(filteredUsers);
       if (gender) {
         filteredUsers = filteredUsers.filter(user => user.gender === gender);
@@ -148,7 +148,15 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         filteredUsers,
       );
     }else{
-      let users=await User.find({});   
+      const currentUser = await User.findOne({ email: email });
+
+      if (!currentUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+      const blockList = currentUser.someoneblocklists || [];
+            let users=await User.find({
+              _id: { $nin: blockList }
+            });   
   
       if (!email) {
         return res.status(400).json({ error: 'Email is required in the request body.' });
@@ -159,7 +167,7 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       }
     
       // Filter users based on gender and religion while excluding the user's own data
-      let filteredUsers = users.filter(user => user.email !== email);
+      let filteredUsers = users.filter(user => user.email !== email && user.status==="approved");
     // console.log(filteredUsers);
       if (gender) {
         filteredUsers = filteredUsers.filter(user => user.gender === gender);

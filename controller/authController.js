@@ -659,12 +659,12 @@ module.exports.addtosortlist=async(req,res)=>{
 }
 module.exports.addtoblocklists=async(req,res)=>{
   try {
-    const {email,senduid,sendemail}=req.body;
+    const {email,senduid,sendemail,uid}=req.body;
     let user=await User.updateOne({email:email},{$addToSet:{
       blocklists:senduid
     }});
   let senduser=await User.updateOne({email:sendemail},{$addToSet:{
-    someoneblocklists:senduid
+    someoneblocklists:uid
   }})
     
     res.json({user});
@@ -674,13 +674,13 @@ module.exports.addtoblocklists=async(req,res)=>{
 }
 module.exports.unblockuser=async(req,res)=>{
   try {
-    const {email,senduid,sendemail}=req.body;
+    const {email,senduid,sendemail,uid}=req.body;
     let user=await User.updateOne({email:email},{$pull:{
       blocklists:senduid
     }});
   
     let senduser=await User.updateOne({email:sendemail},{$pull:{
-      someoneblocklists:senduid
+      someoneblocklists:uid
     }})
     res.json({user});
   } catch (e) {

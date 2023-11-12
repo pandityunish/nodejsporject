@@ -467,7 +467,7 @@ module.exports.getallnotification = async (req, res) => {
     const skipCount = (page - 1) * perPage;
 
     const notifications = await AdminNotification.find({})
-      .sort({ _id: 1 })
+      .sort({ _id: -1 })
       .skip(skipCount)
       .limit(perPage);
 

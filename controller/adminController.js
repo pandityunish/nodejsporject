@@ -42,8 +42,8 @@ module.exports.searchuserbyemail=async(req,res)=>{
     try {
       const {searchemail,email}=req.body;
       let users=await User.find({email:searchemail});
-      let filteredUsers = users.filter(user => user.email !== email);
-      res.json(filteredUsers);
+      // let filteredUsers = users.filter(user => user.email !== email);
+      res.json(users);
     } catch (e) {
       res.status(500).json({mes:e.message})
     }
@@ -52,8 +52,8 @@ module.exports.searchuserbyemail=async(req,res)=>{
     try {
       const {puid,email}=req.body;
       let users=await User.find({puid:puid});
-      let filteredUsers = users.filter(user => user.email !== email);
-      res.json(filteredUsers);
+      // let filteredUsers = users.filter(user => user.email !== email);
+      res.json(users);
     } catch (e) {
       res.status(500).json({mes:e.message})
     }
@@ -62,7 +62,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
     try {
       const {phonenumber,email}=req.body;
       let users=await User.find({phone:phonenumber});
-      let filteredUsers = users.filter(user => user.email !== email);
+      // let filteredUsers = users.filter(user => user.email !== email);
       res.json(filteredUsers);
     } catch (e) {
       res.status(500).json({mes:e.message})
@@ -93,7 +93,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
         // },
       ]);
       let filteredUsers = users
-      .filter(user => user.email !== email)
+      // .filter(user => user.email !== email)
       .map(user => user.users)
       .flat();
       console.log(filteredUsers);
@@ -106,8 +106,8 @@ module.exports.searchuserbyemail=async(req,res)=>{
     try {
       const {surname,email}=req.body;
       let users=await User.find({surname});
-      let filteredUsers = users.filter(user => user.email !== email );
-      res.json(filteredUsers);
+      // let filteredUsers = users.filter(user => user.email !== email );
+      res.json(users);
     } catch (e) {
       res.status(500).json({mes:e.message})
     }

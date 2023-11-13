@@ -451,10 +451,10 @@ module.exports.addtonotification=async(req,res)=>{
   try {
     const {userid,useremail,title,userimage,subtitle}=req.body;
     
-    let notifications=AdminNotification({
+    let notifications= AdminNotification({
       userid,useremail,userimage,title,subtitle:subtitle
     });
-    notifications=notifications.save();
+    notifications=await notifications.save();
     res.json(notifications);
   } catch (e) {
     res.status(500).json({mes:e.message})

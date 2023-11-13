@@ -450,8 +450,9 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 module.exports.addtonotification=async(req,res)=>{
   try {
     const {userid,useremail,title,userimage,subtitle}=req.body;
+    
     let notifications=AdminNotification({
-      userid,useremail,userimage,title,subtitle
+      userid,useremail,userimage,title,subtitle:subtitle
     });
     notifications=notifications.save();
     res.json(notifications);

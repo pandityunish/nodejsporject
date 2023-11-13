@@ -1,5 +1,5 @@
 const express=require("express");
-const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid, searchuserbyphoneunmber, addtonotification, getallnotification } = require("../controller/adminController");
+const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid, searchuserbyphoneunmber, addtonotification, getallnotification, searchnotification } = require("../controller/adminController");
 
 const adminRouter=express.Router();
 adminRouter.post("/admin/findadminuser",findadminuser);
@@ -19,6 +19,7 @@ adminRouter.post("/admin/searchusersbyid",searchuserbyid);
 adminRouter.post("/admin/searchusersbyphone",searchuserbyphoneunmber);
 adminRouter.post("/admin/addnotification",addtonotification);
 adminRouter.get("/admin/getallnotification",getallnotification);
+adminRouter.post("/admin/searchnotification",searchnotification);
 
 
 

@@ -18,6 +18,10 @@ const adminnotiSchema=mongoose.Schema({
         type:String,
         required:true,
     },
+    subtitle:{
+        type:String,
+        required:true,
+    },
 },{
     timestamps:true
    });

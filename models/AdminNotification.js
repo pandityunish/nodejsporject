@@ -20,7 +20,7 @@ const adminnotiSchema=mongoose.Schema({
     },
     subtitle:{
         type:String,
-        required:true,
+        default:""
     },
 },{
     timestamps:true

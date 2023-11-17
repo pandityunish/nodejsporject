@@ -504,3 +504,12 @@ res.json(filteredUsers);
     res.status(500).json({mes:e.message})
   }
 }
+
+module.exports.findnumberofusers=async(req,res)=>{
+  try {
+    let users=await User.find({});
+    res.json(users.length);
+  } catch (e) {
+    res.status(500).json({mes:e.message});
+  }
+}

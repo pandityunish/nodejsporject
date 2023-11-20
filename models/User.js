@@ -77,9 +77,11 @@ const userSchema=mongoose.Schema({
       },
       adminlat:{
         type:Number,
+        default:0
       },
       adminlng:{
         type:Number,
+        default:0
       },
       gender:{
         type:String,

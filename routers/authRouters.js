@@ -1,6 +1,7 @@
 const express=require("express");
 const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid, updatelocation, cleartoken, addtoken, updatelogin, searchusersbyuser, addtounapproveblock, removefromunapproveblock } = require("../controller/authController");
 const { searchuserbydistance } = require("../controller/adminController");
+const { getalldata } = require("../controller/adminAddedController");
 
 const authRouter=express.Router();
 
@@ -37,6 +38,7 @@ authRouter.post("/auth/searchusersbyuser",searchusersbyuser);
 authRouter.post("/auth/cleartoken",cleartoken);
 authRouter.post("/auth/addtoken",addtoken);
 authRouter.post("/auth/updatelogin",updatelogin);
+authRouter.post("/auth/getadminuser",getalldata);
 
 
 module.exports=authRouter;

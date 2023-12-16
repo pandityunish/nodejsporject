@@ -1,5 +1,5 @@
 const express=require("express");
-const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid, updatelocation, cleartoken, addtoken, updatelogin, searchusersbyuser, addtounapproveblock, removefromunapproveblock } = require("../controller/authController");
+const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid, updatelocation, cleartoken, addtoken, updatelogin, searchusersbyuser, addtounapproveblock, removefromunapproveblock, getuserdatabypuid } = require("../controller/authController");
 const { searchuserbydistance } = require("../controller/adminController");
 const { getalldata } = require("../controller/adminAddedController");
 
@@ -10,6 +10,8 @@ authRouter.post("/auth/getalluser",getallusers);
 authRouter.get("/auth/getuser/:email",getuserdata);
 authRouter.get("/auth/getuserbyid/:_id",getuserdatabyid);
 authRouter.get("/auth/finduser/:email",finduser);
+authRouter.get("/auth/getuserbypuid/:puid",getuserdatabypuid);
+
 authRouter.post("/auth/createsavedpref",createsavepref);
 authRouter.get("/auth/getsavedpref/:email",getusersavedpref);
 authRouter.post("/auth/getuserbyid",searchuserbyid);

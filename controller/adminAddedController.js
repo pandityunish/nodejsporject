@@ -7,7 +7,7 @@ module.exports.getalldata=async(req,res)=>{
         const {userid}=req.body;
         let finduser=await AdminAddedUsers.findOne({userid:userid});
         console.log()
-        let allusers=await User.find({ _id: { $in: finduser.userlist } });
+        let allusers=await User.find({ puid: { $in: finduser.userlist } });
         res.json(allusers);
     } catch (e) {
         res.status(500).json({mes:e.message})
@@ -17,17 +17,21 @@ module.exports.getalldata=async(req,res)=>{
 module.exports.postalldata=async(req,res)=>{
     try {
         const {id,listofids}=req.body;
-        let user=await AdminAddedUsers.findOne({_id:id});
+        for (let index = 0; index < listofids.length; index++) {
+            const element = listofids[index];
+            let user=await AdminAddedUsers.findOne({userid:element});
         if(!user){
-           let newuser=AdminAddedUsers({userid:id,userlist:listofids});
+           let newuser=AdminAddedUsers({userid:listofids[index],userlist:[id]});
            newuser.save();
-           res.json(newuser);
+        //    res.json(newuser);
         }else{
-            const users=await AdminAddedUsers.updateOne({id},{$addToSet:{
-                userlist:{$each:listofids}
+            const users=await AdminAddedUsers.updateOne({userid:listofids[index]},{$addToSet:{
+                userlist:id
             }})
-            res.json(users);
+            // res.json(users);
         }
+        }
+        res.json({mes:"Successfully added"})
        
     } catch (e) {
         res.status(500).json({mes:e.message})

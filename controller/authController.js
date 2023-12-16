@@ -319,6 +319,21 @@ module.exports.getuserdatabyid=async(req,res)=>{
       res.status(500).json({mes:e.message})
   }
 }
+module.exports.getuserdatabypuid=async(req,res)=>{
+  try {
+    const {puid}=req.params;
+    let user=await User.findOne({puid:puid});
+    if(!user){
+      res.status(404).json({mes:"User not found"})
+    }else{
+      res.json(user);
+
+
+    }
+  } catch (e) {
+      res.status(500).json({mes:e.message})
+  }
+}
 module.exports.getallusers=async(req,res)=>{
     try {
         const {email,gender,page,ages,

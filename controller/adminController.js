@@ -38,6 +38,18 @@ module.exports.updateuserstatus=async(req,res)=>{
         res.status(500).json({mes:e.message});
     }
 }
+module.exports.updateeditstatus=async(req,res)=>{
+  try {
+     const {email}=req.body;
+      let user=await User.updateOne({email},{$set:{
+        editstatus:"approved"
+      }});
+     
+      res.json(user);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
 module.exports.searchuserbyemail=async(req,res)=>{
     try {
       const {searchemail,email}=req.body;

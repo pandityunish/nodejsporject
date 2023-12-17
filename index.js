@@ -89,6 +89,7 @@ const socket = require("socket.io");
 const messageRouter = require("./routers/messageRouter");
 const adminRouter = require("./routers/adminRouter");
 const queryRouter = require("./routers/queryRouter");
+const User = require("./models/User");
 
 app.use(express.json());
 app.use(authRouter);
@@ -102,6 +103,7 @@ let users = new Map();
 let db = process.env.MONGO_URL || "mongodb+srv://freerishteywala:freerishteywala@cluster0.qqqubx5.mongodb.net/?retryWrites=true&w=majority";
 mongoose.connect(db).then(() => {
   console.log("Connected successfully");
+  
 }).catch((e) => {
   console.log(e);
 });

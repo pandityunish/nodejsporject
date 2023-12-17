@@ -138,6 +138,10 @@ const userSchema=mongoose.Schema({
         type:String,
         default:""
       },
+      editstatus:{
+         type:String,
+         default:""
+      },
       verifiedstatus:{
         type:String,
         default:""

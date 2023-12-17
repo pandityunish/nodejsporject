@@ -37,3 +37,12 @@ module.exports.postalldata=async(req,res)=>{
         res.status(500).json({mes:e.message})
     }
 }
+
+module.exports.updateallvalue=async(req,res)=>{
+    try {
+      let user=await  User.updateMany({}, { $set: { ["editstatus"]: "" } },);
+      res.json(user);
+    } catch (e) {
+        res.status(500).json({mes:e.message})
+    }
+}

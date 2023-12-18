@@ -817,7 +817,18 @@ module.exports.canclereq=async(req,res)=>{
     res.status(500).json({mes:e.message})
   }
 }
-
+module.exports.updateeditstatus=async(req,res)=>{
+  try {
+     const {email}=req.body;
+      let user=await User.updateOne({email},{$set:{
+        editstatus:""
+      }});
+     
+      res.json(user);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
 module.exports.uploadvideo=async(req,res)=>{
   try {
     const {email,videourl}=req.body;

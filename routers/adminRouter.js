@@ -1,6 +1,6 @@
 const express=require("express");
 const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid, searchuserbyphoneunmber, addtonotification, getallnotification, searchnotification, findnumberofusers, updateeditstatus } = require("../controller/adminController");
-const { postalldata, updateallvalue } = require("../controller/adminAddedController");
+const { postalldata, updateallvalue, addtosendlink } = require("../controller/adminAddedController");
 
 const adminRouter=express.Router();
 adminRouter.post("/admin/findadminuser",findadminuser);
@@ -25,6 +25,7 @@ adminRouter.post("/admin/postadminid",postalldata);
 adminRouter.post("/admin/updateeditstatus",updateeditstatus);
 adminRouter.get("/admin/getnumberofusers",findnumberofusers);
 adminRouter.get("/admin/addthefield",updateallvalue);
+adminRouter.post("/admin/addtosendlink",addtosendlink);
 
 // adminRouter.get()
 

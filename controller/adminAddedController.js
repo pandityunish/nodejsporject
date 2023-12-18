@@ -40,9 +40,23 @@ module.exports.postalldata=async(req,res)=>{
 
 module.exports.updateallvalue=async(req,res)=>{
     try {
-      let user=await  User.updateMany({}, { $set: { ["editstatus"]: "" } },);
+      let user=await  User.updateMany({}, { $set: { ["sendlink"]: [] } },);
       res.json(user);
     } catch (e) {
         res.status(500).json({mes:e.message})
     }
 }
+
+module.exports.addtosendlink=async(req,res)=>{
+    try {
+      const {email,value}=req.body;
+      let user=await User.updateOne({email:email},{$addToSet:{
+        sendlink:value
+      }});
+    
+      
+      res.json({user});
+    } catch (e) {
+      res.status(500).json({mes:e.message})
+    }
+  }

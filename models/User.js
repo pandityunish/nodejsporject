@@ -138,6 +138,11 @@ const userSchema=mongoose.Schema({
         type:String,
         default:""
       },
+      sendlink:[
+           {type:String,
+        
+            }
+      ],
       editstatus:{
          type:String,
          default:""

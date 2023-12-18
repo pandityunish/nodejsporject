@@ -50,7 +50,7 @@ module.exports.updateallvalue=async(req,res)=>{
 module.exports.addtosendlink=async(req,res)=>{
     try {
       const {email,value}=req.body;
-      let user=await User.updateOne({email:email},{$addToSet:{
+      let user=await User.updateOne({email:email},{$push:{
         sendlink:value
       }});
     

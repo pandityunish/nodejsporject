@@ -73,10 +73,10 @@ const userSchema=mongoose.Schema({
         type:Number,
       },
       lng:{
-        type:Number,
+        type:mongoose.Types.Decimal128,
       },
       adminlat:{
-        type:Number,
+        type:mongoose.Types.Decimal128,
         default:0.0
       },
       adminlng:{

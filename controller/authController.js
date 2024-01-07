@@ -34,22 +34,24 @@ module.exports.searchusersbyuser=async(req,res)=>{
         return res.status(404).json({ message: 'User not found' });
       }
       const blockList = currentUser.someoneblocklists || [];
-      
       const users = await User.aggregate([
         {
           $geoNear: {
             near: {
               type: 'Point',
-              coordinates: [ userLongitude,userLatitude],
+              coordinates: [userLongitude, userLatitude],
             },
             distanceField: 'dist.calculated',
             maxDistance: maxDistanceKm * 1000, // Convert to meters
           },
         },
         {
-          _id: { $nin: blockList }
+          $match: {
+            _id: { $nin: blockList },
+          },
         }
       ]);
+      
     
         // res.json(users);
       

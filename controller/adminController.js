@@ -27,7 +27,33 @@ module.exports.getunapproveduser=async(req,res)=>{
         res.status(500).json({mes:e.message});
     }
 }
-
+module.exports.getoldestfirst=async(req,res)=>{
+  try {
+      let users=await User.find({}).sort({ createdAt: 1 });;
+      let   filteredUsers=users.filter(user=>user.status === '');
+      res.json(filteredUsers);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
+module.exports.getmalefirst=async(req,res)=>{
+  try {
+      let users=await User.find({}).sort({ gender: -1 });
+      let   filteredUsers=users.filter(user=>user.status === '');
+      res.json(filteredUsers);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
+module.exports.gefemalefirst=async(req,res)=>{
+  try {
+      let users=await User.find({}).sort({ gender: 1 });
+      let   filteredUsers=users.filter(user=>user.status === '');
+      res.json(filteredUsers);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
 module.exports.updateuserstatus=async(req,res)=>{
     try {
        const {email}=req.body;
@@ -40,6 +66,7 @@ module.exports.updateuserstatus=async(req,res)=>{
         res.status(500).json({mes:e.message});
     }
 }
+
 module.exports.updateeditstatus=async(req,res)=>{
   try {
      const {email}=req.body;

@@ -1,5 +1,5 @@
 const express=require("express");
-const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid, searchuserbyphoneunmber, addtonotification, getallnotification, searchnotification, findnumberofusers, updateeditstatus, getoldestfirst, getmalefirst, gefemalefirst } = require("../controller/adminController");
+const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid, searchuserbyphoneunmber, addtonotification, getallnotification, searchnotification, findnumberofusers, updateeditstatus, getoldestfirst, getmalefirst, gefemalefirst, getminagefirst, getmaxagefirst, getmaxheightfirst, getminheightfirst, getminincomefirst, getmaxincomefirst } = require("../controller/adminController");
 const { postalldata, updateallvalue, addtosendlink } = require("../controller/adminAddedController");
 
 const adminRouter=express.Router();
@@ -29,8 +29,12 @@ adminRouter.post("/admin/addtosendlink",addtosendlink);
 adminRouter.get("/admin/getoldestfirst",getoldestfirst);
 adminRouter.get("/admin/getmalefirst",getmalefirst);
 adminRouter.get("/admin/getfemalefirst",gefemalefirst);
-
-
+adminRouter.get("/admin/getminiagefirst",getminagefirst);
+adminRouter.get("/admin/getmaxagefirst",getmaxagefirst);
+adminRouter.get("/admin/getminiheightfirst",getminheightfirst);
+adminRouter.get("/admin/getmaxheightfirst",getmaxheightfirst);
+adminRouter.get("/admin/getminiincomefirst",getminincomefirst);
+adminRouter.get("/admin/getmaxincomefirst",getmaxincomefirst);
 // adminRouter.get()
 
 

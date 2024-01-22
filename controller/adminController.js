@@ -54,6 +54,69 @@ module.exports.gefemalefirst=async(req,res)=>{
       res.status(500).json({mes:e.message});
   }
 }
+module.exports.getminagefirst=async(req,res)=>{
+  try {
+      let users=await User.find({}).sort({ age: 1 });
+      let   filteredUsers=users.filter(user=>user.status === '');
+      res.json(filteredUsers);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
+module.exports.getmaxagefirst=async(req,res)=>{
+  try {
+      let users=await User.find({}).sort({ age: -1 });
+      let   filteredUsers=users.filter(user=>user.status === '');
+      res.json(filteredUsers);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
+module.exports.getminheightfirst=async(req,res)=>{
+  try {
+      let users=await User.find({}).sort({ height: 1 });
+      let   filteredUsers=users.filter(user=>user.status === '');
+      res.json(filteredUsers);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
+module.exports.getmaxheightfirst=async(req,res)=>{
+  try {
+      let users=await User.find({}).sort({ height: -1 });
+      let   filteredUsers=users.filter(user=>user.status === '');
+      res.json(filteredUsers);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
+module.exports.getminincomefirst=async(req,res)=>{
+  try {
+      let users=await User.find({}).sort({ income: 1 });
+      let   filteredUsers=users.filter(user=>user.status === '');
+      res.json(filteredUsers);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
+module.exports.getmaxincomefirst=async(req,res)=>{
+  try {
+      let users=await User.find({}).sort({ income: -1 });
+      let   filteredUsers=users.filter(user=>user.status === '');
+      res.json(filteredUsers);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
+module.exports.getwithphoto=async(req,res)=>{
+  try {
+      let users=await User.find({}).sort({ $expr: { $size: '$imageurls' } });      ;
+      let   filteredUsers=users.filter(user=>user.status === '');
+      res.json(filteredUsers);
+  } catch (e) {
+      res.status(500).json({mes:e.message});
+  }
+}
 module.exports.updateuserstatus=async(req,res)=>{
     try {
        const {email}=req.body;

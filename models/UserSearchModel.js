@@ -1,0 +1,74 @@
+const mongoose=require("mongoose");
+
+const userSearchSchema=mongoose.Schema({
+    searchidprofile:{
+        type:String,
+        default:""
+    },
+    searchDistance:{
+        type:String,
+        default:""
+    },
+    age:{
+        type:String,
+        default:""
+    },
+    religion:{
+        type:String,
+        default:""
+    },
+    kundlidosh:{
+        type:String,
+        default:""
+    },
+    marital_status:{
+        type:String,
+        default:""
+    },
+    diet:{
+        type:String,
+        default:""
+    },
+    smoke:{
+        type:String,
+        default:""
+    },
+    drink:{
+        type:String,
+        default:""
+    },
+    disability:{
+        type:String,
+        default:""
+    },
+    height:{
+        type:String,
+        default:""
+    },
+    education:{
+        type:String,
+        default:""
+    },
+    profession:{
+        type:String,
+        default:""
+    },
+    income:{
+        type:String,
+        default:""
+    },
+    location:{
+        type:String,
+        default:""
+    },
+userid:{
+    type:String,
+    required:true
+}
+},{
+    timestamps:true
+   });
+
+   const UserSearch=mongoose.model("UserSearch",userSearchSchema);
+
+module.exports=UserSearch;

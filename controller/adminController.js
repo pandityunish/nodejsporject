@@ -110,7 +110,7 @@ module.exports.getmaxincomefirst=async(req,res)=>{
 }
 module.exports.getwithphoto=async(req,res)=>{
   try {
-      let users=await User.find({}).sort({ $expr: { $size: '$imageurls' } });      ;
+      let users=await User.find({}).sort({ 'imageurls': -1 });      
       let   filteredUsers=users.filter(user=>user.status === '');
       res.json(filteredUsers);
   } catch (e) {
@@ -119,7 +119,7 @@ module.exports.getwithphoto=async(req,res)=>{
 }
 module.exports.getwithoutphoto=async(req,res)=>{
   try {
-      let users=await User.find({}).sort({ $expr: { $size: '$imageurls' } }).sort({ $expr: -1 })      ;
+      let users=await User.find({}).sort({ 'imageurls': 1 })
       let   filteredUsers=users.filter(user=>user.status === '');
       res.json(filteredUsers);
   } catch (e) {

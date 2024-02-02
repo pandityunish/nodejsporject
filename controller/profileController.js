@@ -77,6 +77,7 @@ profileRouter.post("/addsharepref",async(req,res)=>{
             incomeList,
             citylocation,
             statelocation,
+            userid,
             location}=req.body;
         let saved_pref=await SavedPreferSearch({
             ageList,
@@ -94,6 +95,7 @@ profileRouter.post("/addsharepref",async(req,res)=>{
             incomeList,
             citylocation,
             statelocation,
+            userid,
             location});
 saved_pref=await saved_pref.save();
 res.json(saved_pref);
@@ -104,7 +106,7 @@ res.json(saved_pref);
 profileRouter.post("/getsearchprofilepref",async(req,res)=>{
     try {
 const {id}=req.body;
-        let users=await User.find({userid:id});
+        let users=await SavedPreferSearch.find({userid:id});
         res.json(users);
     } catch (e) {
         res.status(500).json({mes:e})

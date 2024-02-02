@@ -228,7 +228,23 @@ const userSchema=mongoose.Schema({
   },
       activities:[
         activity
-      ]
+      ],
+      onlineuser:{
+        type:Boolean,
+        default:false,
+      },
+      downloadbiodata:{
+        type:Boolean,
+        default:false,
+      },
+      chatnow:{
+        type:Number,
+        default:0,
+      },
+      support:{
+        type:Boolean,
+        default:false
+      }
 },
 {
   timestamps:true

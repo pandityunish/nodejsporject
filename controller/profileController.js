@@ -1,3 +1,6 @@
+const SavedPreferSearch = require("../models/SavePreferenceSearch");
+const User = require("../models/User");
+const Userkundlimatch = require("../models/UserKundaliMatch");
 const UserSearch=require("../models/UserSearchModel")
 const express=require("express");
  const profileRouter=express.Router();
@@ -23,5 +26,140 @@ const {id}=req.body;
         res.status(500).json({mes:e})
     }
 });
+profileRouter.post("/addkundalimatch",async(req,res)=>{
+    try {
+       const {gname,gday,gmonth,gyear,ghour,gsec,bname,bday,bmonth,byear,bhour,bsec,bplace,userid}=req.body; 
+      
+       let user=await Userkundlimatch({gname,gday,gmonth,gyear,ghour,gsec,bname,bday,bmonth,byear,bhour,bsec,bplace,userid});
+       user=await user.save();
+       res.json(user);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
+profileRouter.post("/getalluserkundli",async(req,res)=>{
+    try {
+const {id}=req.body;
+        let users=await Userkundlimatch.find({userid:id});
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
+profileRouter.get("/update",async(req,res)=>{
+    try {
+        let users=await User.updateMany({},{
+            $set: {
+                support: false,
 
+              },
+        });
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+})
+profileRouter.post("/addsharepref",async(req,res)=>{
+    try {
+        const {
+            ageList,
+            email,
+            religionList,
+            kundaliDoshList,
+            maritalStatusList,
+            dietList,
+            drinkList,
+            smokeList,
+            disabilityList,
+            heightList,
+            educationList,
+            professionList,
+            incomeList,
+            citylocation,
+            statelocation,
+            location}=req.body;
+        let saved_pref=await SavedPreferSearch({
+            ageList,
+            email,
+            religionList,
+            kundaliDoshList,
+            maritalStatusList,
+            dietList,
+            drinkList,
+            smokeList,
+            disabilityList,
+            heightList,
+            educationList,
+            professionList,
+            incomeList,
+            citylocation,
+            statelocation,
+            location});
+saved_pref=await saved_pref.save();
+res.json(saved_pref);
+    } catch (e) {
+        res.status(500).json({mes:e})  
+    }
+});
+profileRouter.post("/getsearchprofilepref",async(req,res)=>{
+    try {
+const {id}=req.body;
+        let users=await User.find({userid:id});
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
+profileRouter.post("/updateonlineuser",async(req,res)=>{
+    try {
+const {id}=req.body;
+        let users=await User.updateOne({_id:id},{
+            $set:{
+                onlineuser:true
+            }
+        });
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
+profileRouter.post("/updatedownloadbiodata",async(req,res)=>{
+    try {
+const {id}=req.body;
+        let users=await User.updateOne({_id:id},{
+            $set:{
+                downloadbiodata:true
+            }
+        });
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
+profileRouter.post("/updatechatnow",async(req,res)=>{
+    try {
+const {id}=req.body;
+        let users=await User.updateOne({_id:id},{
+            $inc:{
+                chatnow:1
+            }
+        });
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
+profileRouter.post("/updatesupport",async(req,res)=>{
+    try {
+const {id}=req.body;
+        let users=await User.updateOne({_id:id},{
+            $set:{
+                support:true
+            }
+        });
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
 module.exports=profileRouter;

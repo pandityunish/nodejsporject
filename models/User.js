@@ -248,6 +248,14 @@ const userSchema=mongoose.Schema({
       share:{
         type:Number,
         default:0
+      },
+      freepersonmatch:{
+        type:Number,
+        default:0
+      },
+      marriageloan:{
+        type:Number,
+        default:0
       }
 },
 {

@@ -28,9 +28,9 @@ const {id}=req.body;
 });
 profileRouter.post("/addkundalimatch",async(req,res)=>{
     try {
-       const {gname,gday,gmonth,gyear,ghour,gsec,bname,bday,bmonth,byear,bhour,bsec,bplace,userid}=req.body; 
+       const {gname,gday,gmonth,gyear,ghour,gsec,bname,bday,bmonth,byear,bhour,bsec,bplace,userid,gplace}=req.body; 
       
-       let user=await Userkundlimatch({gname,gday,gmonth,gyear,ghour,gsec,bname,bday,bmonth,byear,bhour,bsec,bplace,userid});
+       let user=await Userkundlimatch({gname,gday,gmonth,gyear,ghour,gsec,bname,bday,bmonth,gplace,byear,bhour,bsec,bplace,userid});
        user=await user.save();
        res.json(user);
     } catch (e) {
@@ -50,7 +50,7 @@ profileRouter.get("/update",async(req,res)=>{
     try {
         let users=await User.updateMany({},{
             $set: {
-                share: 0,
+                marriageloan: 0,
 
               },
         });
@@ -172,6 +172,32 @@ const {id}=req.body;
 let users=await User.updateOne({_id:id},{
     $inc:{
         share:1
+    }
+});
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
+profileRouter.post("/freepersonmatch",async(req,res)=>{
+    try {
+const {id}=req.body;
+let users=await User.updateOne({_id:id},{
+    $inc:{
+        freepersonmatch:1
+    }
+});
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
+profileRouter.post("/marriageloan",async(req,res)=>{
+    try {
+const {id}=req.body;
+let users=await User.updateOne({_id:id},{
+    $inc:{
+        marriageloan:1
     }
 });
         res.json(users);

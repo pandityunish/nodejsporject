@@ -242,8 +242,12 @@ const userSchema=mongoose.Schema({
         default:0,
       },
       support:{
-        type:Boolean,
-        default:false
+        type:Number,
+        default:0
+      },
+      share:{
+        type:Number,
+        default:0
       }
 },
 {

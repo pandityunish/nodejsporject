@@ -10,6 +10,7 @@ const adminRouter = require("./routers/adminRouter");
 const queryRouter = require("./routers/queryRouter");
 const User = require("./models/User");
 const profileRouter = require("./controller/profileController");
+const DeleteUser = require("./models/DeleteModel");
 
 app.use(express.json());
 app.use(authRouter);
@@ -30,6 +31,7 @@ mongoose.connect(db).then(() => {
 
 const server = app.listen(PORT, "0.0.0.0", () => {
   console.log("Connected to " + PORT);
+  deleteDuplicateUsers();
 });
 
 const io = socket(server, {
@@ -70,3 +72,30 @@ buttonsNamespace.on("connection", (socket) => {
     }
   });
 });
+async function deleteDuplicateUsers() {
+ // Replace 'users' with your actual collection name
+
+  // Identify duplicates using aggregation
+  const result = await User.aggregate([
+    {
+      $group: {
+        _id: { username: '$puid', email: '$email' }, // Specify the fields to identify duplicates
+        count: { $sum: 1 },
+        duplicates: { $addToSet: '$_id' },
+      },
+    },
+    {
+      $match: {
+        count: { $gt: 1 }, // Filter groups with more than one document (duplicates)
+      },
+    },
+  ]).exec();
+
+  // Delete duplicates
+  for (const group of result) {
+    const duplicates = group.duplicates.slice(1); // Keep one document, delete the rest
+    await User.deleteMany({ _id: { $in: duplicates } });
+  }
+
+  console.log('Duplicate users deleted successfully');
+}

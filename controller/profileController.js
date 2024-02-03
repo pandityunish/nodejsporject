@@ -50,7 +50,7 @@ profileRouter.get("/update",async(req,res)=>{
     try {
         let users=await User.updateMany({},{
             $set: {
-                support: false,
+                share: 0,
 
               },
         });
@@ -58,7 +58,9 @@ profileRouter.get("/update",async(req,res)=>{
     } catch (e) {
         res.status(500).json({mes:e})
     }
-})
+});
+
+
 profileRouter.post("/addsharepref",async(req,res)=>{
     try {
         const {
@@ -154,11 +156,24 @@ const {id}=req.body;
 profileRouter.post("/updatesupport",async(req,res)=>{
     try {
 const {id}=req.body;
-        let users=await User.updateOne({_id:id},{
-            $set:{
-                support:true
-            }
-        });
+let users=await User.updateOne({_id:id},{
+    $inc:{
+        support:1
+    }
+});
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
+profileRouter.post("/share",async(req,res)=>{
+    try {
+const {id}=req.body;
+let users=await User.updateOne({_id:id},{
+    $inc:{
+        share:1
+    }
+});
         res.json(users);
     } catch (e) {
         res.status(500).json({mes:e})

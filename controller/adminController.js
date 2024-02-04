@@ -573,6 +573,17 @@ module.exports.addtonotification=async(req,res)=>{
     res.status(500).json({mes:e.message})
   }
 }
+module.exports.findnumberofunseennoti=async(req,res)=>{
+  try {
+    
+    
+    let notifications=await AdminNotification.find({ isSeen: true });
+    
+    res.json(notifications);
+  } catch (e) {
+    res.status(500).json({mes:e.message})
+  }
+}
 module.exports.getallnotification = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;

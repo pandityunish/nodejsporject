@@ -22,6 +22,10 @@ const adminnotiSchema=mongoose.Schema({
         type:String,
         default:""
     },
+    isSeen:{
+        type:Boolean,
+        default:true
+    }
 },{
     timestamps:true
    });

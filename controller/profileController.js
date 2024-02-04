@@ -1,3 +1,4 @@
+const AdminNotification = require("../models/AdminNotification");
 const SavedPreferSearch = require("../models/SavePreferenceSearch");
 const User = require("../models/User");
 const Userkundlimatch = require("../models/UserKundaliMatch");
@@ -48,9 +49,9 @@ const {id}=req.body;
 });
 profileRouter.get("/update",async(req,res)=>{
     try {
-        let users=await User.updateMany({},{
+        let users=await AdminNotification.updateMany({},{
             $set: {
-                marriageloan: 0,
+                isSeen: false,
 
               },
         });

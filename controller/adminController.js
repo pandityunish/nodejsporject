@@ -597,6 +597,28 @@ module.exports.searchnotibydate=async(req,res)=>{
     res.status(500).json({mes:e.message})
   }
 }
+module.exports.searchuserbydate=async(req,res)=>{
+  try {
+    const {year,month,day}=req.body;
+ 
+
+  
+    let user=await User.find({
+      $expr: {
+        $and: [
+          { $eq: [{ $year: '$createdAt' }, parseInt(year)] },
+          { $eq: [{ $month: '$createdAt' }, parseInt(month)] },
+          { $eq: [{ $dayOfMonth: { date: '$createdAt', timezone: 'UTC' } }, parseInt(day)] },
+        ]
+      }
+    }).sort({ _id: -1 })
+    
+    
+    res.json(user.length);
+  } catch (e) {
+    res.status(500).json({mes:e.message})
+  }
+}
 module.exports.findnumberofunseennoti=async(req,res)=>{
   try {
     

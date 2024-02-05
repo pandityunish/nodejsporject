@@ -60,7 +60,19 @@ profileRouter.get("/update",async(req,res)=>{
         res.status(500).json({mes:e})
     }
 });
+profileRouter.get("/updatenoti",async(req,res)=>{
+    try {
+        let users=await AdminNotification.updateMany({},{
+            $set: {
+                isSeen: false,
 
+              },
+        });
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({mes:e})
+    }
+});
 
 profileRouter.post("/addsharepref",async(req,res)=>{
     try {

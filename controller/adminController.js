@@ -573,6 +573,30 @@ module.exports.addtonotification=async(req,res)=>{
     res.status(500).json({mes:e.message})
   }
 }
+module.exports.searchnotibydate=async(req,res)=>{
+  try {
+    const {year,month,day,pagenumber,perpagenumber}=req.body;
+    const page = parseInt(pagenumber) || 1;
+    const perPage = parseInt(perpagenumber) || 10;
+
+    const skipCount = (page - 1) * perPage;
+    let notifications=await AdminNotification.find({
+      $expr: {
+        $and: [
+          { $eq: [{ $year: '$createdAt' }, parseInt(year)] },
+          { $eq: [{ $month: '$createdAt' }, parseInt(month)] },
+          { $eq: [{ $dayOfMonth: { date: '$createdAt', timezone: 'UTC' } }, parseInt(day)] },
+        ]
+      }
+    }).sort({ _id: -1 })
+    .skip(skipCount)
+    .limit(perPage);;
+    
+    res.json(notifications);
+  } catch (e) {
+    res.status(500).json({mes:e.message})
+  }
+}
 module.exports.findnumberofunseennoti=async(req,res)=>{
   try {
     

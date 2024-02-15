@@ -355,7 +355,7 @@ module.exports.getallusers=async(req,res)=>{
           citylocation,
           statelocation,
           location}=req.body;
-        const itemsPerPage = 15;
+        const itemsPerPage = 25;
         const currentUser = await User.findOne({ email: email });
 
   if (!currentUser) {
@@ -476,7 +476,6 @@ filteredUsers = filteredUsers.map(user => ({
 }));
 
 filteredUsers.sort((a, b) => a.distance - b.distance);
-filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
 
          

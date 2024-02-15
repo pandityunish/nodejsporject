@@ -355,7 +355,7 @@ module.exports.getallusers=async(req,res)=>{
           citylocation,
           statelocation,
           location}=req.body;
-        const itemsPerPage = 100;
+        const itemsPerPage = 15;
         const currentUser = await User.findOne({ email: email });
 
   if (!currentUser) {
@@ -476,9 +476,10 @@ filteredUsers = filteredUsers.map(user => ({
 }));
 
 filteredUsers.sort((a, b) => a.distance - b.distance);
+filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
 
-          console.log(filteredUsers);
+         
           // Paginate the results
           const startIndex = (page - 1) * itemsPerPage;
           const endIndex = startIndex + itemsPerPage;

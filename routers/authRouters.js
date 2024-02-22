@@ -1,7 +1,7 @@
 const express=require("express");
 const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid, updatelocation, cleartoken, addtoken, updatelogin, searchusersbyuser, addtounapproveblock, removefromunapproveblock, getuserdatabypuid, updateeditstatus } = require("../controller/authController");
 const { searchuserbydistance } = require("../controller/adminController");
-const { getalldata } = require("../controller/adminAddedController");
+const { getalldata, addtoboostprofile, boosttoall, addtoinvisibleprofile, invisibletoall, getboostprofile, getinvisibleprofile } = require("../controller/adminAddedController");
 
 const authRouter=express.Router();
 
@@ -42,6 +42,11 @@ authRouter.post("/auth/cleartoken",cleartoken);
 authRouter.post("/auth/addtoken",addtoken);
 authRouter.post("/auth/updatelogin",updatelogin);
 authRouter.post("/auth/getadminuser",getalldata);
-
+authRouter.post("/auth/addtoboostprofile",addtoboostprofile);
+authRouter.post("/auth/boostallprofile",boosttoall);
+authRouter.post("/auth/addtoinvisibleprofile",addtoinvisibleprofile);
+authRouter.post("/auth/inivisibletoall",invisibletoall);
+authRouter.post("/auth/getboostprofile",getboostprofile);
+authRouter.post("/auth/getinvisibleprofile",getinvisibleprofile);
 
 module.exports=authRouter;

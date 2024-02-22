@@ -205,6 +205,16 @@ const userSchema=mongoose.Schema({
             type: String,
         }
       ],
+      boostprofile:[
+        {
+            type: String,
+        }
+      ],
+      invisibleprofile:[
+        {
+            type: String,
+        }
+      ],
       notifications:[
         
            notification

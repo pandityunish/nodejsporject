@@ -63,8 +63,8 @@ module.exports.addtosendlink=async(req,res)=>{
 
   module.exports.addtoboostprofile=async(req,res)=>{
     try {
-      const {email,id}=req.body;
-      let user=await User.updateOne({email:email},{$addToSet:{
+      const {puid,id}=req.body;
+      let user=await User.updateOne({puid:puid},{$addToSet:{
         boostprofile:id
       }});
     
@@ -88,8 +88,8 @@ module.exports.addtosendlink=async(req,res)=>{
 }
 module.exports.addtoinvisibleprofile=async(req,res)=>{
     try {
-      const {email,id}=req.body;
-      let user=await User.updateOne({email:email},{$addToSet:{
+      const {puid,id}=req.body;
+      let user=await User.updateOne({puid:puid},{$addToSet:{
         invisibleprofile:id
       }});
     

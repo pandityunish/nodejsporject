@@ -1,5 +1,5 @@
 const express=require("express");
-const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid, searchuserbyphoneunmber, addtonotification, getallnotification, searchnotification, findnumberofusers, updateeditstatus, getoldestfirst, getmalefirst, gefemalefirst, getminagefirst, getmaxagefirst, getmaxheightfirst, getminheightfirst, getminincomefirst, getmaxincomefirst, getwithphoto, getwithoutphoto, findnumberofunseennoti, searchnotibydate, searchuserbydate } = require("../controller/adminController");
+const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid, searchuserbyphoneunmber, addtonotification, getallnotification, searchnotification, findnumberofusers, updateeditstatus, getoldestfirst, getmalefirst, gefemalefirst, getminagefirst, getmaxagefirst, getmaxheightfirst, getminheightfirst, getminincomefirst, getmaxincomefirst, getwithphoto, getwithoutphoto, findnumberofunseennoti, searchnotibydate, searchuserbydate, finddeletenumberofusers } = require("../controller/adminController");
 const { postalldata, updateallvalue, addtosendlink } = require("../controller/adminAddedController");
 
 const adminRouter=express.Router();
@@ -24,6 +24,7 @@ adminRouter.post("/admin/searchnotification",searchnotification);
 adminRouter.post("/admin/postadminid",postalldata);
 adminRouter.post("/admin/updateeditstatus",updateeditstatus);
 adminRouter.get("/admin/getnumberofusers",findnumberofusers);
+adminRouter.get("/admin/getdeletenumberofusers",finddeletenumberofusers);
 adminRouter.get("/admin/addthefield",updateallvalue);
 adminRouter.post("/admin/addtosendlink",addtosendlink);
 adminRouter.get("/admin/getoldestfirst",getoldestfirst);

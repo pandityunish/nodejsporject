@@ -1,4 +1,5 @@
 const AdminNotification = require("../models/AdminNotification");
+const DeleteUser = require("../models/DeleteModel");
 const User = require("../models/User");
 const AdminModel = require("../models/adminmodel");
 const GeoJSON = require('geojson');
@@ -678,6 +679,14 @@ res.json(filteredUsers);
 module.exports.findnumberofusers=async(req,res)=>{
   try {
     let users=await User.find({});
+    res.json(users.length);
+  } catch (e) {
+    res.status(500).json({mes:e.message});
+  }
+}
+module.exports.finddeletenumberofusers=async(req,res)=>{
+  try {
+    let users=await DeleteUser.find({});
     res.json(users.length);
   } catch (e) {
     res.status(500).json({mes:e.message});

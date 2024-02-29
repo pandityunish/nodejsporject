@@ -40,7 +40,7 @@ module.exports.postalldata=async(req,res)=>{
 
 module.exports.updateallvalue=async(req,res)=>{
     try {
-      let user=await  User.updateMany({}, { $set: { ["invisibleprofile"]: [] } },);
+      let user=await  User.updateMany({}, { $pull: { boostprofile: '655234169c0be2fcdd0ed11a' } },);
       res.json(user);
     } catch (e) {
         res.status(500).json({mes:e.message})
@@ -116,7 +116,7 @@ module.exports.getboostprofile=async(req,res)=>{
     const {userIds} = req.body;
 
   try {
-    const users = await User.find({ _id: { $in: userIds } });
+    const users = await User.find({ puid: { $in: userIds } });
 
    
 
@@ -130,7 +130,7 @@ module.exports.getinvisibleprofile=async(req,res)=>{
     const {userIds} = req.body; 
 
   try {
-    const users = await User.find({ _id: { $in: userIds } });
+    const users = await User.find({ puid: { $in: userIds } });
 
    
 

@@ -40,7 +40,7 @@ module.exports.postalldata=async(req,res)=>{
 
 module.exports.updateallvalue=async(req,res)=>{
     try {
-      let user=await  User.updateMany({}, { $pull: { boostprofile: '655234169c0be2fcdd0ed11a' } },);
+      let user=await  User.updateMany({}, { $set: { ["shareprofile"]: [] }  },);
       res.json(user);
     } catch (e) {
         res.status(500).json({mes:e.message})
@@ -64,8 +64,8 @@ module.exports.addtosendlink=async(req,res)=>{
   module.exports.addtoboostprofile=async(req,res)=>{
     try {
       const {puid,id}=req.body;
-      let user=await User.updateOne({puid:puid},{$addToSet:{
-        boostprofile:id
+      let user=await User.updateOne({_id:id},{$addToSet:{
+        boostprofile:puid
       }});
     
       
@@ -74,7 +74,19 @@ module.exports.addtosendlink=async(req,res)=>{
       res.status(500).json({mes:e.message})
     }
   }
-
+  module.exports.addtoshareprofile=async(req,res)=>{
+    try {
+      const {puid,id}=req.body;
+      let user=await User.updateOne({_id:id},{$addToSet:{
+        boostprofile:puid
+      }});
+    
+      
+      res.json({user});
+    } catch (e) {
+      res.status(500).json({mes:e.message})
+    }
+  }
   module.exports.boosttoall=async(req,res)=>{
     try {
         const {id}=req.body;
@@ -89,8 +101,8 @@ module.exports.addtosendlink=async(req,res)=>{
 module.exports.addtoinvisibleprofile=async(req,res)=>{
     try {
       const {puid,id}=req.body;
-      let user=await User.updateOne({puid:puid},{$addToSet:{
-        invisibleprofile:id
+      let user=await User.updateOne({_id:id},{$addToSet:{
+        invisibleprofile:puid
       }});
     
       
@@ -125,6 +137,20 @@ module.exports.getboostprofile=async(req,res)=>{
     console.error(error);
     return res.status(500).json({ message: 'Internal Server Error' });
   }
+}
+module.exports.getshareprofile=async(req,res)=>{
+  const {userIds} = req.body;
+
+try {
+  const users = await User.find({ puid: { $in: userIds } });
+
+ 
+
+  return res.status(200).json( users );
+} catch (error) {
+  console.error(error);
+  return res.status(500).json({ message: 'Internal Server Error' });
+}
 }
 module.exports.getinvisibleprofile=async(req,res)=>{
     const {userIds} = req.body; 

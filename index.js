@@ -11,13 +11,15 @@ const queryRouter = require("./routers/queryRouter");
 const User = require("./models/User");
 const profileRouter = require("./controller/profileController");
 const DeleteUser = require("./models/DeleteModel");
+const adsRouter = require("./routers/adsRouter");
 
 app.use(express.json());
 app.use(authRouter);
 app.use(messageRouter);
 app.use(adminRouter);
 app.use(queryRouter);
-app.use(profileRouter)
+app.use(profileRouter);
+app.use(adsRouter)
 let clients = new Map();
 let users = new Map();
 

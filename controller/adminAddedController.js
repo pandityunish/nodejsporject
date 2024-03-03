@@ -40,7 +40,7 @@ module.exports.postalldata=async(req,res)=>{
 
 module.exports.updateallvalue=async(req,res)=>{
     try {
-      let user=await  User.updateMany({}, { $set: { ["shareprofile"]: [] }  },);
+      let user=await  User.updateMany({}, { $set: { ["isBlur"]:false }  },);
       res.json(user);
     } catch (e) {
         res.status(500).json({mes:e.message})

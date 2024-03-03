@@ -641,6 +641,19 @@ module.exports.connectnow=async(req,res)=>{
     res.status(500).json({mes:e.message})
   }
 }
+module.exports.updateblur=async(req,res)=>{
+  try {
+    const {email,isblur}=req.body;
+    let user=await User.updateOne({email:email},{$set:{
+      isBlur:isblur
+    }});
+   
+    
+    res.json({user});
+  } catch (e) {
+    res.status(500).json({mes:e.message})
+  }
+}
 module.exports.rejectrequest=async(req,res)=>{
   try {
     const {uid,email,sendemail,senduid}=req.body;

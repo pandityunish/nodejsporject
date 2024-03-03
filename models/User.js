@@ -266,6 +266,10 @@ const userSchema=mongoose.Schema({
       marriageloan:{
         type:Number,
         default:0
+      },
+      isBlur:{
+        type:Boolean,
+        default:false
       }
 },
 {

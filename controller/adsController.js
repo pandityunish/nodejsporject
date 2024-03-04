@@ -25,3 +25,14 @@ module.exports.getallads = async (req, res) => {
 
     }
 }
+module.exports.deleteads = async (req, res) => {
+    try {
+        const { id } = req.body;
+        let ads = await ADS.deleteOne({_id:id});
+
+        res.json(ads);
+    } catch (e) {
+        res.status(500).json({ mes: e.message })
+
+    }
+}

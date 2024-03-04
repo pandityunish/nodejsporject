@@ -17,7 +17,8 @@ module.exports.getallads = async (req, res) => {
     try {
         const { adsid } = req.body;
         let ads = await ADS.find({adsid:adsid});
-       
+        ads.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
         res.json(ads);
     } catch (e) {
         res.status(500).json({ mes: e.message })

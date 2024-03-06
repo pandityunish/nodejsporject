@@ -22,6 +22,8 @@ profileRouter.post("/getallusersearch",async(req,res)=>{
     try {
 const {id}=req.body;
         let users=await UserSearch.find({userid:id});
+        users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
         res.json(users);
     } catch (e) {
         res.status(500).json({mes:e})
@@ -42,6 +44,7 @@ profileRouter.post("/getalluserkundli",async(req,res)=>{
     try {
 const {id}=req.body;
         let users=await Userkundlimatch.find({userid:id});
+        users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         res.json(users);
     } catch (e) {
         res.status(500).json({mes:e})
@@ -122,6 +125,7 @@ profileRouter.post("/getsearchprofilepref",async(req,res)=>{
     try {
 const {id}=req.body;
         let users=await SavedPreferSearch.find({userid:id});
+        users.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         res.json(users);
     } catch (e) {
         res.status(500).json({mes:e})

@@ -355,7 +355,7 @@ module.exports.getallusers=async(req,res)=>{
           citylocation,
           statelocation,
           location}=req.body;
-        const itemsPerPage = 6;
+        const itemsPerPage = 10;
         const currentUser = await User.findOne({ email: email });
 
   if (!currentUser) {

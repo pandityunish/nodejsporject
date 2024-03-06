@@ -18,12 +18,17 @@ module.exports.findadminuser=async(req,res)=>{
 }
 module.exports.getunapproveduser=async(req,res)=>{
     try {
-       const {email}=req.body;
+       const {email, page, itemsPerPage }=req.body;
+    
+     
         let users=await User.find({});
-     let   filteredUsers=users.filter(user=>user.status === ''|| user.status==='block');
+     let   filteredUsers=users.filter(user=>user.status === ''|| user.status==='block')
+    
      filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-        res.json(filteredUsers);
+     const startIndex = (page - 1) * itemsPerPage;
+     const endIndex = startIndex + itemsPerPage;
+     const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+        res.json(paginatedUsers);
     } catch (e) {
         res.status(500).json({mes:e.message});
     }

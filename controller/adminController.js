@@ -20,7 +20,7 @@ module.exports.getunapproveduser=async(req,res)=>{
     try {
        const {email}=req.body;
         let users=await User.find({});
-     let   filteredUsers=users.filter(user=>user.status === '');
+     let   filteredUsers=users.filter(user=>user.status === ''|| user.status==='block');
      filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
         res.json(filteredUsers);

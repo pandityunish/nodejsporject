@@ -15,7 +15,9 @@ module.exports.postQuery=async(req,res)=>{
 module.exports.updateMaintenance=async(req,res)=>{
     try {
         const {isUnder}=req.body;
-        let query=Maintenance.updateMany({},{isUnder:isUnder});
+        let query=Maintenance.updateMany({},{$set:{
+            isUnder:isUnder
+        }});
      
       res.json(query);
     } catch (e) {

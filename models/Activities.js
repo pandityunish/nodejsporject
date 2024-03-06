@@ -4,6 +4,9 @@ const activity=mongoose.Schema({
     username:{
         type:String,
     },
+    isSeen:{
+type:Boolean
+    },
     userid:{
         type:String,
     },

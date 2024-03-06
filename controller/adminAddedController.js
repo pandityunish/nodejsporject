@@ -40,13 +40,46 @@ module.exports.postalldata=async(req,res)=>{
 
 module.exports.updateallvalue=async(req,res)=>{
     try {
-      let user=await  User.updateMany({}, { $set: { ["isBlur"]:false }  },);
+      const updateQuery = {
+        $set: { 'activities.$[].isSeen': false },
+      };
+      let user=await  User.updateMany({}, updateQuery,);
       res.json(user);
     } catch (e) {
         res.status(500).json({mes:e.message})
     }
 }
+module.exports.countofnotification=async(req,res)=>{
+  try {
+    const {userId}=req.body;
+    const user = await User.findOne({ _id: userId });
 
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const unseenObjects = user.activities.filter(item => !item.isSeen);
+    res.json(unseenObjects.length);
+  } catch (e) {
+      res.status(500).json({mes:e.message})
+  }
+}
+module.exports.updatenotification=async(req,res)=>{
+  try {
+    const {userId}=req.body;
+    const user = await User.updateOne(
+      { _id: userId, 'activities.isSeen': false },
+      { $set: { 'activities.$.isSeen': true } }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+res.json(user)
+  } catch (e) {
+      res.status(500).json({mes:e.message})
+  }
+}
 module.exports.addtosendlink=async(req,res)=>{
     try {
       const {email,value}=req.body;

@@ -59,7 +59,7 @@ module.exports.updateBubbles=async(req,res)=>{
     try {
         const {image1,image2,image3,image4,image5,image6,image7,image8,image9,image10,image11,image12,image13,image14,image15,image16}=req.body;
         let query=await Bubbles(
-           image1,image2,image3,image4,image5,image6,image7,image8,image9,image10,image11,image12,image13,image14,image15,image16
+          { image1,image2,image3,image4,image5,image6,image7,image8,image9,image10,image11,image12,image13,image14,image15,image16}
         );
     query=await query.save();
       res.json(query);

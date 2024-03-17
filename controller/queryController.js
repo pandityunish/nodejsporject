@@ -12,7 +12,16 @@ module.exports.postQuery=async(req,res)=>{
         res.status(500).json({mes:e.message})
     }
 }
-
+module.exports.getQuery=async(req,res)=>{
+    try {
+        
+        let query=await Query.find({}).sort({createdAt:-1});
+    // let query=await Query.updateMany({},{ $currentDate: { timestamps: true }})
+      res.json(query);
+    } catch (e) {
+        res.status(500).json({mes:e.message})
+    }
+}
 module.exports.updateMaintenance=async(req,res)=>{
     try {
         const {isUnder}=req.body;

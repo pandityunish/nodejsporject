@@ -9,6 +9,8 @@ const querySchema=mongoose.Schema({
         type:String,
         required:true
     }
-});
+},{
+    timestamps:true
+   });
 const Query=mongoose.model("Queries",querySchema);
 module.exports=Query;

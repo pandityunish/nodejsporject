@@ -15,7 +15,7 @@ module.exports.postQuery=async(req,res)=>{
 module.exports.getQuery=async(req,res)=>{
     try {
         const email=req.body;
-        let query=await Query.find({email}).sort({createdAt:-1});
+        let query=await Query.find(email).sort({createdAt:-1});
     // let query=await Query.updateMany({},{ $currentDate: { timestamps: true }})
       res.json(query);
     } catch (e) {

@@ -4,7 +4,7 @@ const { postQuery, updateMaintenance, getMaintenance, getBubbles, createBubbles,
  const queryRouter=express.Router();
 
 queryRouter.post("/postquery",postQuery);
-queryRouter.get("/getquery",getQuery);
+queryRouter.post("/getquery",getQuery);
 queryRouter.post("/updatemaintenance",updateMaintenance);
 queryRouter.get("/findmaintenance",getMaintenance);
 queryRouter.get("/getbubbles",getBubbles);

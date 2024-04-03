@@ -277,7 +277,7 @@ const userSchema=mongoose.Schema({
  }
 );
 userSchema.index({ location: '2dsphere' });
-userSchema.plugin(require('mongoose-paginate-v2'));
+// userSchema.plugin(require('mongoose-paginate-v2'));
 
 const User=mongoose.model("Users",userSchema);
 

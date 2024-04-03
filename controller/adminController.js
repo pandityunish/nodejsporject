@@ -330,7 +330,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
           citylocation,
           statelocation,
           location}=req.body;
-        const itemsPerPage = 100;
+        const itemsPerPage = 10;
         
         if(maxDistanceKm){
           const userLatitude = parseFloat(latitude);

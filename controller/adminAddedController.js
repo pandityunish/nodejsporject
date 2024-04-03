@@ -93,7 +93,19 @@ module.exports.addtosendlink=async(req,res)=>{
       res.status(500).json({mes:e.message})
     }
   }
-
+  module.exports.removesendlink=async(req,res)=>{
+    try {
+      const {email,value}=req.body;
+      let user=await User.updateOne({email:email},{$pull:{
+        sendlink:value
+      }});
+    
+      
+      res.json({user});
+    } catch (e) {
+      res.status(500).json({mes:e.message})
+    }
+  }
   module.exports.addtoboostprofile=async(req,res)=>{
     try {
       const {puid,id}=req.body;

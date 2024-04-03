@@ -350,7 +350,7 @@ module.exports.searchuserbyemail=async(req,res)=>{
             },
            
           ]);
-        
+          const result = await users.paginate({}, { page, itemsPerPage });
             // res.json(users);
           
       
@@ -447,13 +447,21 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
           console.log(filteredUsers);
    
-          const startIndex = (page - 1) * itemsPerPage;
-          const endIndex = startIndex + itemsPerPage;
-          const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+          // const startIndex = (page - 1) * itemsPerPage;
+          // const endIndex = startIndex + itemsPerPage;
+          // const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
         
-          res.json(
-            filteredUsers,
-          );
+          // res.json(
+          //   filteredUsers,
+          // );
+          const nextPage = result.hasNextPage ? `/items?page=${page + 1}&limit=${itemsPerPage}` : null;
+          const prevPage = page > 1 ? `/items?page=${page - 1}&limit=${itemsPerPage}` : null;
+          
+          res.json({
+              nextPage,
+              prevPage,
+              data: filteredUsers
+          });
         }else{
           let users=await User.find({});   
       
@@ -466,8 +474,10 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           }
         
           // Filter users based on gender and religion while excluding the user's own data
-          let filteredUsers = users;
+          const result = await User.paginate({}, { page, itemsPerPage });
+          let filteredUsers = result.docs;
         // console.log(filteredUsers);
+
           if (gender) {
             filteredUsers = filteredUsers.filter(user => user.gender === gender);
           }
@@ -555,9 +565,14 @@ filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
           // const endIndex = startIndex + itemsPerPage;
           // const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
         
-          res.json(
-            filteredUsers,
-          );
+          const nextPage = result.hasNextPage ? `/items?page=${page + 1}&limit=${itemsPerPage}` : null;
+          const prevPage = page > 1 ? `/items?page=${page - 1}&limit=${itemsPerPage}` : null;
+          
+          res.json({
+              nextPage,
+              prevPage,
+              data: filteredUsers
+          });
         }
        
          

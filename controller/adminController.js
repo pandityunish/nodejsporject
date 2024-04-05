@@ -592,7 +592,7 @@ module.exports.profilesearch = async (req, res) => {
     const itemsPerPage = 10;
     let users = await User.find({});
     let filetereduser = users;
-    if (searchtext === "Male" || searchtext == "Female") {
+    if (searchtext === "male" || searchtext == "female") {
       filetereduser = users.filter(user => user.gender === searchtext);
     } else if (searchtext == "Pending Profiles New male") {
       filetereduser = users.filter(user => user.status === '' && user.gender === "male")

@@ -43,7 +43,7 @@ adminRouter.get("/admin/getwithoutphtotfirst",getwithoutphoto);
 adminRouter.get("/admin/getnumberofunreadnoti",findnumberofunseennoti);
 adminRouter.post("/admin/searchnotibyid",searchnotibydate);
 adminRouter.post("/admin/searchuserbydate",searchuserbydate);
-adminRouter.post("/admin/profilesearch",profilesearch)
+adminRouter.post("/admin/profilesearch", profilesearch)
 
 
 

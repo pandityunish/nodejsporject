@@ -1,5 +1,5 @@
 const express=require("express");
-const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid, searchuserbyphoneunmber, addtonotification, getallnotification, searchnotification, findnumberofusers, updateeditstatus, getoldestfirst, getmalefirst, gefemalefirst, getminagefirst, getmaxagefirst, getmaxheightfirst, getminheightfirst, getminincomefirst, getmaxincomefirst, getwithphoto, getwithoutphoto, findnumberofunseennoti, searchnotibydate, searchuserbydate, finddeletenumberofusers } = require("../controller/adminController");
+const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid, searchuserbyphoneunmber, addtonotification, getallnotification, searchnotification, findnumberofusers, updateeditstatus, getoldestfirst, getmalefirst, gefemalefirst, getminagefirst, getmaxagefirst, getmaxheightfirst, getminheightfirst, getminincomefirst, getmaxincomefirst, getwithphoto, getwithoutphoto, findnumberofunseennoti, searchnotibydate, searchuserbydate, finddeletenumberofusers, profilesearch } = require("../controller/adminController");
 const { postalldata, updateallvalue, addtosendlink, removesendlink } = require("../controller/adminAddedController");
 
 const adminRouter=express.Router();
@@ -42,7 +42,9 @@ adminRouter.get("/admin/getwithphtotfirst",getwithphoto);
 adminRouter.get("/admin/getwithoutphtotfirst",getwithoutphoto);
 adminRouter.get("/admin/getnumberofunreadnoti",findnumberofunseennoti);
 adminRouter.post("/admin/searchnotibyid",searchnotibydate);
-adminRouter.post("/admin/searchuserbydate",searchuserbydate)
+adminRouter.post("/admin/searchuserbydate",searchuserbydate);
+adminRouter.post("/admin/profilesearch",profilesearch)
+
 
 
 // adminRouter.get()

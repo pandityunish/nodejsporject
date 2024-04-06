@@ -644,7 +644,16 @@ module.exports.profilesearch = async (req, res) => {
       filetereduser = users.filter(user => user.status === 'block')
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-    }else if (searchtext == "Report Profiles by users") {
+    }else if (searchtext == "Pending Profiles Edit") {
+      filetereduser = users.filter(user => user.editstatus === '')
+      filetereduser.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+    }else if (searchtext == "Approved Profiles Edit") {
+      filetereduser = users.filter(user => user.editstatus === 'approved')
+      filetereduser.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+    }
+    else if (searchtext == "Report Profiles by users") {
       filetereduser = users.filter(user => user.reportlist.length !== 0)
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 

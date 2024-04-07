@@ -785,6 +785,23 @@ module.exports.getallnotification = async (req, res) => {
     res.status(500).json({ message: e.message });
   }
 };
+module.exports.getalldeletedProfile = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const perPage = parseInt(req.query.perPage) || 10;
+
+    const skipCount = (page - 1) * perPage;
+
+    const notifications = await DeleteUser.find({})
+      .sort({ _id: -1 })
+      .skip(skipCount)
+      .limit(perPage);
+
+    res.json(notifications);
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+};
 module.exports.searchnotification = async (req, res) => {
   try {
     const { title } = req.body;

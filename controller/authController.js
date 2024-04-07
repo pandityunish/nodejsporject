@@ -366,20 +366,7 @@ module.exports.getallusers=async(req,res)=>{
           _id: { $nin: blockList }
         });   
         users = users.map(user => user.toObject());
-        console.log(gender,
-           religionList,
-          kundaliDoshList,
-          maritalStatusList,
-          dietList,
-          drinkList,
-          smokeList,
-          disabilityList,
-          heightList,
-          educationList,
-          professionList,
-          incomeList,
-          
-          location)
+       
           if (!email) {
             return res.status(400).json({ error: 'Email is required in the request body.' });
           }
@@ -389,7 +376,7 @@ module.exports.getallusers=async(req,res)=>{
           }
         
           // Filter users based on gender and religion while excluding the user's own data
-          let filteredUsers = users.filter(user => user.email !== email);
+          let filteredUsers = users.filter(user => user.email !== email && user.status === 'approved');
         // console.log(filteredUsers);
           if (gender) {
             filteredUsers = filteredUsers.filter(user => user.gender === gender);

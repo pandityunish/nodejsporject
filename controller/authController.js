@@ -868,6 +868,19 @@ module.exports.pushnotification=async(req,res)=>{
     res.status(500).json({mes:e.message})
   }
 }
+module.exports.updateemail=async(req,res)=>{
+  try {
+    const {editemail,email}=req.body;
+   
+ 
+    let user=await User.updateOne({email:email},{$set:{
+      email:editemail
+    }});
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({mes:e.message})
+  }
+}
 module.exports.pushactivities=async(req,res)=>{
   try {
     const {title,email,username,userimage,userid}=req.body;

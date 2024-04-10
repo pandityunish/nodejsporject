@@ -458,7 +458,7 @@ if(citylocation.length){
   filteredUsers = filteredUsers.filter(user => citylocation.includes(user.city) );
 
 }
-if(invisiblelist===null){
+if(invisiblelist===undefined){
 
 }else{
   if(invisiblelist.length){

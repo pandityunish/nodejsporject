@@ -352,6 +352,7 @@ module.exports.getallusers=async(req,res)=>{
           incomeList,
           lat,
           lng,
+          invisiblelist,
           citylocation,
           statelocation,
           location}=req.body;
@@ -456,6 +457,9 @@ if(statelocation.length){
 if(citylocation.length){
   filteredUsers = filteredUsers.filter(user => citylocation.includes(user.city) );
 
+}
+if(invisiblelist.length){
+  filteredUsers=!filteredUsers.filter(user=>invisiblelist.includes(user.puid))
 }
 filteredUsers = filteredUsers.map(user => ({
   ...user,

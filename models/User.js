@@ -270,7 +270,8 @@ const userSchema=mongoose.Schema({
       isBlur:{
         type:Boolean,
         default:false
-      }
+      },
+    
 },
 {
   timestamps:true

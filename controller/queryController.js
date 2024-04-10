@@ -34,6 +34,7 @@ module.exports.updateMaintenance=async(req,res)=>{
         res.status(500).json({mes:e.message})
     }
 }
+
 module.exports.getMaintenance=async(req,res)=>{
     try {
         

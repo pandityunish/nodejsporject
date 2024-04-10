@@ -458,9 +458,14 @@ if(citylocation.length){
   filteredUsers = filteredUsers.filter(user => citylocation.includes(user.city) );
 
 }
-if(invisiblelist.length){
-  filteredUsers=!filteredUsers.filter(user=>invisiblelist.includes(user.puid))
+if(invisiblelist===null){
+
+}else{
+  if(invisiblelist.length){
+    filteredUsers=!filteredUsers.filter(user=>invisiblelist.includes(user.puid))
+  }
 }
+
 filteredUsers = filteredUsers.map(user => ({
   ...user,
   distance: calculateDistance(lat, lng, user.lat, user.lng),

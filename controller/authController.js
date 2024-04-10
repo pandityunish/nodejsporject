@@ -572,18 +572,20 @@ module.exports.getallusers = async (req, res) => {
     }
 
     // Execute the query
-    let users = await User.find(query).limit(itemsPerPage).skip((page - 1) * itemsPerPage);
+    let users = await User.find(query);
 
-    // Calculate distances
+    // Calculate distances and sort by distance
     users = users.map(user => ({
       ...user.toObject(),
       distance: calculateDistance(lat, lng, user.lat, user.lng)
-    }));
+    })).sort((a, b) => a.distance - b.distance);
 
-    // Sort by distance
-    users.sort((a, b) => a.distance - b.distance);
+    // Paginate the results
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedUsers = users.slice(startIndex, endIndex);
 
-    res.json(users);
+    res.json(paginatedUsers);
   } catch (e) {
     res.status(500).json({ mes: e.message });
   }

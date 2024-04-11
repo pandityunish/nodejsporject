@@ -14,6 +14,10 @@ type:Boolean
         type:String,
         default:""
     },
+    delete:{
+        type:Boolean,
+        default:false
+    },
     title:{
         type:String,
     }

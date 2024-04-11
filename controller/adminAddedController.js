@@ -80,6 +80,22 @@ res.json(user)
       res.status(500).json({mes:e.message})
   }
 }
+module.exports.deletenotificationfromuser=async(req,res)=>{
+  try {
+    const {userId,notiId}=req.body;
+    const user = await User.updateOne(
+      { _id: userId, 'activities._id': notiId },
+      { $set: { 'activities.$.delete': true } }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+res.json(user)
+  } catch (e) {
+      res.status(500).json({mes:e.message})
+  }
+}
 module.exports.addtosendlink=async(req,res)=>{
     try {
       const {email,value}=req.body;

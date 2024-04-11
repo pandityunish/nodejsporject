@@ -79,47 +79,11 @@ profileRouter.get("/updatenoti", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        let users = await DeleteUser.updateMany({}, {
-            $set: {
-                onlineuser:
-                    false,
-
-                downloadbiodata:
-
-                    false,
-
-                chatnow:
-
-                    0,
-
-                support:
-
-                    0,
-
-                share:
-
-                    0,
-
-                freepersonmatch:
-
-                    0,
-
-                marriageloan:
-
-                    0,
-
-                isBlur:
-
-                    false,
-
-                reasontodeleteuser:
-
-                    ""
-
-
-            }
-        });;
-        res.json(users);
+        const user = await User.updateMany(
+            {},
+            { $set: { 'activities.$[].delete': false } }
+          );
+        res.json(user);
     } catch (e) {
         res.status(500).json({ mes: e })
     }

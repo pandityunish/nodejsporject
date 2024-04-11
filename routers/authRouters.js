@@ -1,5 +1,5 @@
 const express=require("express");
-const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid, updatelocation, cleartoken, addtoken, updatelogin, searchusersbyuser, addtounapproveblock, removefromunapproveblock, getuserdatabypuid, updateeditstatus, updateblur, updateemail } = require("../controller/authController");
+const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid, updatelocation, cleartoken, addtoken, updatelogin, searchusersbyuser, addtounapproveblock, removefromunapproveblock, getuserdatabypuid, updateeditstatus, updateblur, updateemail, deleteaccountfromadmin } = require("../controller/authController");
 const { searchuserbydistance } = require("../controller/adminController");
 const { getalldata, addtoboostprofile, boosttoall, addtoinvisibleprofile, invisibletoall, getboostprofile, getinvisibleprofile, getshareprofile, addtoshareprofile, countofnotification, updatenotification } = require("../controller/adminAddedController");
 
@@ -54,4 +54,6 @@ authRouter.post("/auth/updateblur",updateblur);
 authRouter.post("/auth/numberofnoti",countofnotification);
 authRouter.post("/auth/updatenoti",updatenotification);
 authRouter.post("/auth/editemail",updateemail);
+authRouter.post("/auth/deleteaccountfromadmin",deleteaccountfromadmin);
+
 module.exports=authRouter;

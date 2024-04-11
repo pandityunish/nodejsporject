@@ -79,9 +79,9 @@ profileRouter.get("/updatenoti", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await User.updateMany(
+        const user = await DeleteUser.updateMany(
             {},
-            { $set: { 'activities.$[].delete': false } }
+            { $set: { adminlat:0.1,adminlng:0.2,location1:"",editstatus:"" } }
           );
         res.json(user);
     } catch (e) {

@@ -1084,6 +1084,17 @@ module.exports.deleteaccount = async (req, res) => {
     res.status(500).json({ mes: e.message })
   }
 }
+module.exports.deleteaccountfromadmin = async (req, res) => {
+  try {
+    const { id } = req.body;
+    let user = await DeleteUser.deleteOne({ _id: id });
+    
+    
+    res.json({ user });
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
 module.exports.updatelocation = async (req, res) => {
   try {
     const { email, lat, lng } = req.body;

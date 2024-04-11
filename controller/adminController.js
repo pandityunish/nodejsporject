@@ -35,13 +35,65 @@ module.exports.getunapproveduser = async (req, res) => {
 }
 module.exports.getoldestfirst = async (req, res) => {
   try {
-    let users = await User.find({}).sort({ createdAt: 1 });;
+    let users = await User.find({}).sort({ createdAt: -1 });;
     let filteredUsers = users.filter(user => user.status === '');
     res.json(filteredUsers);
   } catch (e) {
     res.status(500).json({ mes: e.message });
   }
 }
+module.exports.sortdatabasedontype = async (req, res) => {
+  try {
+    const { searchtext, page } = req.body;
+    const itemsPerPage = 10;
+    let filteredUsers = await User.find({});
+  
+    if (searchtext === "New Profile To Old Profile") {
+      filteredUsers.sort((a, b) => b.createdAt - a.createdAt);
+    } else if (searchtext === "Old Profile To New Profile") {
+      filteredUsers.sort((a, b) => a.createdAt - b.createdAt);
+    } else if (searchtext === "Male to Female") {
+      filteredUsers.sort((a, b) => b.gender.localeCompare(a.gender));
+    }else if (searchtext === "Female to Male") {
+      filteredUsers.sort((a, b) => a.gender.localeCompare(b.gender));
+    }else if (searchtext === "Age MIN To MAX") {
+      filteredUsers.sort((a, b) => a.age - b.age);
+    }else if (searchtext === "Age MAX To MIN") {
+      filteredUsers.sort((a, b) => b.age - a.age);
+    }else if (searchtext === "Distance MIN To MAX") {
+      filteredUsers.sort((a, b) => b.createdAt - a.createdAt);
+    }else if (searchtext === "Distance MAX To MIN") {
+      filteredUsers.sort((a, b) => b.createdAt - a.createdAt);
+    }else if (searchtext === "Height MIN To MAX") {
+      filteredUsers.sort((a, b) => a.height - b.height);
+    }else if (searchtext === "Height MAX To MIN") {
+      filteredUsers.sort((a, b) => {
+        const heightA = parseFloat(a.height.split(' ')[0]); // Extract numerical value from height string
+        const heightB = parseFloat(b.height.split(' ')[0]); // Extract numerical value from height string
+        return heightB - heightA;
+      });
+    }else if (searchtext === "Income MIN To MAX") {
+      filteredUsers.sort((a, b) => a.income - b.income);
+    }else if (searchtext === "Income MAX To MIN") {
+      filteredUsers.sort((a, b) => b.income - a.income);
+    }else if (searchtext === "Photo To Without Photo") {
+      filteredUsers.sort((a, b) => b.imageurls.length - a.imageurls.length);
+    }else if (searchtext === "Without Photo To Photo") {
+      filteredUsers.sort((a, b) => a.imageurls.length - b.imageurls.length);
+    }
+
+    
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+    
+    res.json(paginatedUsers);
+  
+  } catch (e) {
+    res.status(500).json({ mes: e.message });
+  }
+}
+
 module.exports.getmalefirst = async (req, res) => {
   try {
     let users = await User.find({}).sort({ gender: -1 });

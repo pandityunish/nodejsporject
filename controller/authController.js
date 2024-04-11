@@ -1070,10 +1070,10 @@ module.exports.pushactivities = async (req, res) => {
 
 module.exports.deleteaccount = async (req, res) => {
   try {
-    const { aboutme, age, puid, diet, lat, lng, disability, drink, imageurls, placeofbirth, timeofbirth, education, height, income, patnerprefs, smoke, displayname, email, religion, name, surname, phone, gender, kundalidosh, martialstatus, profession, location, city, state, country, token, dob, reasontodeleteuser } = req.body;
+    const { aboutme, age, puid, diet, lat, lng, disability, drink, imageurls, placeofbirth, timeofbirth, education, height, income, patnerprefs, smoke, displayname, email, religion, name, surname, phone, gender, kundalidosh, martialstatus, profession, location, city, state, country, token, dob, reasontodeleteuser,status } = req.body;
     let user = await User.deleteOne({ email: email });
     let deleteaccount = DeleteUser({
-      aboutme, age, puid, diet, lat, lng, disability, drink, imageurls, placeofbirth, timeofbirth, education, height, income, patnerprefs, smoke, displayname, email, religion, name, surname, phone, gender, kundalidosh, martialstatus, profession, location, city, state, country, token, dob, reasontodeleteuser
+      aboutme, age, puid, diet, lat, lng,status, disability, drink, imageurls, placeofbirth, timeofbirth, education, height, income, patnerprefs, smoke, displayname, email, religion, name, surname, phone, gender, kundalidosh, martialstatus, profession, location, city, state, country, token, dob, reasontodeleteuser
     })
     deleteaccount = await deleteaccount.save();
 

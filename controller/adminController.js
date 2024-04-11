@@ -723,21 +723,23 @@ module.exports.profilesearch = async (req, res) => {
 
     }
     else if (searchtext == "Same Mobile No. Profiles") {
-      const users = await User.aggregate([
+      const result = await User.aggregate([
         {
-          $group: {
-            _id: '$mobile',
-            users: { $push: '$$ROOT' },
-            count: { $sum: 1 },
-          },
+            $group: {
+                _id: '$phone',
+                users: { $push: '$$ROOT' } // Push all documents in the group into an array
+            }
         },
         {
-          $match: {
-            count: { $gt: 1 },
-          },
-        },
-      ]);
-      filetereduser=users;
+            $match: {
+                _id: { $exists: true } // Filter out groups with no phone number (_id field is the phone number)
+            }
+        }
+    ]);
+
+    // Extract the users array from the result
+    const usersWithSamePhone = result.map(group => group.users).flat();
+    filetereduser=usersWithSamePhone;
 
     }else if (searchtext == "support seeking profiles") {
       filetereduser = users.filter(user => user.support!==0);

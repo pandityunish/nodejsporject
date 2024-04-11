@@ -681,7 +681,7 @@ module.exports.profilesearch = async (req, res) => {
 
     }
     else if (searchtext == "Profiles without photos") {
-      filetereduser = users.filter(user => user. imageurls.length===0)
+      filetereduser = users.filter(user => user.imageurls.length===0)
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     }else if (searchtext == "Incomplete Profiles") {

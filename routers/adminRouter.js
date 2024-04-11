@@ -1,6 +1,6 @@
 const express=require("express");
 const { findadminuser, getunapproveduser, updateuserstatus, searchuserbyemail, searchuserbyname, searchuserbysurname, blockuserbyadmin, unblockuserbyadmin, reportuserbyadmin, unreportuserbyadmin, updateuserverifystatus, updateuserunverifystatus, searchusers, searchuserbyid, searchuserbyphoneunmber, addtonotification, getallnotification, searchnotification, findnumberofusers, updateeditstatus, getoldestfirst, getmalefirst, gefemalefirst, getminagefirst, getmaxagefirst, getmaxheightfirst, getminheightfirst, getminincomefirst, getmaxincomefirst, getwithphoto, getwithoutphoto, findnumberofunseennoti, searchnotibydate, searchuserbydate, finddeletenumberofusers, profilesearch, getalldeletedProfile, sortdatabasedontype } = require("../controller/adminController");
-const { postalldata, updateallvalue, addtosendlink, removesendlink, deletenotificationfromuser } = require("../controller/adminAddedController");
+const { postalldata, updateallvalue, addtosendlink, removesendlink, deletenotificationfromuser, addsendlinktoeachuser } = require("../controller/adminAddedController");
 
 const adminRouter=express.Router();
 adminRouter.post("/admin/findadminuser",findadminuser);
@@ -47,6 +47,7 @@ adminRouter.post("/admin/profilesearch", profilesearch)
 adminRouter.get("/admin/getdeletedprofile", getalldeletedProfile)
 adminRouter.post("/user/deletenotifromuser", deletenotificationfromuser)
 adminRouter.post("/admin/sortdata", sortdatabasedontype)
+adminRouter.post("/admin/addlinktoeachuser", addsendlinktoeachuser)
 
 
 

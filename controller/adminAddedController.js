@@ -6,7 +6,7 @@ module.exports.getalldata=async(req,res)=>{
     try {
         const {userid}=req.body;
         let finduser=await AdminAddedUsers.findOne({userid:userid});
-        console.log()
+       
         let allusers=await User.find({ puid: { $in: finduser.userlist } });
         res.json(allusers);
     } catch (e) {
@@ -102,6 +102,20 @@ module.exports.addtosendlink=async(req,res)=>{
       let user=await User.updateOne({email:email},{$addToSet:{
         sendlink:value
       }});
+    
+      
+      res.json({user});
+    } catch (e) {
+      res.status(500).json({mes:e.message})
+    }
+  }
+  module.exports.addsendlinktoeachuser=async(req,res)=>{
+    try {
+      const {userIds,value}=req.body;
+      let user=await User.updateMany(
+        { _id: { $in: userIds } },
+        { $set: { sendlink: value } }
+      );
     
       
       res.json({user});

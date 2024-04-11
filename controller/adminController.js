@@ -685,7 +685,7 @@ module.exports.profilesearch = async (req, res) => {
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     }else if (searchtext == "Incomplete Profiles") {
-      filetereduser = users.filter(user => user.aboutme === '')
+      filetereduser = users.filter(user => user.aboutme === '' )
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     }else if (searchtext == "About Me Fill Profiles") {
@@ -713,7 +713,16 @@ module.exports.profilesearch = async (req, res) => {
       filetereduser = users.filter(user => user.verifiedstatus==="verified")
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-    }else if (searchtext == "Same Mobile No. Profiles") {
+    }else if (searchtext == "Logout Profiles by Users") {
+      filetereduser = users.filter(user => user.isLogOut==="false")
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }else if (searchtext == "Login Profiles") {
+      filetereduser = users.filter(user => user.isLogOut==="true")
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }
+    else if (searchtext == "Same Mobile No. Profiles") {
       const users = await User.aggregate([
         {
           $group: {

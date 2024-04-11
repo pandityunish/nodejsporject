@@ -5,7 +5,8 @@ const activity=mongoose.Schema({
         type:String,
     },
     isSeen:{
-type:Boolean
+type:Boolean,
+default:false,
     },
     userid:{
         type:String,

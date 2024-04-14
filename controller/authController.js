@@ -1,4 +1,3 @@
-const { deleteDuplicateUsers } = require("..");
 const DeleteUser = require("../models/DeleteModel");
 const notification = require("../models/Notification");
 const SavedPrefer = require("../models/Save_Pref");
@@ -308,7 +307,7 @@ module.exports.createuser = async (req, res) => {
 module.exports.getuserdata = async (req, res) => {
   
   try {
-    deleteDuplicateUsers();
+   
     const { email } = req.params;
     let user = await User.findOne({ email });
 

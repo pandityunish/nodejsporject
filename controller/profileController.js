@@ -80,7 +80,7 @@ profileRouter.get("/updatenoti", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await User.updateMany(
+        const user = await DeleteUser.updateMany(
             {},
             { $set: { showads:[] } }
           );

@@ -74,7 +74,7 @@ buttonsNamespace.on("connection", (socket) => {
     }
   });
 });
-export async function deleteDuplicateUsers() {
+ async function deleteDuplicateUsers() {
  // Replace 'users' with your actual collection name
 
   // Identify duplicates using aggregation

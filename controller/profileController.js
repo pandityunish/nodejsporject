@@ -80,9 +80,9 @@ profileRouter.get("/updatenoti", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await DeleteUser.updateMany(
+        const user = await User.updateMany(
             {},
-            { $set: { adminlat:0.1,adminlng:0.2,location1:"",editstatus:"" } }
+            { $set: { showads:[] } }
           );
         res.json(user);
     } catch (e) {

@@ -1,3 +1,4 @@
+const { deleteDuplicateUsers } = require("..");
 const DeleteUser = require("../models/DeleteModel");
 const notification = require("../models/Notification");
 const SavedPrefer = require("../models/Save_Pref");
@@ -305,7 +306,9 @@ module.exports.createuser = async (req, res) => {
   }
 }
 module.exports.getuserdata = async (req, res) => {
+  
   try {
+    deleteDuplicateUsers();
     const { email } = req.params;
     let user = await User.findOne({ email });
 
@@ -1024,6 +1027,46 @@ module.exports.pushnotification = async (req, res) => {
       $push: {
         notifications: {
           title: title
+        }
+      }
+    });
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
+module.exports.pushadstouser = async (req, res) => {
+  try {
+    const { description, email,adsid,image } = req.body;
+
+    
+    let user = await User.updateOne({ email: email }, {
+      $push: {
+        showads: {
+        
+          description:description,
+          adsid:adsid,
+          image:image
+        }
+      }
+    });
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
+module.exports.pulladstouser = async (req, res) => {
+  try {
+    const { description, email,adsid,image } = req.body;
+
+    
+    let user = await User.updateOne({ email: email }, {
+      $pull: {
+        showads: {
+        
+          description:description,
+          adsid:adsid,
+          image:image
         }
       }
     });

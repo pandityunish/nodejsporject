@@ -2,6 +2,8 @@ const mongoose=require("mongoose");
 const notification = require("./Notification");
 const activity = require("./Activities");
 const userMessage = require("./user_message");
+const ADS = require("./AdsModel");
+const userads = require("./user_ads");
 
 const userSchema=mongoose.Schema({
     aboutme:{
@@ -271,6 +273,9 @@ const userSchema=mongoose.Schema({
         type:Boolean,
         default:false
       },
+      showads:[
+        userads
+      ]
     
 },
 {

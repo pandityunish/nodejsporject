@@ -80,6 +80,10 @@ module.exports.sortdatabasedontype = async (req, res) => {
       filteredUsers.sort((a, b) => b.imageurls.length - a.imageurls.length);
     }else if (searchtext === "Without Photo To Photo") {
       filteredUsers.sort((a, b) => a.imageurls.length - b.imageurls.length);
+    }else if (searchtext === "Logout to Login") {
+      filteredUsers.sort((a, b) => a.isLogOut - b.isLogOut);
+    }else if (searchtext === "Login To Logout") {
+      filteredUsers.sort((a, b) => b.isLogOut - a.isLogOut);
     }
 
     
@@ -671,7 +675,7 @@ module.exports.profilesearch = async (req, res) => {
 
     }
     else if (searchtext == "Complete Profiles") {
-      filetereduser = users.filter(user => user.aboutme !== '' || user.patnerprefs !== "" || user.imageurls.length!==0)
+      filetereduser = users.filter(user => user.aboutme !== '' && user.patnerprefs !== "" && user.imageurls.length!==0)
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     }

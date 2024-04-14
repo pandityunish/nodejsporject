@@ -1056,18 +1056,11 @@ module.exports.pushadstouser = async (req, res) => {
 }
 module.exports.pulladstouser = async (req, res) => {
   try {
-    const { description, email,adsid,image } = req.body;
+    const {  email,adsid } = req.body;
 
     
     let user = await User.updateOne({ email: email }, {
-      $pull: {
-        showads: {
-        
-          description:description,
-          adsid:adsid,
-          image:image
-        }
-      }
+      $pull: { showads: { _id: ObjectID(adsid) } } 
     });
     res.json(user);
   } catch (e) {

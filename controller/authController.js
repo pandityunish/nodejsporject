@@ -1060,7 +1060,7 @@ module.exports.pulladstouser = async (req, res) => {
 
     
     let user = await User.updateOne({ email: email }, {
-      $pull: { showads: { _id: ObjectID(adsid) } } 
+      $pull: { showads: { _id: adsid } } 
     });
     res.json(user);
   } catch (e) {

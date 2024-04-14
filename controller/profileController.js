@@ -6,6 +6,7 @@ const Userkundlimatch = require("../models/UserKundaliMatch");
 const UserSearch = require("../models/UserSearchModel")
 const express = require("express");
 const ExcelJS = require('exceljs');
+const AdminModel = require("../models/adminmodel");
 const profileRouter = express.Router();
 
 profileRouter.post("/addusersearch", async (req, res) => {
@@ -80,9 +81,9 @@ profileRouter.get("/updatenoti", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await DeleteUser.updateMany(
+        const user = await AdminModel.updateMany(
             {},
-            { $set: { showads:[] } }
+            { $set: { permissions:[] } }
           );
         res.json(user);
     } catch (e) {

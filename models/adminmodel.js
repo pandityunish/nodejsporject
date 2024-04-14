@@ -11,10 +11,16 @@ const adminModel=mongoose.Schema({
     },
     lat:{
         type:Number,
+        
     },
     lng:{
         type:Number,
-    }
+    },
+    permissions:[
+        {
+            type:String
+        }
+    ]
 });
 const AdminModel=mongoose.model("Admin",adminModel);
 module.exports=AdminModel;

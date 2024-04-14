@@ -1,5 +1,6 @@
 const AdminAddedUsers = require("../models/AdminAddedUser");
 const User = require("../models/User");
+const AdminModel = require("../models/adminmodel");
 
 
 module.exports.getalldata=async(req,res)=>{
@@ -101,6 +102,30 @@ module.exports.addtosendlink=async(req,res)=>{
       const {email,value}=req.body;
       let user=await User.updateOne({email:email},{$addToSet:{
         sendlink:value
+      }});
+    
+      
+      res.json({user});
+    } catch (e) {
+      res.status(500).json({mes:e.message})
+    }
+  }
+  module.exports.createadmin=async(req,res)=>{
+    try {
+      const {email,username,permissions}=req.body;
+      let user=await AdminModel({email,username,permissions})
+    user=await user.save();
+      
+      res.json({user});
+    } catch (e) {
+      res.status(500).json({mes:e.message})
+    }
+  }
+  module.exports.addtopermissions=async(req,res)=>{
+    try {
+      const {email,value}=req.body;
+      let user=await AdminModel.updateOne({email},{$set:{
+permissions:value
       }});
     
       

@@ -835,6 +835,17 @@ module.exports.findnumberofunseennoti = async (req, res) => {
     res.status(500).json({ mes: e.message })
   }
 }
+module.exports.getalladmins = async (req, res) => {
+  try {
+
+
+    let admins = await AdminModel.find();
+
+    res.json(admins);
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
 module.exports.getallnotification = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;

@@ -123,9 +123,10 @@ module.exports.addtosendlink=async(req,res)=>{
   }
   module.exports.addtopermissions=async(req,res)=>{
     try {
-      const {email,value}=req.body;
+      const {email,value,username}=req.body;
       let user=await AdminModel.updateOne({email},{$set:{
-permissions:value
+permissions:value,
+username:username
       }});
     
       

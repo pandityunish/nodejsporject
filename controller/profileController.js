@@ -8,7 +8,6 @@ const express = require("express");
 const ExcelJS = require('exceljs');
 const AdminModel = require("../models/adminmodel");
 const profileRouter = express.Router();
-// const client = require('twilio')("ACee82b60be671fa697ee73439b1b01fbc", "1551406986c4c6ddc37aac9a01b31308");
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
         const { searchidprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, userid } = req.body;

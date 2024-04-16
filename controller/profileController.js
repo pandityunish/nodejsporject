@@ -8,7 +8,7 @@ const express = require("express");
 const ExcelJS = require('exceljs');
 const AdminModel = require("../models/adminmodel");
 const profileRouter = express.Router();
-
+const client = require('twilio')("ACee82b60be671fa697ee73439b1b01fbc", "1551406986c4c6ddc37aac9a01b31308");
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
         const { searchidprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, userid } = req.body;
@@ -81,11 +81,26 @@ profileRouter.get("/updatenoti", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await AdminModel.updateMany(
+        const user = await User.updateMany(
             {},
-            { $set: { permissions:[] } }
+            { $set: { showads:[] } }
           );
         res.json(user);
+    } catch (e) {
+        res.status(500).json({ mes: e })
+    }
+});
+profileRouter.post("/sendotp", async (req, res) => {
+    try {
+        client.messages
+        .create({
+          body: 'Your otp is this ',
+          to: '+9779818998686', // Text your number
+          from: '+9779828900311', // From a valid Twilio number
+        })
+        .then((message) => console.log(message.sid)).catch((e)=>{
+            console.log(e)
+        });
     } catch (e) {
         res.status(500).json({ mes: e })
     }
@@ -198,7 +213,8 @@ profileRouter.get('/download-users', async (req, res) => {
       // Create a new Excel workbook
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet('Users');
-  
+      
+      
       // Add headers to the worksheet
       worksheet.columns = [
         { header: 'ProfileID', key: 'profileid', width: 30 },
@@ -232,7 +248,7 @@ profileRouter.get('/download-users', async (req, res) => {
       // Populate data from MongoDB into the worksheet
       filetereduser.forEach(user => {
         worksheet.addRow({ profileid: user.puid, email: user.email,fname:user.name,
-            lname:user.surname,gender:user.gender,number:user.phone,dob:user.dob,tob:user.timeofbirth,religion:user.religion,
+            lname:user.surname,gender:user.gender,number:user.phone,dob:formatDateFromTimestamp(user.dob) ,tob:user.timeofbirth,religion:user.religion,
             place:user.placeofbirth,
         kundli:user.kundalidosh,martial:user.martialstatus,diet:user.diet,drink:user.drink,smoke:user.smoke,disability:user.disability,
         height:user.height,education:user.education,profession:user.profession,income:user.income,
@@ -242,7 +258,7 @@ profileRouter.get('/download-users', async (req, res) => {
       });
   
       // Generate a unique filename for the Excel file
-      const filename = 'users.xlsx';
+      const filename = 'disclose_later.xlsx';
   
       // Set content type and attachment header for the response
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -259,6 +275,15 @@ profileRouter.get('/download-users', async (req, res) => {
       res.status(500).send('Error downloading users');
     }
   });
+  function formatDateFromTimestamp(timestamp) {
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+
+    return `${year} ${month} ${day}`;
+}
 profileRouter.post("/updatedelete", async (req, res) => {
     try {
         const { email } = req.body;

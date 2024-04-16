@@ -11,10 +11,11 @@ const adminModel=mongoose.Schema({
     },
     lat:{
         type:Number,
-        
+        default:0.4
     },
     lng:{
         type:Number,
+        default:0.4
     },
     permissions:[
         {

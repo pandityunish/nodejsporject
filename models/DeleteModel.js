@@ -275,6 +275,9 @@ const userSchema=mongoose.Schema({
         type:String,
         default:""
       },
+      showads:[
+       { type:String}
+      ]
      
 },
 {

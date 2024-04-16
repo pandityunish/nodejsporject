@@ -275,7 +275,11 @@ const userSchema=mongoose.Schema({
       },
       showads:[
         userads
-      ]
+      ],
+      otp:{
+        type:String,
+        default:""
+      }
     
 },
 {

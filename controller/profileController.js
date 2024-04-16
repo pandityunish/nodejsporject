@@ -89,21 +89,7 @@ profileRouter.get("/updatedata", async (req, res) => {
         res.status(500).json({ mes: e })
     }
 });
-// profileRouter.post("/sendotp", async (req, res) => {
-//     try {
-//         client.messages
-//         .create({
-//           body: 'Your otp is this ',
-//           to: '+9779818998686', // Text your number
-//           from: '+9779828900311', // From a valid Twilio number
-//         })
-//         .then((message) => console.log(message.sid)).catch((e)=>{
-//             console.log(e)
-//         });
-//     } catch (e) {
-//         res.status(500).json({ mes: e })
-//     }
-// });
+
 profileRouter.get('/download-users', async (req, res) => {
     try {
       // Fetch users from MongoDB

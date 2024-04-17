@@ -18,12 +18,9 @@ module.exports.findadminuser = async (req, res) => {
 }
 module.exports.getunapproveduser = async (req, res) => {
   try {
-    const { email, page, itemsPerPage } = req.body;
-
-
+    const {page, itemsPerPage } = req.body;
     let users = await User.find({});
-    let filteredUsers = users.filter(user => user.status === '' || user.status === 'block')
-
+    let filteredUsers = users.filter(user => user.status === '' || user.status === 'block'|| user.editstatus==='')
     filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -103,6 +100,15 @@ module.exports.getmalefirst = async (req, res) => {
     let users = await User.find({}).sort({ gender: -1 });
     let filteredUsers = users.filter(user => user.status === '');
     res.json(filteredUsers);
+  } catch (e) {
+    res.status(500).json({ mes: e.message });
+  }
+}
+module.exports.findthedeleteuser = async (req, res) => {
+  try {
+    const {email}=req.body;
+    let users = await DeleteUser.findOne({email:email});
+    res.json(users);
   } catch (e) {
     res.status(500).json({ mes: e.message });
   }

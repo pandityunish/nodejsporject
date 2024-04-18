@@ -59,21 +59,18 @@ module.exports.getBubblesbydate=async(req,res)=>{
     try {
         const { dateStr } = req.body;
     
-        // Parse the date string into a JavaScript Date object
-        const date = new Date(dateStr);
-        
-        // Since the date string might be in a different timezone,
-        // convert it to UTC to ensure consistency
-        const utcDate = new Date(date.toISOString());
-    
-        // Construct the start and end date objects for the specified day
-        const startDate = new Date(utcDate.getFullYear(), utcDate.getMonth(), utcDate.getDate());
-        const endDate = new Date(utcDate.getFullYear(), utcDate.getMonth(), utcDate.getDate() + 1);
+        const requestedDate = new Date(dateStr); // Assuming date is passed in req.body.date
+        const startOfDay = new Date(requestedDate.getFullYear(), requestedDate.getMonth(), requestedDate.getDate());
+        const endOfDay = new Date(requestedDate.getFullYear(), requestedDate.getMonth(), requestedDate.getDate() + 1);
     
         // Find bubbles created on the specified date
-        const query = await Bubbles.find({
-            created_at: { $gte: startDate, $lt: endDate }
-        }).sort({ createdAt: -1 });
+        const query = await Bubbles.aggregate([
+            {
+                $match: {
+                    createdAt: { $gte: startOfDay, $lt: endOfDay }
+                }
+            }
+        ]);;
     
         res.json(query);
     } catch (e) {

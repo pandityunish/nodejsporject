@@ -55,6 +55,34 @@ module.exports.getBubbles=async(req,res)=>{
         res.status(500).json({mes:e.message})
     }
 }
+module.exports.getBubblesbydate=async(req,res)=>{
+    try {
+        const { dateStr } = req.body;
+    
+        // Parse the date string into a JavaScript Date object
+        const date = new Date(dateStr);
+        
+        // Since the date string might be in a different timezone,
+        // convert it to UTC to ensure consistency
+        const utcDate = new Date(date.toISOString());
+    
+        // Construct the start and end date objects for the specified day
+        const startDate = new Date(utcDate.getFullYear(), utcDate.getMonth(), utcDate.getDate());
+        const endDate = new Date(utcDate.getFullYear(), utcDate.getMonth(), utcDate.getDate() + 1);
+    
+        // Find bubbles created on the specified date
+        const query = await Bubbles.find({
+            created_at: { $gte: startDate, $lt: endDate }
+        }).sort({ createdAt: -1 });
+    
+        res.json(query);
+    } catch (e) {
+        console.error(e); // Log the error for debugging
+        res.status(500).json({ message: e.message });
+    }
+    
+    
+}
 module.exports.createBubbles=async(req,res)=>{
     try {
         

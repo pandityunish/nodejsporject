@@ -24,3 +24,4 @@ editprofileRouter.post("/geteditprofile",async(req,res)=>{
         res.status(500).json({ mes: e })
     } 
 });
+module.exports=editprofileRouter;

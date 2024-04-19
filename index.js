@@ -12,12 +12,15 @@ const User = require("./models/User");
 const profileRouter = require("./controller/profileController");
 const DeleteUser = require("./models/DeleteModel");
 const adsRouter = require("./routers/adsRouter");
+const editprofileRouter = require("./controller/editprofileController");
 
 app.use(express.json());
 app.use(authRouter);
 app.use(messageRouter);
 app.use(adminRouter);
 app.use(queryRouter);
+app.use(editprofileRouter);
+
 app.use(profileRouter);
 app.use(adsRouter)
 let clients = new Map();

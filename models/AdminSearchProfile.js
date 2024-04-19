@@ -1,0 +1,94 @@
+const mongoose=require("mongoose");
+
+const userSearchSchema=mongoose.Schema({
+    searchidprofile:{
+        type:String,
+        default:""
+    },
+    searchnameprofile:{
+        type:String,
+        default:""
+    },
+    searchsurnameprofile:{
+        type:String,
+        default:""
+    },
+    searchphoneprofile:{
+        type:String,
+        default:""
+    },
+    searchemailprofile:{
+        type:String,
+        default:""
+    },
+    searchDistance:{
+        type:String,
+        default:""
+    },
+    age:{
+        type:String,
+        default:""
+    },
+    religion:{
+        type:String,
+        default:""
+    },
+    kundlidosh:{
+        type:String,
+        default:""
+    },
+    marital_status:{
+        type:String,
+        default:""
+    },
+    diet:{
+        type:String,
+        default:""
+    },
+    smoke:{
+        type:String,
+        default:""
+    },
+    drink:{
+        type:String,
+        default:""
+    },
+    disability:{
+        type:String,
+        default:""
+    },
+    height:{
+        type:String,
+        default:""
+    },
+    education:{
+        type:String,
+        default:""
+    },
+    profession:{
+        type:String,
+        default:""
+    },
+    income:{
+        type:String,
+        default:""
+    },
+    location:{
+        type:String,
+        default:""
+    },
+email:{
+    type:String,
+    required:true
+},
+adminname:{
+    type:String,
+    required:true
+}
+},{
+    timestamps:true
+   });
+
+   const AdminSearch=mongoose.model("Adminsearch",userSearchSchema);
+
+module.exports=AdminSearch;

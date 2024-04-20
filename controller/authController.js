@@ -986,7 +986,7 @@ module.exports.updateeditstatus = async (req, res) => {
     const { email } = req.body;
     let user = await User.updateOne({ email }, {
       $set: {
-        editstatus: ""
+        editstatus: "unapprove"
       }
     });
 

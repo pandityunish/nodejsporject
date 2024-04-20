@@ -773,10 +773,10 @@ module.exports.profilesearch = async (req, res) => {
 }
 module.exports.addtonotification = async (req, res) => {
   try {
-    const { userid, useremail, title, userimage, subtitle } = req.body;
+    const { userid, useremail, title, userimage, subtitle,adminemail } = req.body;
 
     let notifications = AdminNotification({
-      userid, useremail, userimage, title, subtitle: subtitle
+      userid, useremail, userimage, title, subtitle: subtitle,adminemail
     });
     notifications = await notifications.save();
     res.json(notifications);

@@ -25,6 +25,10 @@ const adminnotiSchema=mongoose.Schema({
     isSeen:{
         type:Boolean,
         default:true
+    },
+    adminemail:{
+        type:String,
+        default:""
     }
 },{
     timestamps:true

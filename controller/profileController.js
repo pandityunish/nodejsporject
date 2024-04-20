@@ -78,6 +78,15 @@ profileRouter.get("/updatenoti", async (req, res) => {
         res.status(500).json({ mes: e })
     }
 });
+profileRouter.post("/getadminnotification", async (req, res) => {
+    try {
+        const {adminemail}=req.body;
+        let users = await AdminNotification.find({adminemail});
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({ mes: e })
+    }
+});
 profileRouter.get("/updatedata", async (req, res) => {
     try {
         const user = await AdminNotification.updateMany(

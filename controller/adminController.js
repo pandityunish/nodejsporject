@@ -108,7 +108,12 @@ module.exports.findthedeleteuser = async (req, res) => {
   try {
     const {email}=req.body;
     let users = await DeleteUser.findOne({email:email});
-    res.json(users);
+    if(!users){
+      res.status(404).json({ mes: "Not found" });
+    }else{
+      res.status(200).json(users);
+    }
+  
   } catch (e) {
     res.status(500).json({ mes: e.message });
   }

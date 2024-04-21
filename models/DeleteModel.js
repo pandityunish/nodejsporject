@@ -225,17 +225,7 @@ const userSchema=mongoose.Schema({
       userMessage
    
  ],
- location: {
-  type: {
-    type: String,
-    enum: ['Point'],
-    required: true,
-  },
-  coordinates: {
-    type: [Number],
-    required: true,
-  },
-},
+
     activities:[
       activity
     ],

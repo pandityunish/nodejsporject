@@ -44,7 +44,7 @@ module.exports.sortdatabasedontype = async (req, res) => {
     const { searchtext, page } = req.body;
     const itemsPerPage = 10;
     let filteredUsers = await User.find({});
-  
+    filteredUsers.sort((users)=>users.status=="" || users.status === 'block');
     if (searchtext === "New Profile To Old Profile") {
       filteredUsers.sort((a, b) => b.createdAt - a.createdAt);
     } else if (searchtext === "Old Profile To New Profile") {
@@ -498,11 +498,21 @@ module.exports.searchusers = async (req, res) => {
 
 
       if (educationList.length) {
-        filteredUsers = filteredUsers.filter(user => educationList.includes(user.education));
+        if(educationList.includes("Others")){
+          filteredUsers = filteredUsers.filter(user => !educationList.includes(user.education));
+        }else{
+          filteredUsers = filteredUsers.filter(user => educationList.includes(user.education));
+        }
+       
 
       }
       if (professionList.length) {
-        filteredUsers = filteredUsers.filter(user => professionList.includes(user.profession));
+        if(educationList.includes("Others")){
+          filteredUsers = filteredUsers.filter(user => professionList.includes(user.profession));
+        }else{
+          filteredUsers = filteredUsers.filter(user => professionList.includes(user.profession));
+        }
+        
 
       }
       if (incomeList.length) {

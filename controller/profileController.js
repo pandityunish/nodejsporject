@@ -89,9 +89,9 @@ profileRouter.post("/getadminnotification", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await AdminNotification.updateMany(
+        const user = await User.updateMany(
             {},
-            { $set: { adminemail:"" } }
+            { $set: { numofprofileviewed:0 } }
           );
         res.json(user);
     } catch (e) {

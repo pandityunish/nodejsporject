@@ -1,5 +1,5 @@
 const express=require("express");
-const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid, updatelocation, cleartoken, addtoken, updatelogin, searchusersbyuser, addtounapproveblock, removefromunapproveblock, getuserdatabypuid, updateeditstatus, updateblur, updateemail, deleteaccountfromadmin, pushadstouser, pulladstouser, updateeditstatusapprove } = require("../controller/authController");
+const { createuser, getallusers, getuserdata, finduser, createsavepref, getusersavedpref, searchuserbyid, connectnow, rejectrequest, acceptrequest, addtosortlist, addtoblocklists, canclereq, unblockuser, removeshortuser, addtoReportlist, removeReportlist, edituserprofile, uploadvideo, deletevideo, pushnotification, pushactivities, deleteaccount, getuserdatabyid, updatelocation, cleartoken, addtoken, updatelogin, searchusersbyuser, addtounapproveblock, removefromunapproveblock, getuserdatabypuid, updateeditstatus, updateblur, updateemail, deleteaccountfromadmin, pushadstouser, pulladstouser, updateeditstatusapprove, updatenumofinterest, updatenumofprofileviewer, updatenumofprofileviewed } = require("../controller/authController");
 const { searchuserbydistance, findthedeleteuser } = require("../controller/adminController");
 const { getalldata, addtoboostprofile, boosttoall, addtoinvisibleprofile, invisibletoall, getboostprofile, getinvisibleprofile, getshareprofile, addtoshareprofile, countofnotification, updatenotification } = require("../controller/adminAddedController");
 
@@ -60,6 +60,9 @@ authRouter.post("/auth/removeads",pulladstouser);
 authRouter.post("/auth/deleteaccountfromadmin",deleteaccountfromadmin);
 authRouter.post("/auth/findthedeleteuser",findthedeleteuser);
 authRouter.post("/auth/updateeditstatusapprove",updateeditstatusapprove);
+authRouter.post("/auth/updatenumofinterest",updatenumofinterest);
+authRouter.post("/auth/updatenumofprofileviewer",updatenumofprofileviewer);
+authRouter.post("/auth/updatenumofprofileviewed",updatenumofprofileviewed);
 
 
 module.exports=authRouter;

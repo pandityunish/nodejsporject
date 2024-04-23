@@ -279,7 +279,19 @@ const userSchema=mongoose.Schema({
       otp:{
         type:String,
         default:""
-      }
+      },
+      numofinterest:{
+        type:Number,
+        default:0
+      },
+      numofprofileviewer:{
+        type:Number,
+        default:0
+      },
+      numofprofileviewed:{
+        type:Number,
+        default:0
+      },
     
 },
 {

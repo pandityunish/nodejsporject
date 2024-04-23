@@ -1187,6 +1187,55 @@ module.exports.addtoken = async (req, res) => {
   }
 
 }
+module.exports.updatenumofinterest = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    let user = await User.updateOne({ email }, {
+    
+      $inc: {
+        numofinterest: 1
+    }
+    });
+
+    res.json(user);
+  } catch (e) {
+res.status(500).json({mes:e.message})
+  }
+
+}
+module.exports.updatenumofprofileviewer = async (req, res) => {
+  try {
+    const { email } = req.body;
+    let user = await User.User.updateOne({ email }, {
+    
+      $inc: {
+        numofprofileviewer: 1
+    }
+    });
+
+    res.json(user);
+  } catch (e) {
+
+  }
+
+}
+module.exports.updatenumofprofileviewed = async (req, res) => {
+  try {
+    const { email } = req.body;
+    let user = await User.updateOne({ email }, {
+    
+      $inc: {
+        numofprofileviewed: 1
+    }
+    });
+
+    res.json(user);
+  } catch (e) {
+
+  }
+
+}
 module.exports.updatelogin = async (req, res) => {
   try {
     const { email, mes } = req.body;

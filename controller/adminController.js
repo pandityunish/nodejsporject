@@ -44,7 +44,6 @@ module.exports.sortdatabasedontype = async (req, res) => {
     const { searchtext, page } = req.body;
     const itemsPerPage = 10;
     let filteredUsers = await User.find({});
-    filteredUsers.sort((users)=>users.status=="" || users.status === 'block');
     if (searchtext === "New Profile To Old Profile") {
       filteredUsers.sort((a, b) => b.createdAt - a.createdAt);
     } else if (searchtext === "Old Profile To New Profile") {
@@ -83,7 +82,8 @@ module.exports.sortdatabasedontype = async (req, res) => {
       filteredUsers.sort((a, b) => b.isLogOut - a.isLogOut);
     }
 
-    
+    filteredUsers.sort((users)=>users.status=="" || users.status === 'block');
+
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const paginatedUsers = filteredUsers.slice(startIndex, endIndex);

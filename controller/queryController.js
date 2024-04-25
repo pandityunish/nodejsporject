@@ -4,8 +4,8 @@ const Query = require("../models/query_data");
 
 module.exports.postQuery=async(req,res)=>{
     try {
-        const {email,description}=req.body;
-        let query=Query({email,description});
+        const {email,description,isAdmin}=req.body;
+        let query=Query({email,description,isAdmin});
       query=await  query.save();
       res.json(query);
     } catch (e) {

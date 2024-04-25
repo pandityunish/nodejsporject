@@ -8,6 +8,10 @@ const querySchema=mongoose.Schema({
     description:{
         type:String,
         required:true
+    },
+    isAdmin:{
+        type:Boolean,
+        default:false
     }
 },{
     timestamps:true

@@ -21,7 +21,7 @@ module.exports.getunapproveduser = async (req, res) => {
     const {page, itemsPerPage } = req.body;
     let users = await User.find({});
     let filteredUsers = users.filter(user => user.status === '' || user.status === 'block')
-    filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    filteredUsers.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
@@ -409,7 +409,7 @@ module.exports.searchusers = async (req, res) => {
       statelocation,
       location } = req.body;
     const itemsPerPage = 10;
-
+console.log("lfakjsdlfkj")
     if (maxDistanceKm) {
       const userLatitude = parseFloat(latitude);
       const userLongitude = parseFloat(longitude);
@@ -453,13 +453,11 @@ module.exports.searchusers = async (req, res) => {
       }
       if (ages.length) {
         const intList = ages.map(str => parseInt(str));
-        console.log(intList);
-        console.log(intList[0]);
         filteredUsers = filteredUsers.filter(user => user.age >= intList[0] && user.age <= intList[1]);
 
       }
       if (kundaliDoshList.length) {
-        console.log("ok")
+    
         filteredUsers = filteredUsers.filter(user => kundaliDoshList.includes(user.kundalidosh));
 
       }
@@ -498,7 +496,9 @@ module.exports.searchusers = async (req, res) => {
 
 
       if (educationList.length) {
+        console.log("hello");
         if(educationList.includes("Other")){
+         
           filteredUsers = filteredUsers.filter(user => !educationList.includes(user.education));
         }else{
           filteredUsers = filteredUsers.filter(user => educationList.includes(user.education));
@@ -507,7 +507,7 @@ module.exports.searchusers = async (req, res) => {
 
       }
       if (professionList.length) {
-        if(educationList.includes("Other")){
+        if(professionList.includes("Other")){
           filteredUsers = filteredUsers.filter(user => professionList.includes(user.profession));
         }else{
           filteredUsers = filteredUsers.filter(user => professionList.includes(user.profession));
@@ -533,7 +533,6 @@ module.exports.searchusers = async (req, res) => {
       }
       filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-      console.log(filteredUsers);
 
       const startIndex = (page - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
@@ -576,8 +575,7 @@ module.exports.searchusers = async (req, res) => {
       }
       if (ages.length) {
         const intList = ages.map(str => parseInt(str));
-        console.log(intList);
-        console.log(intList[0]);
+      
         filteredUsers = filteredUsers.filter(user => user.age >= intList[0] && user.age <= intList[1]);
 
       }
@@ -622,11 +620,23 @@ module.exports.searchusers = async (req, res) => {
 
 
       if (educationList.length) {
-        filteredUsers = filteredUsers.filter(user => educationList.includes(user.education));
+        console.log("hello");
+        if(educationList.includes("Other")){
+         
+          filteredUsers = filteredUsers.filter(user => !educationList.includes(user.education));
+        }else{
+          filteredUsers = filteredUsers.filter(user => educationList.includes(user.education));
+        }
+       
 
       }
       if (professionList.length) {
-        filteredUsers = filteredUsers.filter(user => professionList.includes(user.profession));
+        if(professionList.includes("Other")){
+          filteredUsers = filteredUsers.filter(user => professionList.includes(user.profession));
+        }else{
+          filteredUsers = filteredUsers.filter(user => professionList.includes(user.profession));
+        }
+        
 
       }
       if (incomeList.length) {

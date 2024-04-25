@@ -7,6 +7,7 @@ const UserSearch = require("../models/UserSearchModel")
 const express = require("express");
 const ExcelJS = require('exceljs');
 const AdminModel = require("../models/adminmodel");
+const Query = require("../models/query_data");
 const profileRouter = express.Router();
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
@@ -82,6 +83,7 @@ profileRouter.post("/getadminnotification", async (req, res) => {
     try {
         const {adminemail}=req.body;
         let users = await AdminNotification.find({adminemail});
+        
         res.json(users);
     } catch (e) {
         res.status(500).json({ mes: e })
@@ -89,13 +91,13 @@ profileRouter.post("/getadminnotification", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await User.updateMany(
+        const user = await Query.updateMany(
             {},
-            { $set: { numofprofileviewed:0 } }
+            { $set: { isAdmin:false } }
           );
         res.json(user);
     } catch (e) {
-        res.status(500).json({ mes: e })
+        res.status(500).json({ mes: e.message })
     }
 });
 

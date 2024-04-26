@@ -8,6 +8,7 @@ const express = require("express");
 const ExcelJS = require('exceljs');
 const AdminModel = require("../models/adminmodel");
 const Query = require("../models/query_data");
+const RatingModel = require("../models/Rating");
 const profileRouter = express.Router();
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
@@ -20,7 +21,28 @@ profileRouter.post("/addusersearch", async (req, res) => {
         res.status(500).json({ mes: e })
     }
 });
+profileRouter.post("/createrating", async (req, res) => {
+    try {
+        const { useremail,ratingnumber,description } = req.body;
 
+        let user = await RatingModel({ useremail,ratingnumber,description  });
+        user = await user.save();
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({ mes: e })
+    }
+});
+profileRouter.post("/getrating", async (req, res) => {
+    try {
+        const { useremail } = req.body;
+
+        let user = await RatingModel.findOne({ useremail });
+       
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({ mes: e })
+    }
+});
 profileRouter.post("/getallusersearch", async (req, res) => {
     try {
         const { id } = req.body;

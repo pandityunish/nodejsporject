@@ -82,7 +82,7 @@ module.exports.sortdatabasedontype = async (req, res) => {
       filteredUsers.sort((a, b) => b.isLogOut - a.isLogOut);
     }
 
-    filteredUsers.sort((users)=>users.status=="" || users.status === 'block');
+    filteredUsers.sort((users)=>users.status=="");
 
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;

@@ -954,7 +954,7 @@ module.exports.searchnotibydate = async (req, res) => {
           { $eq: [{ $dayOfMonth: { date: '$createdAt', timezone: 'UTC' } }, parseInt(day)] },
         ]
       }
-    }).sort({ _id: -1 })
+    }).sort({ createdAt: -1 })
       .skip(skipCount)
       .limit(perPage);;
 

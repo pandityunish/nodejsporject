@@ -154,7 +154,7 @@ module.exports.searchusersbyuser = async (req, res) => {
       const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
 
       res.json(
-        filteredUsers,
+        paginatedUsers,
       );
     } else {
       const currentUser = await User.findOne({ email: email });
@@ -261,12 +261,12 @@ module.exports.searchusersbyuser = async (req, res) => {
 
       // console.log(filteredUsers);
       // Paginate the results
-      // const startIndex = (page - 1) * itemsPerPage;
-      // const endIndex = startIndex + itemsPerPage;
-      // const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
+      const startIndex = (page - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const paginatedUsers = filteredUsers.slice(startIndex, endIndex);
 
       res.json(
-        filteredUsers,
+        paginatedUsers,
       );
     }
 

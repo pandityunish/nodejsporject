@@ -56,9 +56,9 @@ profileRouter.post("/getallusersearch", async (req, res) => {
 });
 profileRouter.post("/addkundalimatch", async (req, res) => {
     try {
-        const { gname, gday, gmonth, gyear, ghour, gsec, bname, bday, bmonth, byear, bhour, bsec, bplace, userid, gplace } = req.body;
+        const { gname, gday, gmonth, gyear, ghour, gsec, bname, bday, bmonth, byear, bhour, bsec, bplace, userid, gplace,totalgun } = req.body;
 
-        let user = await Userkundlimatch({ gname, gday, gmonth, gyear, ghour, gsec, bname, bday, bmonth, gplace, byear, bhour, bsec, bplace, userid });
+        let user = await Userkundlimatch({ gname, gday, gmonth, gyear, ghour, gsec, bname, bday, bmonth, gplace, byear, bhour, bsec, bplace, userid,totalgun });
         user = await user.save();
         res.json(user);
     } catch (e) {
@@ -113,9 +113,9 @@ profileRouter.post("/getadminnotification", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await Query.updateMany(
+        const user = await Userkundlimatch.updateMany(
             {},
-            { $set: { isAdmin:false } }
+            { $set: { totalgun:"" } }
           );
         res.json(user);
     } catch (e) {

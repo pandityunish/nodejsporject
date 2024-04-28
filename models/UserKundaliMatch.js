@@ -60,6 +60,10 @@ const kundaliSchema=mongoose.Schema({
     userid:{
         type:String,
         required:true,
+    },
+    totalgun:{
+        type:String,
+        default:""
     }
 },{
     timestamps:true

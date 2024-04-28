@@ -796,7 +796,7 @@ module.exports.profilesearch = async (req, res) => {
 }
 module.exports.numberofprofilesearch = async (req, res) => {
   try {
-    
+    const {searchtext}=req.body;
     let users = await User.find({});
     let filetereduser = users;
     if (searchtext === "male" || searchtext == "female") {

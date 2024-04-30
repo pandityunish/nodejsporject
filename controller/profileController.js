@@ -12,9 +12,9 @@ const RatingModel = require("../models/Rating");
 const profileRouter = express.Router();
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
-        const { searchidprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, userid } = req.body;
+        const { searchidprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, userid,name } = req.body;
 
-        let user = await UserSearch({ searchidprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, userid });
+        let user = await UserSearch({ searchidprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, userid,name });
         user = await user.save();
         res.json(user);
     } catch (e) {
@@ -113,7 +113,7 @@ profileRouter.post("/getadminnotification", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await SavedPreferSearch.updateMany(
+        const user = await UserSearch.updateMany(
             {},
             { $set: { name:"" } }
           );

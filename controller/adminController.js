@@ -794,6 +794,96 @@ module.exports.profilesearch = async (req, res) => {
     res.status(500).json({ mes: e.message })
   }
 }
+module.exports.numberofprofilesearchatonce = async (req, res) => {
+  try {
+    const {searchtext}=req.body;
+    let users = await User.find({});
+    let filetereduser = users;
+
+     const filetereduser1 = users.filter(user => user.gender === "male");
+     const filetereduser2 = users.filter(user => user.gender === "female");
+     const filetereduser3 = users.filter(user => user.status === '' && user.gender === "male");
+     filetereduser3.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const filetereduser4 = users.filter(user => user.status === '' && user.gender === "female")
+      filetereduser4.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const  filetereduser5 = users.filter(user => user.status === 'approved' && user.gender === "male")
+      filetereduser5.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const approvedfemale=users.filter(user => user.status === 'approved' && user.gender === "female")
+      approvedfemale.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const incompleteprofile=users.filter(user => user.aboutme === '' || user.patnerprefs === "" || user.imageurls.length===0)
+      incompleteprofile.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const completeprofile=users.filter(user => user.aboutme !== '' && user.patnerprefs !== "" && user.imageurls.length!==0)
+      completeprofile.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const profilewithphoto=users.filter(user => user. imageurls.length!==0)
+      profilewithphoto.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const profilewithoutphoto=users.filter(user => user.imageurls.length===0)
+      profilewithoutphoto.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const aboutMeFillProfile = users.filter(user => user.aboutme !== '')
+                                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const blockProfiles = users.filter(user => user.status === 'block')
+                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const pendingProfilesEdit = users.filter(user => user.editstatus === '')
+                                  .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+const approvedProfilesEdit = users.filter(user => user.editstatus === 'approved')
+                                   .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+const reportProfilesByUsers = users.filter(user => user.reportlist.length !== 0)
+                                   .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const verifiedProfileApprovedUsers = users.filter(user => user.verifiedstatus === "verified")
+                                           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const logoutProfilesByUsers = users.filter(user => user.isLogOut === "false")
+                                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const loginProfiles = users.filter(user => user.isLogOut === "true")
+                            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const maximumSendInterestProfiles = users.filter(user => user.numofinterest >= 20)
+                                          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const maximumProfileViewer = users.filter(user => user.numofprofileviewer >= 20)
+                                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const maximumProfileViewed = users.filter(user => user.numofinterest >= 20)
+                                   .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const supportSeekingProfiles = users.filter(user => user.support !== 0)
+                                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+const savedPreferenceProfiles = users.filter(user => user.patnerprefs !== "")
+                                      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
+  
+    res.json({"all":filetereduser.length,"male":filetereduser1.length,
+    "female":filetereduser2.length,"pending-male":filetereduser3.length,
+  "pendingprofilesmale":filetereduser4.length,"pendingprofilenewfemale":filetereduser5.length,
+  "approvedfemale":approvedfemale.length,
+  "incompleteprofile":incompleteprofile.length,
+  "completeprofile":completeprofile.length,
+  "profilewithphoto":profilewithphoto.length,
+  "profilewithoutphoto":profilewithoutphoto.length,
+  "aboutMeFillProfile":aboutMeFillProfile.length,
+  "blockProfiles":blockProfiles.length,
+  "pendingProfilesEdit":pendingProfilesEdit.length,
+  "approvedProfilesEdit":approvedProfilesEdit.length,
+  "reportProfilesByUsers":reportProfilesByUsers.length,
+  "verifiedProfileApprovedUsers":verifiedProfileApprovedUsers.length,
+  "logoutProfilesByUsers":logoutProfilesByUsers.length,
+  "loginProfiles":loginProfiles.length,
+  "maximumSendInterestProfiles":maximumSendInterestProfiles.length,
+  "maximumProfileViewer":maximumProfileViewer.length,
+  "maximumProfileViewed":maximumProfileViewed.length,
+  "supportSeekingProfiles":supportSeekingProfiles.length,
+  "savedPreferenceProfiles":savedPreferenceProfiles.length
+  });
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
 module.exports.numberofprofilesearch = async (req, res) => {
   try {
     const {searchtext}=req.body;

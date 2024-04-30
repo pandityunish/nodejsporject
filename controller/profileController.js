@@ -113,9 +113,9 @@ profileRouter.post("/getadminnotification", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await Userkundlimatch.updateMany(
+        const user = await SavedPreferSearch.updateMany(
             {},
-            { $set: { totalgun:"" } }
+            { $set: { name:"" } }
           );
         res.json(user);
     } catch (e) {
@@ -335,6 +335,7 @@ profileRouter.post("/addsharepref", async (req, res) => {
             citylocation,
             statelocation,
             userid,
+            name,
             location } = req.body;
         let saved_pref = await SavedPreferSearch({
             ageList,
@@ -353,7 +354,8 @@ profileRouter.post("/addsharepref", async (req, res) => {
             citylocation,
             statelocation,
             userid,
-            location
+            location,
+            name
         });
         saved_pref = await saved_pref.save();
         res.json(saved_pref);

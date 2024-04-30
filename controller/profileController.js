@@ -115,7 +115,7 @@ profileRouter.get("/updatedata", async (req, res) => {
     try {
         const user = await UserSearch.updateMany(
             {},
-            { $set: { name:"" } }
+            { $set: { name:"",isBlur:false, } }
           );
         res.json(user);
     } catch (e) {

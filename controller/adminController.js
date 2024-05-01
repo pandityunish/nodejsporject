@@ -1152,7 +1152,7 @@ module.exports.searchnotification = async (req, res) => {
   try {
     const { title } = req.body;
     // let noti = await AdminNotification.find({ subtitle: { $regex: new RegExp(title, 'i') } });
-    let noti = await AdminNotification.find({ $title: { $search: title } });
+    let noti = await AdminNotification.find({ $text: { $search: title } });
     res.json(noti);
   } catch (e) {
     res.status(500).json({ message: e.message });

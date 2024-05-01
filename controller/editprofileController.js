@@ -7,10 +7,10 @@ const editprofileRouter = express.Router();
 
 editprofileRouter.post("/createeditprofile",async(req,res)=>{
     try {
-        const { images,aboutme,patnerpref, userid ,isBlur,gender,phone,timeofbirth,placeofbirth,kundalidosh,martialstatus,profession,
+        const { images,aboutme,patnerpref, userid ,isBlur,gender,phone,timeofbirth,placeofbirth,kundalidosh,martialstatus,profession,religion,
             location1,city,state,country,name,surname,lat,lag,diet,age,disability,puid,drink,education,height,income} = req.body;
 
-        let user = await EditProfiles({ userid,images,aboutme,patnerpref,isBlur,gender,phone,timeofbirth,placeofbirth,kundalidosh,martialstatus,profession,
+        let user = await EditProfiles({ userid,images,aboutme,patnerpref,isBlur,gender,phone,timeofbirth,placeofbirth,kundalidosh,martialstatus,profession,religion,
             location1,city,state,country,name,surname,lat,lag,diet,age,disability,puid,drink,education,height,income });
         user = await user.save();
         res.json(user);

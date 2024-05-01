@@ -3,7 +3,6 @@ const mongoose=require("mongoose");
 const editprofileUser=mongoose.Schema({
     userid:{
         type:String,
-        required:true
     },
     images:[{
         type:String,
@@ -11,11 +10,9 @@ const editprofileUser=mongoose.Schema({
     }],
     aboutme:{
         type:String,
-        required:true
     },
     patnerpref:{
         type:String,
-        required:true
     },
     isBlur:{
         type:Boolean,
@@ -23,11 +20,11 @@ const editprofileUser=mongoose.Schema({
       },
       gender:{
         type:String,
-        required:true,
+        
       },
       phone:{
         type:String,
-        required:true,
+        
       },
       timeofbirth:{
       type:String,
@@ -40,38 +37,38 @@ const editprofileUser=mongoose.Schema({
       },
       martialstatus:{
         type:String,
-        required:true,
+        
       },
       profession:{
         type:String,
-        required:true,
+        
       },
       location1:{
         type:String,
       },
       city:{
         type:String,
-        required:true,
+        
       },
       state:{
         type:String,
-        required:true,
+        
       },
       country:{
         type:String,
-        required:true,
+        
       },
       religion:{
         type:String,
-        required:true,
+        
       },
       name:{
         type:String,
-        required:true,
+        
       },
       surname:{
         type:String,
-        required:true,
+        
       },
       lat:{
         type:Number,
@@ -81,35 +78,33 @@ const editprofileUser=mongoose.Schema({
       },
       diet:{
         type:String,
-        required:true,
+        
       },
       age:{
         type:String,
-        required:true,
+        
       },
       disability:{
         type:String,
-        required:true,
+        
       },
       puid:{
         type:String,
-        required:true,
+        
       },
       drink:{
         type:String,
-        required:true,
+        
       },
       education:{
         type:String,
-        required:true,
+        
       },
       height:{
         type:String,
-        required:true,
       },
       income:{
         type:String,
-        required:true,
       },
 },{
     timestamps:true

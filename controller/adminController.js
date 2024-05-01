@@ -1151,7 +1151,8 @@ module.exports.getalldeletedProfile = async (req, res) => {
 module.exports.searchnotification = async (req, res) => {
   try {
     const { title } = req.body;
-    let noti = await AdminNotification.find({ subtitle: { $regex: new RegExp(title, 'i') } });
+    // let noti = await AdminNotification.find({ subtitle: { $regex: new RegExp(title, 'i') } });
+    let noti = await AdminNotification.find({ $title: { $search: title } });
     res.json(noti);
   } catch (e) {
     res.status(500).json({ message: e.message });

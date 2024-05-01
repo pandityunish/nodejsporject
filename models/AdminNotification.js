@@ -33,5 +33,7 @@ const adminnotiSchema=mongoose.Schema({
 },{
     timestamps:true
    });
+   adminnotiSchema.index({ title: "text" });
+
    const AdminNotification=mongoose.model("adminNotification",adminnotiSchema);
    module.exports=AdminNotification;

@@ -125,7 +125,6 @@ profileRouter.get("/updatedata", async (req, res) => {
 
 profileRouter.get('/download-users', async (req, res) => {
     try {
-      // Fetch users from MongoDB
       const {searchtext}=req.query;
       const users = await User.find();
       let filetereduser = users;

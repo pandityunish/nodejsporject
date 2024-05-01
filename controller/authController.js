@@ -765,6 +765,36 @@ module.exports.updateblur = async (req, res) => {
     res.status(500).json({ mes: e.message })
   }
 }
+module.exports.updateprofession = async (req, res) => {
+  try {
+    const { email, profession } = req.body;
+    let user = await User.updateOne({ email: email }, {
+      $set: {
+        profession: profession
+      }
+    });
+
+
+    res.json({ user });
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
+module.exports.updateeducation = async (req, res) => {
+  try {
+    const { email, education } = req.body;
+    let user = await User.updateOne({ email: email }, {
+      $set: {
+        education: education
+      }
+    });
+
+
+    res.json({ user });
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
 module.exports.rejectrequest = async (req, res) => {
   try {
     const { uid, email, sendemail, senduid } = req.body;

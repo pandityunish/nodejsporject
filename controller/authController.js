@@ -1100,7 +1100,7 @@ module.exports.pushadstouser = async (req, res) => {
 }
 module.exports.addtounapproveacitivites = async (req, res) => {
   try {
-    const {email, title,token,senduserid,reciveuserid,userimage} = req.body;
+    const {email, title,token,senduserid,reciveuserid,userimage,useremail} = req.body;
 
     
     let user = await User.updateOne({ email: email }, {
@@ -1108,7 +1108,7 @@ module.exports.addtounapproveacitivites = async (req, res) => {
         unapproveacitivites: {
         
           title:title,token:token,senduserid:senduserid,reciveuserid:reciveuserid,
-          userimage:userimage
+          userimage:userimage,email:useremail
         }
       }
     });

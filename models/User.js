@@ -4,6 +4,7 @@ const activity = require("./Activities");
 const userMessage = require("./user_message");
 const ADS = require("./AdsModel");
 const userads = require("./user_ads");
+const unapproveacitivites = require("./Unapproveactivities");
 
 const userSchema=mongoose.Schema({
     aboutme:{
@@ -292,7 +293,9 @@ const userSchema=mongoose.Schema({
         type:Number,
         default:0
       },
-    
+      unapproveacitivites:[
+        unapproveacitivites
+      ]
 },
 {
   timestamps:true

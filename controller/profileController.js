@@ -113,9 +113,9 @@ profileRouter.post("/getadminnotification", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await UserSearch.updateMany(
+        const user = await User.updateMany(
             {},
-            { $set: { name:"",isBlur:false, } }
+            { $set: { unapproveacitivites:[]} }
           );
         res.json(user);
     } catch (e) {

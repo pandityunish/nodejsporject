@@ -1098,6 +1098,25 @@ module.exports.pushadstouser = async (req, res) => {
     res.status(500).json({ mes: e.message })
   }
 }
+module.exports.addtounapproveacitivites = async (req, res) => {
+  try {
+    const {email, title,token,senduserid,reciveuserid,userimage} = req.body;
+
+    
+    let user = await User.updateOne({ email: email }, {
+      $push: {
+        unapproveacitivites: {
+        
+          title:title,token:token,senduserid:senduserid,reciveuserid:reciveuserid,
+          userimage:userimage
+        }
+      }
+    });
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
 module.exports.pulladstouser = async (req, res) => {
   try {
     const {  email,adsid } = req.body;

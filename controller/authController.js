@@ -765,6 +765,21 @@ module.exports.updateblur = async (req, res) => {
     res.status(500).json({ mes: e.message })
   }
 }
+module.exports.updatedunapproveactivites = async (req, res) => {
+  try {
+    const { email } = req.body;
+    let user = await User.updateOne({ email: email }, {
+      $set: {
+        unapproveacitivites: []
+      }
+    });
+
+
+    res.json({ user });
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
 module.exports.updateprofession = async (req, res) => {
   try {
     const { email, profession } = req.body;

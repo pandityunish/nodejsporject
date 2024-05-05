@@ -113,16 +113,32 @@ profileRouter.post("/getadminnotification", async (req, res) => {
 });
 profileRouter.get("/updatedata", async (req, res) => {
     try {
-        const user = await User.updateMany(
+        
+        const user = await AdminModel.updateMany(
             {},
-            { $set: { unapproveacitivites:[]} }
+            { $set: {token:""} },
+            { upsert: true } 
           );
+       
         res.json(user);
     } catch (e) {
         res.status(500).json({ mes: e.message })
     }
 });
-
+profileRouter.get("/addtokentoadmin", async (req, res) => {
+    try {
+        const {email,token}=req.body;
+        const user = await AdminModel.updateOne(
+            {email:email},
+            { $set: {token:token} },
+            
+          );
+       
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({ mes: e.message })
+    }
+});
 profileRouter.get('/download-users', async (req, res) => {
     try {
       const {searchtext}=req.query;

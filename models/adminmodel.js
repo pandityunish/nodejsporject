@@ -21,7 +21,11 @@ const adminModel=mongoose.Schema({
         {
             type:String
         }
-    ]
+    ],
+    token:{
+        type:String,
+        default:""
+    }
 });
 const AdminModel=mongoose.model("Admin",adminModel);
 module.exports=AdminModel;

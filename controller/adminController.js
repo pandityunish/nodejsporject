@@ -1150,9 +1150,16 @@ module.exports.getalldeletedProfile = async (req, res) => {
 };
 module.exports.searchnotification = async (req, res) => {
   try {
-    const { title } = req.body;
+    const { title,page,perPage } = req.body;
+    const spage = parseInt(page) || 1;
+    const sperPage = parseInt(perPage) || 20;
+    const skipCount = (spage - 1) * sperPage;
     // let noti = await AdminNotification.find({ subtitle: { $regex: new RegExp(title, 'i') } });
-    let noti = await AdminNotification.find({ $text: { $search: title } });
+    let noti = await AdminNotification.find({ $text: { $search: title } })
+    .sort({ _id: -1 })
+    .skip(skipCount)
+    .limit(sperPage);
+    ;
     res.json(noti);
   } catch (e) {
     res.status(500).json({ message: e.message });

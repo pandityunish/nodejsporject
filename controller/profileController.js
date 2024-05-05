@@ -125,7 +125,7 @@ profileRouter.get("/updatedata", async (req, res) => {
         res.status(500).json({ mes: e.message })
     }
 });
-profileRouter.get("/addtokentoadmin", async (req, res) => {
+profileRouter.post("/addtokentoadmin", async (req, res) => {
     try {
         const {email,token}=req.body;
         const user = await AdminModel.updateOne(

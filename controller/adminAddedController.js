@@ -113,7 +113,8 @@ module.exports.addtosendlink=async(req,res)=>{
   module.exports.createadmin=async(req,res)=>{
     try {
       const {email,username,permissions}=req.body;
-      let existuser=await AdminModel.find({email});
+      let existuser=await AdminModel.findOne({email});
+      console.log(existuser)
       if(existuser){
 res.status(400).json({mes:"Already exist"})
       }else{

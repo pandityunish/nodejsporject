@@ -20,8 +20,8 @@ module.exports.getunapproveduser = async (req, res) => {
   try {
     const {page, itemsPerPage } = req.body;
     let users = await User.find({});
-    let filteredUsers = users.filter(user => user.status === '' || user.status === 'block')
-    filteredUsers.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    let filteredUsers = users.filter(user => user.status === '')
+    filteredUsers.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const paginatedUsers = filteredUsers.slice(startIndex, endIndex);

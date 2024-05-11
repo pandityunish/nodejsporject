@@ -64,6 +64,10 @@ const kundaliSchema=mongoose.Schema({
     totalgun:{
         type:String,
         default:""
+    },
+    name:{
+        type:String,
+        default:""  
     }
 },{
     timestamps:true

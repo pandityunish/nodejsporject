@@ -68,7 +68,15 @@ const kundaliSchema=mongoose.Schema({
     name:{
         type:String,
         default:""  
-    }
+    },
+    gam:{
+        type:String,
+        default:""  
+    },
+    bam:{
+        type:String,
+        default:""  
+    },
 },{
     timestamps:true
    });

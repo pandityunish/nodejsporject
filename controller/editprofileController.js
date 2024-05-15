@@ -29,9 +29,9 @@ editprofileRouter.post("/geteditprofile",async(req,res)=>{
 });
 editprofileRouter.post("/addadminsearch", async (req, res) => {
     try {
-        const { searchidprofile,searchnameprofile,searchphoneprofile,searchsurprofile,searchemailprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, email,adminname } = req.body;
+        const { searchidprofile,searchnameprofile,searchphoneprofile,searchsurnameprofile,searchemailprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, email,adminname } = req.body;
 
-        let user = await AdminSearch({ searchidprofile,searchnameprofile,searchphoneprofile,searchsurprofile,searchemailprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, email,adminname });
+        let user = await AdminSearch({ searchidprofile,searchnameprofile,searchphoneprofile,searchsurnameprofile,searchemailprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, email,adminname });
         user = await user.save();
         res.json(user);
     } catch (e) {

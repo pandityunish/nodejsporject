@@ -77,10 +77,14 @@ profileRouter.post("/getalluserkundli", async (req, res) => {
 });
 profileRouter.get("/update", async (req, res) => {
     try {
-        let users = await Userkundlimatch.updateMany({}, {
+        let users = await DeleteUser.updateMany({}, {
             $set: {
-                gam: "AM",
-                bam:"AM"
+                unapproveActivites:[],
+                numofprofileviewed:0,
+                numofprofileviewer:0,
+                numofinterest:0,
+                otp:"",
+                location:""
 
             },
         });

@@ -225,7 +225,10 @@ const userSchema=mongoose.Schema({
       userMessage
    
  ],
-
+location:{
+  type:String,
+  default:""
+},
     activities:[
       activity
     ],
@@ -267,6 +270,25 @@ const userSchema=mongoose.Schema({
       },
       showads:[
        { type:String}
+      ],
+      otp:{
+        type:String,
+        default:""
+      },
+      numofinterest:{
+        type:Number,
+        default:0
+      },
+      numofprofileviewer:{
+        type:Number,
+        default:0
+      },
+      numofprofileviewed:{
+        type:Number,
+        default:0
+      },
+      unapproveacitivites:[
+        {type:String,}
       ]
      
 },

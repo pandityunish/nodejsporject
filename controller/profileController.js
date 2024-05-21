@@ -12,9 +12,8 @@ const RatingModel = require("../models/Rating");
 const profileRouter = express.Router();
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
-        const { searchidprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, userid,name } = req.body;
-
-        let user = await UserSearch({ searchidprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, userid,name });
+        const { searchidprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, userid,name,location1,statelocation,citylocation } = req.body;
+        let user = await UserSearch({ searchidprofile, searchDistance, age, religion, kundlidosh, marital_status, diet, smoke, drink, disability, height, education, profession, income, location, userid,name,location1,statelocation,citylocation });
         user = await user.save();
         res.json(user);
     } catch (e) {
@@ -77,14 +76,11 @@ profileRouter.post("/getalluserkundli", async (req, res) => {
 });
 profileRouter.get("/update", async (req, res) => {
     try {
-        let users = await DeleteUser.updateMany({}, {
+        let users = await UserSearch.updateMany({}, {
             $set: {
-                unapproveActivites:[],
-                numofprofileviewed:0,
-                numofprofileviewer:0,
-                numofinterest:0,
-                otp:"",
-                location:""
+                location1:[],
+                statelocation:[],
+                citylocation:[]
 
             },
         });

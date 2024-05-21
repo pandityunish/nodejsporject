@@ -61,6 +61,21 @@ const userSearchSchema=mongoose.Schema({
         type:String,
         default:""
     },
+    location1:[
+        {
+            type:String
+        }
+    ],
+    statelocation:[
+        {
+            type:String
+        }
+    ],
+    citylocation:[
+        {
+            type:String
+        }
+    ],
 userid:{
     type:String,
     required:true

@@ -1271,7 +1271,7 @@ res.status(500).json({mes:e.message})
 module.exports.updatenumofprofileviewer = async (req, res) => {
   try {
     const { email } = req.body;
-    let user = await User.User.updateOne({ email }, {
+    let user = await User.updateOne({ email }, {
     
       $inc: {
         numofprofileviewer: 1

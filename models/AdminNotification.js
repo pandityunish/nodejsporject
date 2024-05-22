@@ -3,7 +3,7 @@ const mongoose=require("mongoose");
 const adminnotiSchema=mongoose.Schema({
     userid:{
         type:String,
-        required:true,
+        default:""
     },
     userimage:{
         type:String,

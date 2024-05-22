@@ -859,9 +859,21 @@ const savedPreferenceProfiles = users.filter(user => user.patnerprefs !== "")
                                    
                                 
                                     // Extract the users array from the result
-                                    const usersWithSamePhone = users.filter(user => user.phone === user.phone)
-                                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                                 
+                                    // const usersWithSamePhone = users.filter(user => user.phone === user.phone)
+                                    // .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                                    const result = await User.aggregate([
+                                      {
+                                          $group: {
+                                              _id: '$phone',
+                                              users: { $push: '$$ROOT' } // Push all documents in the group into an array
+                                          }
+                                      },
+                                      {
+                                          $match: {
+                                              _id: { $exists: true } // Filter out groups with no phone number (_id field is the phone number)
+                                          }
+                                      }
+                                  ]);
   
     res.json({"all":filetereduser.length,"male":filetereduser1.length,
     "female":filetereduser2.length,"pending-male":filetereduser3.length,
@@ -884,7 +896,7 @@ const savedPreferenceProfiles = users.filter(user => user.patnerprefs !== "")
   "maximumProfileViewed":maximumProfileViewed.length,
   "supportSeekingProfiles":supportSeekingProfiles.length,
   "savedPreferenceProfiles":savedPreferenceProfiles.length,
-  "usersWithSamePhone":usersWithSamePhone.length
+  "usersWithSamePhone":result.length
   });
   } catch (e) {
     res.status(500).json({ mes: e.message })

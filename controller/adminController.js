@@ -873,7 +873,7 @@ const savedPreferenceProfiles = users.filter(user => user.patnerprefs !== "")
                                               _id: { $exists: true } // Filter out groups with no phone number (_id field is the phone number)
                                           }
                                       }
-                                  ]);
+                                  ], { allowDiskUse: true });
   
     res.json({"all":filetereduser.length,"male":filetereduser1.length,
     "female":filetereduser2.length,"pending-male":filetereduser3.length,

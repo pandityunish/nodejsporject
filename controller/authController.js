@@ -558,15 +558,17 @@ module.exports.getallusers = async (req, res) => {
     if (incomeList.length) {
       query.income = { $in: incomeList };
     }
-    if (location.length) {
-      query.country = { $in: location };
+    if (citylocation.length) {
+      query.city = { $in: citylocation };
     }
     if (statelocation.length) {
       query.state = { $in: statelocation };
     }
-    if (citylocation.length) {
-      query.city = { $in: citylocation };
+    
+    if (location.length) {
+      query.country = { $in: location };
     }
+   
 
     // Apply additional filter to exclude invisible users
     if (invisiblelist && invisiblelist.length) {

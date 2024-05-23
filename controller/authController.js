@@ -558,16 +558,16 @@ module.exports.getallusers = async (req, res) => {
     if (incomeList.length) {
       query.income = { $in: incomeList };
     }
-    if (citylocation.length) {
-      query.city = { $in: citylocation };
-    }
-    if (statelocation.length) {
-      query.state = { $in: statelocation };
-    }
+    // if (citylocation.length) {
+    //   query.city = { $in: citylocation };
+    // }
+    // if (statelocation.length) {
+    //   query.state = { $in: statelocation };
+    // }
     
-    if (location.length) {
-      query.country = { $in: location };
-    }
+    // if (location.length) {
+    //   query.country = { $in: location };
+    // }
    
 
     // Apply additional filter to exclude invisible users
@@ -582,8 +582,12 @@ module.exports.getallusers = async (req, res) => {
     users = users.map(user => ({
       ...user.toObject(),
       distance: calculateDistance(lat, lng, user.lat, user.lng)
-    })).sort((a, b) => a.distance - b.distance);
-
+    }));
+    const cityUsers = users.filter(user => citylocation.includes(user.city));
+    const stateUsers = users.filter(user => statelocation.includes(user.state) && !citylocation.includes(user.city));
+    const countryUsers = users.filter(user => location.includes(user.country) && !citylocation.includes(user.city) && !statelocation.includes(user.state));
+    users = [...cityUsers, ...stateUsers, ...countryUsers];
+    users.sort((a, b) => a.distance - b.distance);
     // Paginate the results
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;

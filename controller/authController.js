@@ -583,9 +583,19 @@ module.exports.getallusers = async (req, res) => {
       ...user.toObject(),
       distance: calculateDistance(lat, lng, user.lat, user.lng)
     }));
-    const cityUsers = users.filter(user => citylocation.includes(user.city));
-    const stateUsers = users.filter(user => statelocation.includes(user.state) && !citylocation.includes(user.city));
-    const countryUsers = users.filter(user => location.includes(user.country) && !citylocation.includes(user.city) && !statelocation.includes(user.state));
+    let cityUsers = [], stateUsers = [], countryUsers = [];
+
+    if (citylocation.length) {
+      cityUsers = users.filter(user => citylocation.includes(user.city));
+    }
+    if (statelocation.length) {
+      stateUsers = users.filter(user => statelocation.includes(user.state) && !citylocation.includes(user.city));
+    }
+    if (location.length) {
+      countryUsers = users.filter(user => location.includes(user.country) && !citylocation.includes(user.city) && !statelocation.includes(user.state));
+    }
+
+    // Combine the groups
     users = [...cityUsers, ...stateUsers, ...countryUsers];
     users.sort((a, b) => a.distance - b.distance);
     // Paginate the results

@@ -590,17 +590,20 @@ module.exports.getallusers = async (req, res) => {
 
       console.log("city");
       cityUsers = users.filter(user => citylocation.includes(user.city));
+      cityUsers.sort((a, b) => a.distance - b.distance);
     }
     if (statelocation.length) {
       console.log("state");
 
       stateUsers = users.filter(user => statelocation.includes(user.state) && !citylocation.includes(user.city));
+      stateUsers.sort((a, b) => a.distance - b.distance);
       // console.log(stateUsers);
     }
     if (location.length) {
       console.log("country");
 
       countryUsers = users.filter(user => location.includes(user.country) && !citylocation.includes(user.city) && !statelocation.includes(user.state));
+      countryUsers.sort((a, b) => a.distance - b.distance);
     }
     // cityUsers.sort((a, b) => a.distance - b.distance);
     // stateUsers.sort((a, b) => a.distance - b.distance);

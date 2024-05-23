@@ -594,9 +594,12 @@ module.exports.getallusers = async (req, res) => {
     if (location.length) {
       countryUsers = users.filter(user => location.includes(user.country) && !citylocation.includes(user.city) && !statelocation.includes(user.state));
     }
-
+    if (cityUsers.length) users = users.concat(cityUsers);
+    if (stateUsers.length) users = users.concat(stateUsers);
+    if (countryUsers.length) users = users.concat(countryUsers);
     // Combine the groups
-    users = [...cityUsers, ...stateUsers, ...countryUsers];
+  
+
     users.sort((a, b) => a.distance - b.distance);
     // Paginate the results
     const startIndex = (page - 1) * itemsPerPage;

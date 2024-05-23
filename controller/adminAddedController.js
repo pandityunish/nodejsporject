@@ -70,7 +70,7 @@ module.exports.countofnotification = async (req, res) => {
 module.exports.updatenotification = async (req, res) => {
   try {
     const { userId } = req.body;
-    const user = await User.updateOne(
+    const user = await User.updateMany(
       { _id: userId, 'activities.isSeen': false },
       { $set: { 'activities.$.isSeen': true } }
     );

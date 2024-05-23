@@ -587,13 +587,29 @@ module.exports.getallusers = async (req, res) => {
     let cityUsers = [], stateUsers = [], countryUsers = [];
 
     if (citylocation.length) {
+
+      console.log("city");
       cityUsers = users.filter(user => citylocation.includes(user.city));
     }
     if (statelocation.length) {
+      console.log("state");
+
       stateUsers = users.filter(user => statelocation.includes(user.state) && !citylocation.includes(user.city));
+      // console.log(stateUsers);
     }
     if (location.length) {
+      console.log("country");
+
       countryUsers = users.filter(user => location.includes(user.country) && !citylocation.includes(user.city) && !statelocation.includes(user.state));
+    }
+    // cityUsers.sort((a, b) => a.distance - b.distance);
+    // stateUsers.sort((a, b) => a.distance - b.distance);
+    // countryUsers.sort((a, b) => a.distance - b.distance);
+
+    // Combine the groups
+    // users = [];
+    if(cityUsers.length|| stateUsers.length|| countryUsers.length){
+      users = [];
     }
     if (cityUsers.length) users = users.concat(cityUsers);
     if (stateUsers.length) users = users.concat(stateUsers);

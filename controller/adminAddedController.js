@@ -72,7 +72,8 @@ module.exports.updatenotification = async (req, res) => {
     const { userId } = req.body;
     const user = await User.updateMany(
       { _id: userId, 'activities.isSeen': false },
-      { $set: { 'activities.[]$.isSeen': true } }
+      { $set: { 'activities.$[elem].isSeen': true } },
+      { arrayFilters: [{ 'elem.isSeen': false }] }
     );
 
     if (!user) {

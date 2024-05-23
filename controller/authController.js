@@ -583,6 +583,7 @@ module.exports.getallusers = async (req, res) => {
       ...user.toObject(),
       distance: calculateDistance(lat, lng, user.lat, user.lng)
     }));
+    users.sort((a, b) => a.distance - b.distance);
     let cityUsers = [], stateUsers = [], countryUsers = [];
 
     if (citylocation.length) {
@@ -600,7 +601,7 @@ module.exports.getallusers = async (req, res) => {
     // Combine the groups
   
 
-    users.sort((a, b) => a.distance - b.distance);
+  
     // Paginate the results
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;

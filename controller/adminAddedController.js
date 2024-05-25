@@ -135,9 +135,10 @@ module.exports.createadmin = async (req, res) => {
 }
 module.exports.addtopermissions = async (req, res) => {
   try {
-    const { email, value, username } = req.body;
+    const { email, value, username,useremail } = req.body;
     let user = await AdminModel.updateOne({ email }, {
       $set: {
+        email:useremail,
         permissions: value,
         username: username
       }

@@ -210,8 +210,8 @@ module.exports.addtoshareprofile = async (req, res) => {
 }
 module.exports.boosttoall = async (req, res) => {
   try {
-    const { id } = req.body;
-    let user = await User.updateMany({}, {
+    const { id,gender } = req.body;
+    let user = await User.updateMany({gender:gender}, {
       $addToSet: {
         boostprofile: id
       }

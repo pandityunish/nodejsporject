@@ -255,8 +255,9 @@ module.exports.addsendlinktoeachuser = async (req, res) => {
     filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
 
-    let user = await filetereduser.updateMany(
-      {},
+    const userIds = filetereduser.map(user => user._id);
+    await User.updateMany(
+      { _id: { $in: userIds } },
       { $set: { sendlink: value } }
     );
 

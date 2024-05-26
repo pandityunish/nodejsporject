@@ -256,7 +256,7 @@ module.exports.addsendlinktoeachuser = async (req, res) => {
     }
 
     const userIds = filetereduser.map(user => user._id);
-    await User.updateMany(
+   let user= await User.updateMany(
       { _id: { $in: userIds } },
       { $set: { sendlink: value } }
     );

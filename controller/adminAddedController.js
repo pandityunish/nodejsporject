@@ -384,7 +384,7 @@ module.exports.addsendnotificationtoeachuser = async (req, res) => {
         data: {
           click_action: 'FLUTTER_NOTIFICATION_CLICK',
           uid: user._id,
-          route: route,
+          route: "/",
           id: user._id,
           userName: user.name,
           status: 'done',

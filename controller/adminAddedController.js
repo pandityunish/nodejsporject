@@ -374,28 +374,33 @@ module.exports.addsendnotificationtoeachuser = async (req, res) => {
     }
 
     for (const user of filetereduser) {
-      await axios.post('https://fcm.googleapis.com/fcm/send', {
-        notification: {
-          body: body,
-          title: title,
-          icon: 'ic_launcher',
-        },
-        priority: 'high',
-        data: {
-          click_action: 'FLUTTER_NOTIFICATION_CLICK',
-          uid: user._id,
-          route: "/",
-          id: user._id,
-          userName: user.name,
-          status: 'done',
-          sound: sound,
-        },
-        to: user.token,
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'key=AAAARNDuqEs:APA91bFMhCmAO8olPfJxG868C9czilKHzNIk_pYuXBJ7iFrGiK6bPl6K_O5Uqkq607hZFu_ScIfyCRq7ZBnHTtz_vl6HvrIvdDwxu_nxP4P4E-pDpGvIeGhP5Z3CQoxgwq6sZTlFLtYa',
-        }});
+      try {
+        await axios.post('https://fcm.googleapis.com/fcm/send', {
+          notification: {
+            body: body,
+            title: title,
+            icon: 'ic_launcher',
+          },
+          priority: 'high',
+          data: {
+            click_action: 'FLUTTER_NOTIFICATION_CLICK',
+            uid: user._id,
+            route: "/",
+            id: user._id,
+            userName: user.name,
+            status: 'done',
+            sound: sound,
+          },
+          to: user.token,
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'key=AAAARNDuqEs:APA91bFMhCmAO8olPfJxG868C9czilKHzNIk_pYuXBJ7iFrGiK6bPl6K_O5Uqkq607hZFu_ScIfyCRq7ZBnHTtz_vl6HvrIvdDwxu_nxP4P4E-pDpGvIeGhP5Z3CQoxgwq6sZTlFLtYa',
+          }});
+      } catch (error) {
+        console.log(error);
+      }
+     
     }
 
     res.json({ message: 'Users updated and FCM notifications sent successfully' });

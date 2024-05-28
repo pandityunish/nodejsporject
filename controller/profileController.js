@@ -9,6 +9,7 @@ const ExcelJS = require('exceljs');
 const AdminModel = require("../models/adminmodel");
 const Query = require("../models/query_data");
 const RatingModel = require("../models/Rating");
+const EditProfiles = require("../models/Editprofile");
 const profileRouter = express.Router();
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
@@ -115,9 +116,9 @@ profileRouter.post("/getadminnotification", async (req, res) => {
 profileRouter.get("/updatedata", async (req, res) => {
     try {
         
-        const user = await AdminModel.updateMany(
+        const user = await EditProfiles.updateMany(
             {},
-            { $set: {token:""} },
+            { $set: {dateofbith:"",editname:""} },
             { upsert: true } 
           );
        

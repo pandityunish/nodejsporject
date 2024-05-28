@@ -32,6 +32,9 @@ const editprofileUser=mongoose.Schema({
       placeofbirth:{
         type:String,
       },
+      dateofbirth:{
+        type:String,
+      },
       kundalidosh:{
         type:String,
       },
@@ -106,6 +109,9 @@ const editprofileUser=mongoose.Schema({
       income:{
         type:String,
       },
+      editname:{
+        type:String
+      }
 },{
     timestamps:true
    });

@@ -293,5 +293,5 @@ const userSchema=mongoose.Schema({
   timestamps:true
  }
 );
-const DeleteUser=mongoose.model("DeletedUsers1",userSchema);
+const DeleteUser=mongoose.model("DeletedUsers",userSchema);
 module.exports=DeleteUser;

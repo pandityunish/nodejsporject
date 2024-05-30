@@ -1168,6 +1168,17 @@ module.exports.getalldeletedProfile = async (req, res) => {
     res.status(500).json({ message: e.message });
   }
 };
+module.exports.getdeleteprofile = async (req, res) => {
+  try {
+  const {uid}=req.body;
+
+    const notifications = await DeleteUser.findOne({puid:uid});
+     
+    res.json(notifications);
+  } catch (e) {
+    res.status(500).json({ message: e.message });
+  }
+};
 module.exports.searchnotification = async (req, res) => {
   try {
     const { title,page,perPage } = req.body;

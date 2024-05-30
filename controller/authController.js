@@ -613,10 +613,11 @@ module.exports.getallusers = async (req, res) => {
     // users = [];
     if(cityUsers.length|| stateUsers.length|| countryUsers.length){
       users = [];
+      users = [...cityUsers, ...stateUsers, ...countryUsers];
     }
-    if (cityUsers.length) users = users.concat(cityUsers);
-    if (stateUsers.length) users = users.concat(stateUsers);
-    if (countryUsers.length) users = users.concat(countryUsers);
+    // if (cityUsers.length) users = users.concat(cityUsers);
+    // if (stateUsers.length) users = users.concat(stateUsers);
+    // if (countryUsers.length) users = users.concat(countryUsers);
     // Combine the groups
   
 

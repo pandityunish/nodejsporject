@@ -296,5 +296,5 @@ location:{
   timestamps:true
  }
 );
-const DeleteUser=mongoose.model("DeletedUsers",userSchema);
+const DeleteUser=mongoose.model("DeletedUsers1",userSchema);
 module.exports=DeleteUser;

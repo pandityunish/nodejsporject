@@ -118,7 +118,7 @@ profileRouter.get("/updatedata", async (req, res) => {
         
         const user = await EditProfiles.updateMany(
             {},
-            { $set: {dateofbith:"",editname:""} },
+            { $set: {dateofbirth:""} },
             { upsert: true } 
           );
        

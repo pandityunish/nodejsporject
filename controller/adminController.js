@@ -1162,7 +1162,7 @@ module.exports.getalldeletedProfile = async (req, res) => {
       .sort({ _id: -1 })
       .skip(skipCount)
       .limit(perPage);
-
+      notifications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     res.json(notifications);
   } catch (e) {
     res.status(500).json({ message: e.message });

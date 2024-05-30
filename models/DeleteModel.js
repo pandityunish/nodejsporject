@@ -225,10 +225,7 @@ const userSchema=mongoose.Schema({
       userMessage
    
  ],
-location:{
-  type:String,
-  default:""
-},
+
     activities:[
       activity
     ],

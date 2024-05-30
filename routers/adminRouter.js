@@ -45,7 +45,7 @@ adminRouter.post("/admin/searchnotibyid",searchnotibydate);
 adminRouter.post("/admin/searchuserbydate",searchuserbydate);
 adminRouter.post("/admin/profilesearch", profilesearch);
 adminRouter.get("/admin/getdeletedprofile", getalldeletedProfile);
-adminRouter.get("/admin/getdeleteoneprofile", getdeleteprofile);
+adminRouter.post("/admin/getdeleteoneprofile", getdeleteprofile);
 adminRouter.post("/user/deletenotifromuser", deletenotificationfromuser);
 adminRouter.post("/admin/sortdata", sortdatabasedontype);
 adminRouter.post("/admin/addlinktoeachuser", addsendlinktoeachuser);

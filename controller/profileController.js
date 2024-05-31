@@ -116,9 +116,9 @@ profileRouter.post("/getadminnotification", async (req, res) => {
 profileRouter.get("/updatedata", async (req, res) => {
     try {
         
-        const user = await DeleteUser.updateMany(
+        const user = await Query.updateMany(
             {},
-            { $set: {location1:""} },
+            { $set: {name:""} },
             { upsert: true } 
           );
        

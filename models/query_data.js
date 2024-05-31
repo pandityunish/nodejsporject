@@ -9,6 +9,10 @@ const querySchema=mongoose.Schema({
         type:String,
         required:true
     },
+    name:{
+type:String,
+default:""
+    },
     isAdmin:{
         type:Boolean,
         default:false

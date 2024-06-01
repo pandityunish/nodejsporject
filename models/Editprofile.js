@@ -34,6 +34,7 @@ const editprofileUser=mongoose.Schema({
       },
       dateofbirth:{
         type:String,
+        
       },
       kundalidosh:{
         type:String,

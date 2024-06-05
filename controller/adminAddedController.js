@@ -507,7 +507,9 @@ module.exports.getboostprofile = async (req, res) => {
 
 
 
-    return res.status(200).json(users);
+    const approvedUsers = users.filter(user => user.status === 'approved');
+
+    return res.status(200).json(approvedUsers);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: 'Internal Server Error' });

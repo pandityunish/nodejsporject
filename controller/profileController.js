@@ -116,9 +116,9 @@ profileRouter.post("/getadminnotification", async (req, res) => {
 profileRouter.get("/updatedata", async (req, res) => {
     try {
         
-        const user = await Query.updateMany(
+        const user = await EditProfiles.updateMany(
             {},
-            { $set: {name:""} },
+            { $set: {dateofbirth:""} },
             { upsert: true } 
           );
        

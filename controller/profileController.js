@@ -77,11 +77,10 @@ profileRouter.post("/getalluserkundli", async (req, res) => {
 });
 profileRouter.get("/update", async (req, res) => {
     try {
-        let users = await UserSearch.updateMany({}, {
+        let users = await DeleteUser.updateMany({}, {
             $set: {
-                location1:[],
-                statelocation:[],
-                citylocation:[]
+                location1:"",
+                
 
             },
         });

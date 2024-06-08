@@ -110,6 +110,7 @@ const userSchema=mongoose.Schema({
     },
     location1:{
       type:String,
+      default:""
     },
     city:{
       type:String,

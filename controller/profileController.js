@@ -77,9 +77,9 @@ profileRouter.post("/getalluserkundli", async (req, res) => {
 });
 profileRouter.get("/update", async (req, res) => {
     try {
-        let users = await DeleteUser.updateMany({}, {
+        let users = await EditProfiles.updateMany({}, {
             $set: {
-                location1:"",
+                lng:0.3312,
                 
 
             },

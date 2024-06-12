@@ -79,6 +79,7 @@ const editprofileUser=mongoose.Schema({
       },
       lng:{
         type:Number,
+        default:1212,
       },
       diet:{
         type:String,

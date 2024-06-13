@@ -25,6 +25,10 @@ const adminModel=mongoose.Schema({
     token:{
         type:String,
         default:""
+    },
+    isLogOut:{
+        type:String,
+        default:"false"
     }
 });
 const AdminModel=mongoose.model("Admin",adminModel);

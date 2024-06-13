@@ -77,9 +77,9 @@ profileRouter.post("/getalluserkundli", async (req, res) => {
 });
 profileRouter.get("/update", async (req, res) => {
     try {
-        let users = await EditProfiles.updateMany({}, {
+        let users = await AdminModel.updateMany({}, {
             $set: {
-                lng:0.3312,
+                isLogOut:"false",
                 
 
             },
@@ -89,6 +89,20 @@ profileRouter.get("/update", async (req, res) => {
         res.status(500).json({ mes: e })
     }
 });
+profileRouter.post("/logoutadmin", async (req, res) => {
+    try {
+        const { email, mes } = req.body;
+        let user = await AdminModel.updateOne({ email }, {
+          $set: {
+            isLogOut: mes
+          }
+        });
+        res.json(user);
+      } catch (e) {
+    
+      }
+});
+
 profileRouter.get("/updatenoti", async (req, res) => {
     try {
         let users = await AdminNotification.updateMany({}, {

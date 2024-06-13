@@ -2,6 +2,7 @@
 const express = require("express");
 const EditProfiles = require("../models/Editprofile");
 const AdminSearch = require("../models/AdminSearchProfile");
+const EditAdminModel = require("../models/EditAdmin");
 
 const editprofileRouter = express.Router();
 
@@ -13,6 +14,28 @@ editprofileRouter.post("/createeditprofile",async(req,res)=>{
         let user = await EditProfiles({ userid,images,aboutme,patnerpref,isBlur,gender,phone,timeofbirth,placeofbirth,kundalidosh,martialstatus,profession,religion,
             location1,city,state,country,name,surname,lat,lng,diet,age,disability,puid,drink,education,height,income,dateofbirth,editname });
         user = await user.save();
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({ mes: e })
+    } 
+});
+editprofileRouter.post("/createeditadminprofile",async(req,res)=>{
+    try {
+        const { email, username, permissions,editname } = req.body;
+      
+          let user = await EditAdminModel({ email, username, permissions,editname })
+          user = await user.save();
+    
+          res.json({ user });
+        
+    } catch (e) {
+        res.status(500).json({ mes: e })
+    } 
+});
+editprofileRouter.post("/getadmineditprofile",async(req,res)=>{
+    try {
+        const { email } = req.body;
+        let user = await EditAdminModel.find({email});
         res.json(user);
     } catch (e) {
         res.status(500).json({ mes: e })

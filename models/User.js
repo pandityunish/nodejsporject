@@ -248,11 +248,11 @@ const userSchema=mongoose.Schema({
     type: {
       type: String,
       enum: ['Point'],
-      required: true,
+      default:"India"
     },
     coordinates: {
       type: [Number],
-      required: true,
+      default:233242
     },
   },
       activities:[

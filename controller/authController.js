@@ -1222,6 +1222,7 @@ module.exports.pushactivities = async (req, res) => {
 }
 module.exports.deleteuseraccount = async (req, res) => {
   try {
+    const {email}=req.body;
     let user = await User.deleteOne({ email: email });
    
     res.json(user);

@@ -14,35 +14,35 @@ const userSchema=mongoose.Schema({
 
     diet:{
         type:String,
-        required:true,
+        default:""
       },
       age:{
         type:String,
-        required:true,
+        default:""
       },
       disability:{
         type:String,
-        required:true,
+        default:""
       },
       puid:{
         type:String,
-        required:true,
+        default:""
       },
       drink:{
         type:String,
-        required:true,
+        default:""
       },
       education:{
         type:String,
-        required:true,
+        default:""
       },
       height:{
         type:String,
-        required:true,
+        default:""
       },
       income:{
         type:String,
-        required:true,
+       default:""
       },
       patnerprefs:{
         type:String,
@@ -50,7 +50,7 @@ const userSchema=mongoose.Schema({
       },
       smoke:{
         type:String,
-        required:true,
+        default:""
       },
       displayname:{
         type:String,
@@ -62,7 +62,7 @@ const userSchema=mongoose.Schema({
       },
       religion:{
         type:String,
-        required:true,
+ default:""
       },
       name:{
         type:String,
@@ -74,9 +74,12 @@ const userSchema=mongoose.Schema({
       },
       lat:{
         type:Number,
+         default:0.32
       },
       lng:{
         type:Number,
+        default:0.32
+
       },
       adminlat:{
         type:Number,
@@ -88,7 +91,8 @@ const userSchema=mongoose.Schema({
       },
       gender:{
         type:String,
-        required:true,
+        default:""
+
       },
       phone:{
         type:String,
@@ -102,36 +106,48 @@ const userSchema=mongoose.Schema({
       },
       kundalidosh:{
         type:String,
+ default:""
+
       },
       martialstatus:{
         type:String,
-        required:true,
+        default:""
+
       },
       profession:{
         type:String,
-        required:true,
+        default:""
+
       },
       location1:{
         type:String,
+ default:""
+
       },
       city:{
         type:String,
-        required:true,
+        default:""
+
       },
       state:{
         type:String,
-        required:true,
+        default:""
+
       },
       country:{
         type:String,
-        required:true,
+        default:""
+
       },
       token:{
         type:String,
-        required:true,
+        default:""
+
       },
       dob:{
         type:Number,
+ default:32323
+
       },
       isLogOut:{
         type:String,

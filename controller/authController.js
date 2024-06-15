@@ -1220,7 +1220,15 @@ module.exports.pushactivities = async (req, res) => {
     res.status(500).json({ mes: e.message })
   }
 }
-
+module.exports.deleteuseraccount = async (req, res) => {
+  try {
+    let user = await User.deleteOne({ email: email });
+   
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
 module.exports.deleteaccount = async (req, res) => {
   try {
     const { aboutme, age, puid, diet, lat, lng, disability, drink, imageurls, placeofbirth, timeofbirth, education, height, income, patnerprefs, smoke, displayname, email, religion, name, surname, phone, gender, kundalidosh, martialstatus, profession, location1, city, state, country, token, dob, reasontodeleteuser,status } = req.body;

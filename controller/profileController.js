@@ -10,6 +10,7 @@ const AdminModel = require("../models/adminmodel");
 const Query = require("../models/query_data");
 const RatingModel = require("../models/Rating");
 const EditProfiles = require("../models/Editprofile");
+const ADS = require("../models/AdsModel");
 const profileRouter = express.Router();
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
@@ -77,9 +78,9 @@ profileRouter.post("/getalluserkundli", async (req, res) => {
 });
 profileRouter.get("/update", async (req, res) => {
     try {
-        let users = await AdminModel.updateMany({}, {
+        let users = await ADS.updateMany({}, {
             $set: {
-                isLogOut:"false",
+                video:"",
                 
 
             },

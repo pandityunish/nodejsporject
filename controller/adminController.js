@@ -1185,8 +1185,11 @@ module.exports.searchnotification = async (req, res) => {
     const spage = parseInt(page) || 1;
     const sperPage = parseInt(perPage) || 20;
     const skipCount = (spage - 1) * sperPage;
+    const words = title.split(/\s+/).filter(word => word.length > 0);
+    const regexPattern = words.map(word => `(?=.*${word})`).join('');
+    const regex = new RegExp(regexPattern, 'i');
     // let noti = await AdminNotification.find({ subtitle: { $regex: new RegExp(title, 'i') } });
-    let noti = await AdminNotification.find({ $text: { $search: title } })
+    let noti = await AdminNotification.find({ $text: { $regex: regex }})
     .sort({ _id: -1 })
     .skip(skipCount)
     .limit(sperPage);

@@ -1186,10 +1186,14 @@ module.exports.searchnotification = async (req, res) => {
     const sperPage = parseInt(perPage) || 20;
     const skipCount = (spage - 1) * sperPage;
     const words = title.split(/\s+/).filter(word => word.length > 0);
-    const regexPattern = words.map(word => `(?=.*${word})`).join('');
+    const regexPattern = words.map(word => `(${word})`).join('|');
     const regex = new RegExp(regexPattern, 'i');
     // let noti = await AdminNotification.find({ subtitle: { $regex: new RegExp(title, 'i') } });
-    let noti = await AdminNotification.find({ $title: { $regex: regex }})
+    let noti = await AdminNotification.find({  $or: [
+      { title: { $regex: regex } },
+      // Adjust or add more fields as necessary
+      // Add other fields if needed
+    ]})
     .sort({ _id: -1 })
     .skip(skipCount)
     .limit(sperPage);

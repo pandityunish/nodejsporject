@@ -959,33 +959,140 @@ console.log("lfakjsdlfkj")
 }
 module.exports.profilesearch = async (req, res) => {
   try {
-    const { searchtext, page } = req.body;
+    const { searchtext, page,gender } = req.body;
     const itemsPerPage = 10;
     let users = await User.find({});
     let filetereduser = users;
-    if (searchtext === "male" || searchtext == "female") {
-      filetereduser = users.filter(user => user.gender === searchtext);
-    } else if (searchtext == "Pending Profiles New male") {
-      filetereduser = users.filter(user => user.status === '' && user.gender === "male")
+    if(gender === "male" || gender == "female"){
+   if (searchtext == "Pending Profiles New male") {
+      filetereduser = users.filter(user => user.status === '' && user.gender === gender)
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     } else if (searchtext == "Pending Profiles New female") {
-      filetereduser = users.filter(user => user.status === '' && user.gender === "female")
+      filetereduser = users.filter(user => user.status === '' && user.gender === gender)
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     } else if (searchtext == "Approved Profiles New male") {
      
-      filetereduser = users.filter(user => user.status === 'approved' && user.gender === "male")
+      filetereduser = users.filter(user => user.status === 'approved' && user.gender === gender)
       console.log(filetereduser)
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     }
     else if (searchtext == "Approved Profiles New female") {
-      filetereduser = users.filter(user => user.status === 'approved' && user.gender === "female")
+      filetereduser = users.filter(user => user.status === 'approved' && user.gender === gender)
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     } else if (searchtext == "Incomplete Profiles") {
-      filetereduser = users.filter(user => user.aboutme === '' || user.patnerprefs === "" || user.imageurls.length===0)
+      filetereduser = users.filter(user => user.aboutme === '' || user.patnerprefs === "" || user.imageurls.length===0 && user.gender === gender )
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }
+    else if (searchtext == "Complete Profiles") {
+      filetereduser = users.filter(user => user.aboutme !== '' && user.patnerprefs !== "" && user.imageurls.length!==0 && user.gender === gender)
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }
+    else if (searchtext == "Profiles with photos") {
+      filetereduser = users.filter(user => user. imageurls.length!==0 && user.gender === gender)
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }
+    else if (searchtext == "Profiles without photos") {
+      filetereduser = users.filter(user => user.imageurls.length===0&& user.gender === gender)
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }else if (searchtext == "Incomplete Profiles") {
+      filetereduser = users.filter(user => user.aboutme === ''&& user.gender === gender )
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }else if (searchtext == "About Me Fill Profiles") {
+      filetereduser = users.filter(user => user.aboutme !== ''&& user.gender === gender)
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }else if (searchtext == "Block Profiles") {
+      filetereduser = users.filter(user => user.status === 'block'&& user.gender === gender)
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }else if (searchtext == "Pending Profiles Edit") {
+      filetereduser = users.filter(user => user.editstatus === ''&& user.gender === gender)
+      filetereduser.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+    }else if (searchtext == "Approved Profiles Edit") {
+      filetereduser = users.filter(user => user.editstatus === 'approved'&& user.gender === gender)
+      filetereduser.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+
+    }
+    else if (searchtext == "Report Profiles by users") {
+      filetereduser = users.filter(user => user.reportlist.length !== 0&& user.gender === gender)
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }else if (searchtext == "verified profile approved users") {
+      filetereduser = users.filter(user => user.verifiedstatus==="verified"&& user.gender === gender)
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }else if (searchtext == "Logout Profiles by Users") {
+      filetereduser = users.filter(user => user.isLogOut==="false"&& user.gender === gender)
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }else if (searchtext == "Login Profiles") {
+      filetereduser = users.filter(user => user.isLogOut==="true"&& user.gender === gender)
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }
+    else if (searchtext == "Same Mobile No. Profiles") {
+      const result = await User.aggregate([
+        {
+            $group: {
+                _id: '$phone',
+                users: { $push: '$$ROOT' } // Push all documents in the group into an array
+            }
+        },
+        {
+            $match: {
+                _id: { $exists: true } // Filter out groups with no phone number (_id field is the phone number)
+            }
+        }
+    ]);
+
+    // Extract the users array from the result
+    const usersWithSamePhone = result.map(group => group.users).flat();
+    filetereduser=usersWithSamePhone;
+
+    }else if (searchtext == "support seeking profiles") {
+      filetereduser = users.filter(user => user.support!==0&& user.gender === gender);
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }else if (searchtext == "Saved Preference  Profiles"&& user.gender === gender) {
+      filetereduser = users.filter(user => user.patnerprefs!=="");
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }else{
+    filetereduser=users;
+    filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    }
+  }else{
+    if (searchtext == "Pending Profiles New male") {
+      filetereduser = users.filter(user => user.status === '' )
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    } else if (searchtext == "Pending Profiles New female") {
+      filetereduser = users.filter(user => user.status === '')
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    } else if (searchtext == "Approved Profiles New male") {
+     
+      filetereduser = users.filter(user => user.status === 'approved' )
+      console.log(filetereduser)
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    }
+    else if (searchtext == "Approved Profiles New female") {
+      filetereduser = users.filter(user => user.status === 'approved' )
+      filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    } else if (searchtext == "Incomplete Profiles") {
+      filetereduser = users.filter(user => user.aboutme === '' || user.patnerprefs === "" || user.imageurls.length===0 )
       filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     }
@@ -1072,6 +1179,7 @@ module.exports.profilesearch = async (req, res) => {
     filetereduser=users;
     filetereduser.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
+  }
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const paginatedUsers = filetereduser.slice(startIndex, endIndex);

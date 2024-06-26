@@ -57,9 +57,9 @@ profileRouter.post("/getallusersearch", async (req, res) => {
 });
 profileRouter.post("/addkundalimatch", async (req, res) => {
     try {
-        const { gname, gday, gmonth, gyear, ghour, gsec, bname, bday, bmonth, byear, bhour, bsec, bplace, userid, gplace,totalgun,name,gam,bam } = req.body;
+        const { gname, gday, gmonth, gyear, ghour, gsec, bname, bday, bmonth, byear, bhour, bsec, bplace, userid, gplace,totalgun,name,gam,bam,gkundli,bkundli } = req.body;
 
-        let user = await Userkundlimatch({ gname, gday, gmonth, gyear, ghour, gsec, bname, bday, bmonth, gplace, byear, bhour, bsec, bplace, userid,totalgun,name,gam,bam });
+        let user = await Userkundlimatch({ gname, gday, gmonth, gyear, ghour, gsec, bname, bday, bmonth, gplace, byear, bhour, bsec, bplace, userid,totalgun,name,gam,bam,gkundli,bkundli  });
         user = await user.save();
         res.json(user);
     } catch (e) {
@@ -78,9 +78,10 @@ profileRouter.post("/getalluserkundli", async (req, res) => {
 });
 profileRouter.get("/update", async (req, res) => {
     try {
-        let users = await ADS.updateMany({}, {
+        let users = await Userkundlimatch.updateMany({}, {
             $set: {
-                video:"",
+                gkundli:"",
+                bkundli:""
                 
 
             },

@@ -77,6 +77,14 @@ const kundaliSchema=mongoose.Schema({
         type:String,
         default:""  
     },
+    bkundli:{
+        type:String,
+        default:""  
+    },
+    gkundli:{
+        type:String,
+        default:""  
+    },
 },{
     timestamps:true
    });

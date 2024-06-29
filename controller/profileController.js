@@ -11,6 +11,7 @@ const Query = require("../models/query_data");
 const RatingModel = require("../models/Rating");
 const EditProfiles = require("../models/Editprofile");
 const ADS = require("../models/AdsModel");
+const SendNotification = require("../models/SendNotification");
 const profileRouter = express.Router();
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
@@ -61,6 +62,28 @@ profileRouter.post("/addkundalimatch", async (req, res) => {
 
         let user = await Userkundlimatch({ gname, gday, gmonth, gyear, ghour, gsec, bname, bday, bmonth, gplace, byear, bhour, bsec, bplace, userid,totalgun,name,gam,bam,gkundli,bkundli  });
         user = await user.save();
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({ mes: e })
+    }
+});
+profileRouter.post("/addtosendnotification", async (req, res) => {
+    try {
+        const { title,heading,type,name,status,email} = req.body;
+
+        let user = await SendNotification({  title,heading,type,name,status,email });
+        user = await user.save();
+        res.json(user);
+    } catch (e) {
+        res.status(500).json({ mes: e })
+    }
+});
+profileRouter.post("/getnotificationbyid", async (req, res) => {
+    try {
+        const { email} = req.body;
+
+        let user = await SendNotification.find({email});
+       
         res.json(user);
     } catch (e) {
         res.status(500).json({ mes: e })

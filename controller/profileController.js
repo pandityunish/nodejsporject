@@ -101,11 +101,9 @@ profileRouter.post("/getalluserkundli", async (req, res) => {
 });
 profileRouter.get("/update", async (req, res) => {
     try {
-        let users = await Userkundlimatch.updateMany({}, {
+        let users = await ADS.updateMany({}, {
             $set: {
-                gkundli:"",
-                bkundli:""
-                
+              name:""
 
             },
         });

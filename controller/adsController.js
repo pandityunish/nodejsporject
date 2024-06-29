@@ -2,9 +2,9 @@ const ADS = require("../models/AdsModel")
 
 module.exports.createads = async (req, res) => {
     try {
-        const { description, adsid, image,video } = req.body;
+        const { description, adsid, image,video,name } = req.body;
         let ads = await ADS({
-            description, adsid, image,video
+            description, adsid, image,video,name
         });
         ads = await ads.save();
         res.json(ads);

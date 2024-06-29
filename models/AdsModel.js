@@ -15,6 +15,10 @@ const adsmodel=mongoose.Schema({
         type:String,
         default:""
     },
+    name:{
+        type:String,
+        default:""
+    },
     
 },{
     timestamps:true

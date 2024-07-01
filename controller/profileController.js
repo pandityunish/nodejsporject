@@ -101,9 +101,9 @@ profileRouter.post("/getalluserkundli", async (req, res) => {
 });
 profileRouter.get("/update", async (req, res) => {
     try {
-        let users = await DeleteUser.updateMany({}, {
+        let users = await User.updateMany({}, {
             $set: {
-                profileverified:0
+                numberdownloadbiodata:0
 
             },
         });
@@ -523,6 +523,19 @@ profileRouter.post("/marriageloan", async (req, res) => {
         let users = await User.updateOne({ _id: id }, {
             $inc: {
                 marriageloan: 1
+            }
+        });
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({ mes: e })
+    }
+});
+profileRouter.post("/increasebiodata", async (req, res) => {
+    try {
+        const { id } = req.body;
+        let users = await User.updateOne({ _id: id }, {
+            $inc: {
+                numberdownloadbiodata: 1
             }
         });
         res.json(users);

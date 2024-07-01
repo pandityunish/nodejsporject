@@ -238,6 +238,10 @@ const userSchema=mongoose.Schema({
       type:Boolean,
       default:false,
     },
+    numberdownloadbiodata:{
+      type:Number,
+      default:0,
+    },
     chatnow:{
       type:Number,
       default:0,

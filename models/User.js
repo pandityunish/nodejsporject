@@ -286,6 +286,10 @@ const userSchema=mongoose.Schema({
         type:Number,
         default:0
       },
+      profileverified:{
+        type:Number,
+        default:0
+      },
       isBlur:{
         type:Boolean,
         default:false

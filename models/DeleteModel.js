@@ -266,6 +266,10 @@ const userSchema=mongoose.Schema({
         type:String,
         default:""
       },
+      profileverified:{
+        type:Number,
+        default:0
+      },
       showads:[
        { type:String}
       ],

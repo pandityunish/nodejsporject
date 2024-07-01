@@ -101,9 +101,9 @@ profileRouter.post("/getalluserkundli", async (req, res) => {
 });
 profileRouter.get("/update", async (req, res) => {
     try {
-        let users = await ADS.updateMany({}, {
+        let users = await DeleteUser.updateMany({}, {
             $set: {
-              name:""
+                profileverified:0
 
             },
         });
@@ -458,6 +458,19 @@ profileRouter.post("/updatechatnow", async (req, res) => {
         let users = await User.updateOne({ _id: id }, {
             $inc: {
                 chatnow: 1
+            }
+        });
+        res.json(users);
+    } catch (e) {
+        res.status(500).json({ mes: e })
+    }
+});
+profileRouter.post("/updateprofileverified", async (req, res) => {
+    try {
+        const { id } = req.body;
+        let users = await User.updateOne({ _id: id }, {
+            $inc: {
+                profileverified: 1
             }
         });
         res.json(users);

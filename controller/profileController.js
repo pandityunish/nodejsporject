@@ -38,7 +38,8 @@ profileRouter.post("/getrating", async (req, res) => {
     try {
         const { useremail } = req.body;
 
-        let user = await RatingModel.findOne({ useremail });
+        let user = await RatingModel.find({ useremail });
+        user.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
        
         res.json(user);
     } catch (e) {

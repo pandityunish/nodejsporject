@@ -14,6 +14,10 @@ const userads=mongoose.Schema({
     video:{
         type:String,
         default:""
+    },
+    name:{
+        type:String,
+        default:""
     }
     
 },{

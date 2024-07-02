@@ -1141,7 +1141,7 @@ module.exports.pushadstouser = async (req, res) => {
     let user = await User.updateOne({ email: email }, {
       $push: {
         showads: {
-        video:"",
+          video:"",
           description:description,
           adsid:adsid,
           image:image

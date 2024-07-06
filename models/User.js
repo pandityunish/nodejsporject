@@ -5,6 +5,7 @@ const userMessage = require("./user_message");
 const ADS = require("./AdsModel");
 const userads = require("./user_ads");
 const unapproveacitivites = require("./Unapproveactivities");
+const unseenmessages = require("./ChatNotification");
 
 const userSchema=mongoose.Schema({
     aboutme:{
@@ -319,6 +320,9 @@ const userSchema=mongoose.Schema({
       },
       unapproveacitivites:[
         unapproveacitivites
+      ],
+      unseenmessages:[
+        unseenmessages
       ]
 },
 {

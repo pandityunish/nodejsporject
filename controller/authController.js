@@ -1,3 +1,4 @@
+const unseenmessages = require("../models/ChatNotification");
 const DeleteUser = require("../models/DeleteModel");
 const notification = require("../models/Notification");
 const SavedPrefer = require("../models/Save_Pref");
@@ -1168,6 +1169,40 @@ module.exports.addtounapproveacitivites = async (req, res) => {
       }
     });
     res.json(user);
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
+module.exports.addtounseenmessages = async (req, res) => {
+  try {
+    const {email, title,userid,userimage,username} = req.body;
+
+    
+    let user = await User.updateOne({ email: email }, {
+      $push: {
+        unseenmessages: {
+        
+          title:title,userid:userid,username:username,
+          userimage:userimage
+        }
+      }
+    });
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
+module.exports.updatedunseenmessage = async (req, res) => {
+  try {
+    const { email } = req.body;
+    let user = await User.updateOne({ email: email }, {
+      $set: {
+        unseenmessages: []
+      }
+    });
+
+
+    res.json({ user });
   } catch (e) {
     res.status(500).json({ mes: e.message })
   }

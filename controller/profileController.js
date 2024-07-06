@@ -12,6 +12,7 @@ const RatingModel = require("../models/Rating");
 const EditProfiles = require("../models/Editprofile");
 const ADS = require("../models/AdsModel");
 const SendNotification = require("../models/SendNotification");
+const unseenmessages = require("../models/ChatNotification");
 const profileRouter = express.Router();
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
@@ -104,7 +105,7 @@ profileRouter.get("/update", async (req, res) => {
     try {
         let users = await User.updateMany({}, {
             $set: {
-                numberdownloadbiodata:0
+                unseenmessages:[]
 
             },
         });

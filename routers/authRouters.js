@@ -33,7 +33,7 @@ authRouter.post("/auth/delete",deletevideo)
 authRouter.post("/auth/pushnotification",pushnotification)
 authRouter.post("/auth/pushactivities",pushactivities);
 authRouter.post("/auth/deleteaccount",deleteaccount);
-authRouter.post("/auth/deleteuseraccount",deleteuseraccount);
+authRouter.post("/auth/deleteuseraccount",deleteuseraccount );
 authRouter.post("/auth/updatelocation",updatelocation);
 authRouter.post("/auth/searchbydistance",searchuserbydistance);
 authRouter.post("/auth/searchusersbyuser",searchusersbyuser);

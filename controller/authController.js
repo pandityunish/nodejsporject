@@ -327,6 +327,7 @@ module.exports.getuserdatabyid = async (req, res) => {
     res.status(500).json({ mes: e.message })
   }
 }
+
 module.exports.getuserdatabypuid = async (req, res) => {
   try {
     const { puid } = req.params;
@@ -797,6 +798,21 @@ module.exports.updateblur = async (req, res) => {
     let user = await User.updateOne({ email: email }, {
       $set: {
         isBlur: isblur
+      }
+    });
+
+
+    res.json({ user });
+  } catch (e) {
+    res.status(500).json({ mes: e.message })
+  }
+}
+module.exports.updateoffiletime = async (req, res) => {
+  try {
+    const { email, time } = req.body;
+    let user = await User.updateOne({ email: email }, {
+      $set: {
+        offlinetime: time
       }
     });
 

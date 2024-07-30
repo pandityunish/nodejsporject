@@ -158,6 +158,10 @@ const userSchema=mongoose.Schema({
         type:String,
         default:""
       },
+      offlinetime:{
+        type:String,
+        default:""
+      },
       sendlink:[
            {type:String,
         

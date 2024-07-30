@@ -13,7 +13,8 @@ const profileRouter = require("./controller/profileController");
 const DeleteUser = require("./models/DeleteModel");
 const adsRouter = require("./routers/adsRouter");
 const editprofileRouter = require("./controller/editprofileController");
-
+const {JWT} =require("google-auth-library")
+const fs =require("fs")
 app.use(express.json());
 app.use(authRouter);
 app.use(messageRouter);
@@ -37,6 +38,7 @@ mongoose.connect(db).then(() => {
 const server = app.listen(PORT, "0.0.0.0", () => {
   console.log("Connected to " + PORT);
   deleteDuplicateUsers();
+  // getAccessToken();
 });
 
 const io = socket(server, {
@@ -112,6 +114,32 @@ videocall.on("connection", (socket) => {
     });
   });
 });
+// const servicefile="./ismt.json";
+
+// const serviceaccount=JSON.parse(fs.readFileSync(servicefile));
+// const scope=["https://www.googleapis.com/auth/firebase.messaging"];
+// // const client=new JWT({email:serviceaccount.client_email,key:serviceaccount.private_key,scope:scope})
+// function getAccessToken() {
+//   return new Promise(function(resolve, reject) {
+//     const key = require('./ismt.json');
+//     const jwtClient = new JWT(
+//       key.client_email,
+//       null,
+//       key.private_key,
+//       scope,
+//       null
+//     );
+//     jwtClient.authorize(function(err, tokens) {
+//       if (err) {
+//         reject(err);
+//         return;
+//       }
+//       console.log(tokens.access_token)
+//       resolve(tokens.access_token);
+//     });
+//   });
+// }
+
  async function deleteDuplicateUsers() {
  // Replace 'users' with your actual collection name
 

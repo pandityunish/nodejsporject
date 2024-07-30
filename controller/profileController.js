@@ -105,7 +105,7 @@ profileRouter.get("/update", async (req, res) => {
     try {
         let users = await User.updateMany({}, {
             $set: {
-                numberdownloadbiodata:0
+                offlinetime:""
 
             },
         });

@@ -13,6 +13,7 @@ const EditProfiles = require("../models/Editprofile");
 const ADS = require("../models/AdsModel");
 const SendNotification = require("../models/SendNotification");
 const unseenmessages = require("../models/ChatNotification");
+const SendLinkModel = require("../models/SendLink");
 const profileRouter = express.Router();
 profileRouter.post("/addusersearch", async (req, res) => {
     try {
@@ -127,7 +128,30 @@ profileRouter.post("/logoutadmin", async (req, res) => {
     
       }
 });
-
+profileRouter.post("/countsendlink", async (req, res) => {
+    try {
+        const { email, aboutme,patnerpref,success,video,savepref,useapp,professionManually,educationManually,rating,photo,biodata,support } = req.body;
+        const sendlink=await SendLinkModel.find({email});
+            if (sendlink) {
+                await SendLinkModel.deleteOne({ email });
+            }
+        let user = await SendLinkModel({ email, aboutme,patnerpref,success,video,savepref,useapp,professionManually,educationManually,rating,photo,biodata,support });
+        await user.save();
+        res.json(user);
+      } catch (e) {
+    
+      }
+});
+profileRouter.post("/getsendlink", async (req, res) => {
+    try {
+        const { email } = req.body;
+        const sendlink=await SendLinkModel.findOne({email});
+         
+        res.json(sendlink);
+      } catch (e) {
+    
+      }
+});
 profileRouter.get("/updatenoti", async (req, res) => {
     try {
         let users = await AdminNotification.updateMany({}, {

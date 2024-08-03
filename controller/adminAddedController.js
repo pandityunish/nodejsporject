@@ -120,9 +120,12 @@ module.exports.createadmin = async (req, res) => {
   try {
     const { email, username, permissions } = req.body;
     let existuser = await AdminModel.findOne({ email });
+    let existusername = await AdminModel.findOne({ username });
     console.log(existuser)
     if (existuser) {
       res.status(400).json({ mes: "Already exist" })
+    }  else if(existusername){
+      res.status(400).json({ mes: "Already exist name" })
     } else {
       let user = await AdminModel({ email, username, permissions })
       user = await user.save();
